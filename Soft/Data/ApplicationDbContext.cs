@@ -12,5 +12,5 @@ using Soft.Models;
         {
         }
 
-        public DbSet<Soft.Models.Patient> Patient { get; set; } = default!;
+        public DbSet<MVC_Project.Domain.Patient> Patients { get; set; } = default!;
     }
