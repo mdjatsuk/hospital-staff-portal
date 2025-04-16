@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Soft.Models;
+﻿using Microsoft.EntityFrameworkCore;
 
-    public class ApplicationDbContext : DbContext
+namespace MVC_Project.Soft.Data;
+
+public class ApplicationDbContext : DbContext
+{
+    public ApplicationDbContext (DbContextOptions<ApplicationDbContext> options)
+        : base(options)
     {
-        public ApplicationDbContext (DbContextOptions<ApplicationDbContext> options)
-            : base(options)
-        {
-        }
-
-        public DbSet<MVC_Project.Domain.Patient> Patients { get; set; } = default!;
     }
+
+    public DbSet<MVC_Project.Domain.Patient> Patients { get; set; } = default!;
+}
