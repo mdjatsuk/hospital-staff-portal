@@ -8,8 +8,4 @@
 	<RootNameSpace>$(SolutionName).$(MSBuildProjectName.Replace(" ", "_"))</RootNameSpace>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Domain\Domain.csproj" />
-  </ItemGroup>
-
 </Project>

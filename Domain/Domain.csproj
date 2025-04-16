@@ -4,6 +4,12 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	<AssemblyName>$(SolutionName).$(MSBuildProjectName)</AssemblyName>
+	<RootNameSpace>$(SolutionName).$(MSBuildProjectName.Replace(" ", "_"))</RootNameSpace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Data\Data.csproj" />
+  </ItemGroup>
 
 </Project>
