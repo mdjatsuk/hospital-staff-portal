@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MVC_Project.Soft.Models;
 
 namespace MVC_Project.Soft.Data;
 
@@ -10,4 +11,6 @@ public class ApplicationDbContext : DbContext
     }
 
     public DbSet<MVC_Project.Domain.Patient> Patients { get; set; } = default!;
+
+    public DbSet<MVC_Project.Soft.Models.AppointmentData> AppointmentData { get; set; } = default!;
 }
