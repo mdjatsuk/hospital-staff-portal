@@ -4,6 +4,8 @@ namespace MVC_Project.Soft.Models
 {
     public class AppointmentData
     {
+        public int Id { get; set; }
+
         [Display(Name = "Date")]
         [Required]
         public DateTime? Date { get; set; }
