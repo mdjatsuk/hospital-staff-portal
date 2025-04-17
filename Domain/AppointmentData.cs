@@ -1,11 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MVC_Project.Domain;
+using System.ComponentModel.DataAnnotations;
 
 namespace MVC_Project.Soft.Models
 {
-    public class AppointmentData
+    public class AppointmentData : Entity
     {
-        public int Id { get; set; }
-
         [Display(Name = "Date")]
         [Required]
         public DateTime? Date { get; set; }
