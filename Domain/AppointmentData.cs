@@ -1,7 +1,7 @@
 ﻿using MVC_Project.Domain;
 using System.ComponentModel.DataAnnotations;
 
-namespace MVC_Project.Soft.Models
+namespace MVC_Project.Domain
 {
     public class AppointmentData : Entity
     {
