@@ -1,0 +1,12 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+	Layout = "_Layout";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p class="mt-4">
+	<a asp-action="Create" class="btn btn-primary">Create new</a>
+</p>
+
+@RenderBody()

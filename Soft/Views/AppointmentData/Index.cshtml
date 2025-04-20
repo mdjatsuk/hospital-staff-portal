@@ -1,0 +1,9 @@
+﻿@using MVC_Project.Core
+@model IEnumerable<MVC_Project.Domain.AppointmentData>
+
+@{
+	ViewData["Title"] = "List of Appointments";
+	Layout = "_Index";
+}
+
+@Html.TableFor(Model)
