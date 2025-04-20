@@ -4,9 +4,9 @@ namespace MVC_Project.Domain
 {
     public class Patient : Entity
     {
-        public string? FirstName { get; set; }
-        public string? LastName { get; set; }
-        public DateTime DateOfBirth { get; set; }
+        [Display(Name = "First Name")] public string? FirstName { get; set; }
+        [Display(Name = "Last Name")] public string? LastName { get; set; }
+        [Display(Name = "Date Of Birth"), DataType(DataType.Date)] public DateTime? DateOfBirth { get; set; }
         [RegularExpression("Male|Female")] string? Gender { get; set; }
     }
 }

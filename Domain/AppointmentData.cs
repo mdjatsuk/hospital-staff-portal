@@ -7,7 +7,7 @@ namespace MVC_Project.Domain
     {
         [Display(Name = "Date")]
         [Required]
-        public DateTime? Date { get; set; }
+        [DataType(DataType.Date)] public DateTime? Date { get; set; }
 
         [Required]
         [RegularExpression(@"^[A-Z].*", ErrorMessage = "Location must start with a capital letter.")]
