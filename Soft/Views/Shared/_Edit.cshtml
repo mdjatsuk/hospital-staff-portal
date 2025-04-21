@@ -1,8 +1,10 @@
-﻿@model MVC_Project.Domain.Entity
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using MVC.Core
+@model MVC.Domain.Entity
 
 @{
 	ViewData["Title"] = "Edit";
-	var title = MVC_Project.Core.TypeHelper.DisplayName(Model, "Edit");
+	var title = TypeHelper.DisplayName(Model, "Edit");
 	Layout = "_Layout";
 }
 

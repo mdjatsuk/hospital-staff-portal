@@ -1,7 +1,6 @@
-﻿using MVC_Project.Domain;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace MVC_Project.Domain
+namespace MVC.Domain
 {
     public class AppointmentData : Entity
     {
@@ -14,7 +13,7 @@ namespace MVC_Project.Domain
         public string? Location { get; set; }
 
         [Display(Name = "Appointment Fee")]
-        [Range(0,double.MaxValue, ErrorMessage = "Appointment Fee must be zero or positive.")]
-        public double? AppointmentFee { get; set; }  
+        [Range(0, double.MaxValue, ErrorMessage = "Appointment Fee must be zero or positive.")]
+        public double? AppointmentFee { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace MVC_Project.Domain;
+﻿namespace MVC.Domain;
 
 public abstract class Entity
 {

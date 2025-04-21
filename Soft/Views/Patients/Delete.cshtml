@@ -1,9 +1,10 @@
-﻿@model MVC_Project.Domain.Patient;
+﻿@using MVC.Domain
+@model Patient;
 
 @{
 	Layout = "_Delete";
 }
 
 @{
-	await Html.RenderPartialAsync("_ShowPatients", Model);
+	await Html.RenderPartialAsync("_ShowPatient", Model);
 }

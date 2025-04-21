@@ -1,8 +1,10 @@
-﻿@model MVC_Project.Domain.Entity
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using MVC.Core
+@model MVC.Domain.Entity
 
 @{
 	ViewData["Title"] = "Delete";
-	var title = MVC_Project.Core.TypeHelper.DisplayName(Model, "Index");
+	var title = TypeHelper.DisplayName(Model, "Index");
 	Layout = "_Layout";
 }
 

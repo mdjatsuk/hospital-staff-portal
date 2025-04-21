@@ -4,7 +4,7 @@ using System.Web;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace MVC_Project.Core;
+namespace MVC.Core.Editors;
 public static class HtmlTableFor
 {
     public static IHtmlContent TableFor<TModel>(this IHtmlHelper<IEnumerable<TModel>> h, IEnumerable<TModel> list)

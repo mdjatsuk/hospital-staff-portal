@@ -1,4 +1,4 @@
-﻿namespace MVC_Project.Facade
+﻿namespace MVC.Facade
 {
     public class Class1
     {
