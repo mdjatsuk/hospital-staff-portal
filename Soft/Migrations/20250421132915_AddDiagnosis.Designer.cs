@@ -4,6 +4,7 @@ using MVC_Project.Soft.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVC_Project.Soft.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250421132915_AddDiagnosis")]
+    partial class AddDiagnosis
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,11 +48,7 @@ namespace MVC_Project.Soft.Migrations
                     b.ToTable("AppointmentData");
                 });
 
-<<<<<<< HEAD
-            modelBuilder.Entity("MVC_Project.Domain.Doctor", b =>
-=======
             modelBuilder.Entity("MVC_Project.Domain.Diagnosis", b =>
->>>>>>> feature/jan
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -57,27 +56,6 @@ namespace MVC_Project.Soft.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-<<<<<<< HEAD
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Specialization")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Doctor");
-=======
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(500)
@@ -94,7 +72,6 @@ namespace MVC_Project.Soft.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Diagnoses");
->>>>>>> feature/jan
                 });
 
             modelBuilder.Entity("MVC_Project.Domain.Patient", b =>

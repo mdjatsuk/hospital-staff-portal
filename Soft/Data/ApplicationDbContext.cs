@@ -14,5 +14,9 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<MVC_Project.Domain.AppointmentData> AppointmentData { get; set; } = default!;
 
+<<<<<<< HEAD
     public DbSet<MVC_Project.Domain.Doctor> Doctor { get; set; } = default!;
+=======
+    public DbSet<MVC_Project.Domain.Diagnosis> Diagnosis { get; set; } = default!;
+>>>>>>> feature/jan
 }
