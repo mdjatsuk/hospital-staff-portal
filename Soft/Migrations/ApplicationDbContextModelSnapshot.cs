@@ -44,59 +44,18 @@ namespace MVC_Project.Soft.Migrations
 
                     b.ToTable("AppointmentData");
                 });
-<<<<<<< HEAD
-
-<<<<<<< HEAD
-            modelBuilder.Entity("MVC_Project.Domain.Doctor", b =>
-=======
-            modelBuilder.Entity("MVC_Project.Domain.Diagnosis", b =>
->>>>>>> feature/jan
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-=======
             modelBuilder.Entity("MVC_Project.Domain.Diagnosis", b =>
             {
                 b.Property<int>("Id")
                     .ValueGeneratedOnAdd()
                     .HasColumnType("int");
->>>>>>> feature/jan
 
                 SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Specialization")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Doctor");
-=======
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-=======
                 b.Property<string>("Description")
                     .IsRequired()
                     .HasMaxLength(500)
                     .HasColumnType("nvarchar(500)");
->>>>>>> feature/jan
 
                 b.Property<string>("DiagnosisName")
                     .IsRequired()
@@ -138,14 +97,6 @@ namespace MVC_Project.Soft.Migrations
 
                 b.ToTable("Doctor");
             });
-
-<<<<<<< HEAD
-                    b.ToTable("Diagnoses");
->>>>>>> feature/jan
-                });
-=======
->>>>>>> feature/jan
-
             modelBuilder.Entity("MVC_Project.Domain.Patient", b =>
                 {
                     b.Property<int>("Id")
