@@ -1,0 +1,32 @@
+﻿@model MVC_Project.Domain.Entity
+
+@{
+	ViewData["Title"] = "Create";
+	var title = MVC_Project.Core.TypeHelper.DisplayName(Model, "Index");
+	Layout = "_Layout";
+}
+
+<h1>Create</h1>
+
+<h4>@title</h4>
+<hr />
+<div class="row">
+	<div class="col-md-5">
+		<form asp-action="Create">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<dl class="row">
+				@RenderBody()
+			</dl>
+			<div class="form-group">
+				<input type="submit" value="Create" class="btn btn-primary" /> |
+				<a asp-action="Index" class="btn btn-secondary">Back to List</a>
+			</div>
+		</form>
+	</div>
+</div>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

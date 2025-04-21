@@ -1,0 +1,9 @@
+﻿@model MVC_Project.Domain.Doctor;
+
+@{
+	Layout = "_Details";
+}
+
+@{
+	await Html.RenderPartialAsync("_ShowDoctor", Model);
+}

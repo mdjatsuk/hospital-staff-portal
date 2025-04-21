@@ -1,0 +1,24 @@
+﻿@model MVC_Project.Domain.Entity
+
+@{
+	ViewData["Title"] = "Details";
+	var title = MVC_Project.Core.TypeHelper.DisplayName(Model, "Index");
+	Layout = "_Layout";
+}
+
+<h1>Details</h1>
+
+<div>
+	<h4>@title</h4>
+	<hr />
+	<dl class="row">
+		@RenderBody()
+	</dl>
+</div>
+<div>
+	<div class="form-group">
+		<a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Edit</a> |
+		<a asp-action="Index" class="btn btn-secondary">Back to List</a>
+	</div>
+</div>
+
