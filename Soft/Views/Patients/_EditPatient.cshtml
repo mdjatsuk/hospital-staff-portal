@@ -1,8 +1,9 @@
-﻿@using MVC.Core.Editors;
+﻿@using Mvc.Core.Editors
+@using MVC.Core.Editors;
 @using MVC.Domain;
 @model Patient
 
 @Html.InputFor(x => x.FirstName)
 @Html.InputFor(x => x.LastName)
 @Html.InputFor(x => x.DateOfBirth)
-@Html.InputFor(x => x.Gender)
+@Html.InputForEnum(x => x.Gender)
