@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MVC_Project.Domain
+namespace MVC.Domain
 {
     public class Patient : Entity
     {

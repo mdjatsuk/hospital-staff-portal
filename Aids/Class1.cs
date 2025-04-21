@@ -1,4 +1,4 @@
-﻿namespace MVC_Project.Aids
+﻿namespace MVC.Aids
 {
     public class Class1
     {

@@ -1,11 +1,12 @@
-﻿@model MVC_Project.Domain.Patient;
+﻿@using MVC.Domain
+@model Patient;
 
 @{
 	Layout = "_Create";
 }
 
 @{
-	await Html.RenderPartialAsync("_EditPatients", Model);
+	await Html.RenderPartialAsync("_EditPatient", Model);
 }
 
 

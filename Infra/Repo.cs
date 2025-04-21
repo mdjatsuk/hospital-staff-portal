@@ -1,7 +1,7 @@
-﻿using MVC_Project.Domain;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using MVC.Domain;
 
-namespace MVC_Project.Infra;
+namespace MVC.Infra;
 
 public class Repo<T>(DbContext c) where T : Entity
 {

@@ -1,4 +1,4 @@
-﻿namespace MVC_Project.Data
+﻿namespace MVC.Data
 {
     public class Class1
     {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace MVC_Project.Core;
+namespace MVC.Core;
 
 public static class TypeHelper
 {

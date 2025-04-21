@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MVC_Project.Domain;
-using MVC_Project.Infra;
+using MVC.Domain;
+using MVC.Infra;
 
-namespace MVC_Project.Soft.Controllers;
+namespace MVC.Soft.Controllers;
 
 public abstract class BaseController<T>(DbContext context) : Controller where T : Entity
 {
