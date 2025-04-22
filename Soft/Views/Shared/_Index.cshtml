@@ -3,10 +3,15 @@
 	Layout = "_Layout";
 }
 
-<h1>@ViewData["Title"]</h1>
+<div class="container">
+	<div class="main-content">
+		<h1 class="text-center mb-4">@ViewData["Title"]</h1>
 
-<p class="mt-4">
-	<a asp-action="Create" class="btn btn-primary">Create new</a>
-</p>
+		<div class="d-flex justify-content-between mb-4">
+			<a asp-action="Index" asp-controller="Home" class="btn btn-outline-secondary">← Back to Home</a>
+			<a asp-action="Create" class="btn btn-outline-primary">+ Create New</a>
+		</div>
 
-@RenderBody()
+		@RenderBody()
+	</div>
+</div>
