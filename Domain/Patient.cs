@@ -7,7 +7,7 @@ namespace MVC.Domain
         [Display(Name = "First Name")] public string? FirstName { get; set; }
         [Display(Name = "Last Name")] public string? LastName { get; set; }
         [Display(Name = "Date Of Birth"), DataType(DataType.Date)] public DateTime? DateOfBirth { get; set; }
-        public enum Genders {Male, Female}
+        public enum Genders {Male = 0, Female = 1}
         public Genders? Gender { get; set; }
     }
 }
