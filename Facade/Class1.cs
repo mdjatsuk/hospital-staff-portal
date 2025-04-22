@@ -1,7 +1,6 @@
-﻿namespace MVC.Facade
-{
-    public class Class1
-    {
+﻿namespace MVC.Facade;
 
-    }
+public class Class1
+{
+
 }

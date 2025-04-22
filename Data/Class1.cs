@@ -1,7 +1,6 @@
-﻿namespace MVC.Data
-{
-    public class Class1
-    {
+﻿namespace MVC.Data;
 
-    }
+public class Class1
+{
+
 }
