@@ -12,3 +12,4 @@ public sealed class AppointmentView : EntityView
     public double? AppointmentFee { get; set; }
 }
 
+fdfd
