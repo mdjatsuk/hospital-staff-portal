@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using MVC.Aids.Attributes;
+using MVC.Data;
 
 namespace MVC.Domain;
 
@@ -13,6 +14,5 @@ public class Patient : Entity
 
     [Display(Name = "Date Of Birth"), DataType(DataType.Date), Required, DateOfBirthValidation]
     public DateTime? DateOfBirth { get; set; }
-    public enum Genders { Male = 0, Female = 1 }
     public Genders? Gender { get; set; }
 }

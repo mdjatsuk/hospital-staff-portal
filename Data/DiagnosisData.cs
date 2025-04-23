@@ -5,13 +5,9 @@ namespace MVC.Data;
 
 public sealed class DiagnosisData : EntityData<DiagnosisData>
 {
-    public string? Title { get; set; }
+    public string? DiagnosisName { get; set; }
 
-    public DateTime? ReleaseDate { get; set; }
+    public string? Description { get; set; }
 
-    public double Price { get; set; }
-
-    public string? Genre { get; set; }
-
-    public string? Rating { get; set; }
+    public bool RequiresSurgery { get; set; }
 }

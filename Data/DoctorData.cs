@@ -5,13 +5,11 @@ namespace MVC.Data;
 
 public sealed class DoctorData : EntityData<DoctorData>
 {
-    public string? Title { get; set; }
+    public string? FirstName { get; set; }
 
-    public DateTime? ReleaseDate { get; set; }
+    public string? LastName { get; set; }
 
-    public double Price { get; set; }
+    public string? Specialization { get; set; }
 
-    public string? Genre { get; set; }
-
-    public string? Rating { get; set; }
+    public string? PhoneNumber { get; set; }
 }

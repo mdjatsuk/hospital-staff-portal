@@ -1,4 +1,4 @@
-﻿using Mvc.Aids.GoF.Creational;
+﻿using MVC.Aids.GoF.Creational;
 
 namespace MVC.Data;
 
