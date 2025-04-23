@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace MVC.Aids.GoF.Creational;
 
-namespace MVC.Aids.GoF.Creational
+public interface ICloneable<T> where T : class
 {
-    internal class Prototype
-    {
-    }
+    T Clone();
+}
+
+public class Prototype()
+{
+    public T Clone<T>(T x) where T : class, ICloneable<T> => x.Clone();
 }
