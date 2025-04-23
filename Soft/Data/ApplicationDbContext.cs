@@ -1,19 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MVC.Domain;
-using MVC.Soft.Models;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using MVC.Data;
 
 namespace MVC.Soft.Data;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext : IdentityDbContext
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-        : base(options)
-    {
-    }
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-    public DbSet<Patient> Patients { get; set; } = default!;
+    public DbSet<PatientData> Patients { get; set; } = default!;
 
-    public DbSet<Appointment> Appointments { get; set; } = default!;
-    public DbSet<Doctor> Doctors { get; set; } = default!;
-    public DbSet<Diagnosis> Diagnoses { get; set; } = default!;
+    public DbSet<AppointmentData> Appointments { get; set; } = default!;
+    public DbSet<DoctorData> Doctors { get; set; } = default!;
+    public DbSet<DiagnosisData> Diagnoses { get; set; } = default!;
 }
