@@ -13,7 +13,7 @@ internal class Program
     {
         var builder = WebApplication.CreateBuilder(args);
         var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContext")
-                               ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+                               ?? throw new InvalidOperationException("Connection string not found.");
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(connectionString), ServiceLifetime.Transient);
         builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
