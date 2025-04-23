@@ -2,7 +2,7 @@
 
 namespace MVC.Domain;
 
-public class AppointmentData : Entity
+public class Appointment : Entity
 {
     [Display(Name = "Date")]
     [Required]

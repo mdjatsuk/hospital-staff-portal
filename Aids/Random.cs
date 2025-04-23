@@ -1,6 +1,6 @@
-﻿using MVC.Aids.GoF;
+﻿using MVC.Aids.GoF.Behavioral;
 
-namespace Mvc.Aids;
+namespace MVC.Aids;
 
 public static class Random
 {

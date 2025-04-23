@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace MVC_Project.Soft.Migrations
+namespace MVC.Soft.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -22,7 +22,7 @@ namespace MVC_Project.Soft.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("MVC.Domain.AppointmentData", b =>
+            modelBuilder.Entity("MVC.Domain.Appointment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -42,7 +42,7 @@ namespace MVC_Project.Soft.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AppointmentData");
+                    b.ToTable("Appointments");
                 });
 
             modelBuilder.Entity("MVC.Domain.Diagnosis", b =>
