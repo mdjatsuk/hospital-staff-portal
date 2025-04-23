@@ -48,6 +48,21 @@ public static class HtmlTableFor
         return thead;
     }
 
+    private static string UpdateDisplayName<TModel>(IHtmlHelper<IEnumerable<TModel>> h, string name, string propName)
+    {
+        var sortOrder = h.ViewBag.OrderBy as string;
+        if (sortOrder == propName) name += " ▲";
+        else if (sortOrder == propName + "_desc") name += " ▼";
+        else name += " ◀";
+        return name;
+    }
+
+    private static string UpdateSortOrder<TModel>(IHtmlHelper<IEnumerable<TModel>> h, string propName)
+    {
+        var sortOrder = h.ViewBag.OrderBy as string;
+        return sortOrder == propName ? propName + "_desc" : propName;
+    }
+
     private static string GetDisplayName(PropertyInfo property)
         => property.GetCustomAttribute<DisplayAttribute>()?.Name ?? property.Name;
 
