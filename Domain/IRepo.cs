@@ -6,14 +6,18 @@ using System.Threading.Tasks;
 
 namespace MVC.Domain
 {
-    public interface IAppointmentRepo : IRepo<Appointment>;
-    public interface IDiagnosisRepo : IRepo<Diagnosis>;
-    public interface IDoctorRepo : IRepo<Doctor>;
-    public interface IPatientRepo : IRepo<Patient>;
+    public interface IAppointmentsRepo : IRepo<Appointment>;
+    public interface IDiagnosesRepo : IRepo<Diagnosis>;
+    public interface IDoctorsRepo : IRepo<Doctor>;
+    public interface IPatientsRepo : IRepo<Patient>;
     public interface IRepo<TObject>
     {
-        public Task<IEnumerable<TObject>> GetAll();
-        public Task<TObject?> GetById(int? id);
+        public Task<int> PageCount(byte pageSize, string? filter);
+        public Task<IEnumerable<TObject>> GetAsync(int pageIdx, byte pageSize
+            , string? orderBy = null, string? filter = null);
+        public Task<IEnumerable<TObject>> GetAsync(string propertyName, int idValue);
+        public Task<IEnumerable<TObject>> GetAsync();
+        public Task<TObject?> GetAsync(int? id);
         public Task AddAsync(TObject o);
         public Task UpdateAsync(TObject o);
         public Task DeleteAsync(int id);

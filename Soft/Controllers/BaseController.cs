@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MVC.Data;
 using MVC.Domain;
@@ -6,6 +7,8 @@ using MVC.Facade;
 using MVC.Infra;
 
 namespace MVC.Soft.Controllers;
+
+[Authorize]
 public abstract class BaseController<TObject, TData, TView>(DbContext c,
     AbstractViewFactory<TData, TView> f, Func<TData?, TObject> createObject) : Controller
     where TObject : Entity<TData> where TData : EntityData<TData>, new() where TView : EntityView, new()
