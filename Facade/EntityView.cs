@@ -33,6 +33,5 @@ public abstract class EntityView
     internal protected const int female = 1;
     internal protected const double appointMaxFee = double.MaxValue;
 
-
     public int Id { get; set; }
 }
