@@ -1,15 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MVC.Data;
 
 namespace MVC.Domain;
 
-public class Doctor : Entity
+public class Doctor(DoctorData d) : Entity<DoctorData>(d)
 {
-    [Display(Name = "First Name"), Required] public string? FirstName { get; set; }
-    [Display(Name = "Last Name"), Required] public string? LastName { get; set; }
-    [Display(Name = "Specialization"), Required] public string? Specialization { get; set; }
-
-    [Display(Name = "Phone Number"), Required]
-    [RegularExpression(@"^\d{8}$", ErrorMessage = "The phone number must be exactly 8 digits.")]
-    public string? PhoneNumber { get; set; }
-
+    public string? FirstName => data?.FirstName;
+    public string? LastName => data?.LastName;
+    public string? Specialization => data?.Specialization;
+    public string? PhoneNumber => data?.PhoneNumber;
 }

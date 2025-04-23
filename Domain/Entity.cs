@@ -1,6 +1,10 @@
-﻿namespace MVC.Domain;
+﻿using MVC.Data;
 
-public abstract class Entity
+namespace MVC.Domain;
+
+public class Entity<TData>(TData? d) where TData : EntityData<TData>
 {
-    public int Id { get; set; }
+    public TData? data { get; } = d?.Clone();
+    public int? Id => data?.Id;
+    public virtual async Task LoadLazy() => await Task.CompletedTask;
 }
