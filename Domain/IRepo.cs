@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MVC.Domain
 {
-    public interface IAppointmentDataRepo : IRepo<AppointmentData>;
+    public interface IAppointmentDataRepo : IRepo<Appointment>;
     public interface IDiagnosisRepo : IRepo<Diagnosis>;
     public interface IDoctorRepo : IRepo<Doctor>;
     public interface IPatientRepo : IRepo<Patient>;
