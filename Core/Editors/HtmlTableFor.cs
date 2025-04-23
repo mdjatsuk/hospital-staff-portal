@@ -89,7 +89,7 @@ public static class HtmlTableFor
         var v = p?.GetValue(item);
         var dt = v as DateTime?;
         if (dt != null) return new HtmlString(dt?.ToShortDateString() ?? "");
-        if (p?.Name == "Price" && v is double price) return new HtmlString($"{price:C}");
+        if (p?.Name == "AppointmentFee" && v is double price) return new HtmlString($"{price:C}");
         return new HtmlString(v?.ToString() ?? "");
     }
 }
