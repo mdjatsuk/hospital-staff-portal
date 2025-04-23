@@ -4,9 +4,9 @@ namespace MVC.Aids;
 
 public static class Random
 {
-    private readonly static System.Random r = new System.Random();
-    private readonly static DateTime minDt = System.DateTime.Now.AddYears(-100);
-    private readonly static DateTime maxDt = System.DateTime.Now.AddYears(100);
+    private static readonly System.Random r = new System.Random();
+    private static readonly DateTime minDt = System.DateTime.Now.AddYears(-100);
+    private static readonly DateTime maxDt = System.DateTime.Now.AddYears(100);
     public static bool Boolean() => Int32() % 2 == 0;
     public static char Char(char min = (char)ushort.MinValue, char max = (char)ushort.MaxValue)
         => (char)Int32(min, max);
