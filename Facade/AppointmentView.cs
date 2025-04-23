@@ -11,5 +11,3 @@ public sealed class AppointmentView : EntityView
     [Display(Name = appointName), Range(0, appointMaxFee, ErrorMessage = appointError)]
     public double? AppointmentFee { get; set; }
 }
-
-fdfd
