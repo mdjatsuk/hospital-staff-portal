@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace MVC.Domain
 {
     public interface IAppointmentDataRepo : IRepo<AppointmentData>;
-    public interface IDiagnosis : IRepo<Diagnosis>;
-    public interface IDoctor : IRepo<Doctor>;
-    public interface IPatient : IRepo<Patient>;
+    public interface IDiagnosisRepo : IRepo<Diagnosis>;
+    public interface IDoctorRepo : IRepo<Doctor>;
+    public interface IPatientRepo : IRepo<Patient>;
     public interface IRepo<TObject>
     {
         public Task<int> PageCount(byte pageSize, string? filter);
