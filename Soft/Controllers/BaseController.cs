@@ -1,63 +1,59 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MVC.Data;
 using MVC.Domain;
+using MVC.Facade;
 using MVC.Infra;
 
 namespace MVC.Soft.Controllers;
-
-public abstract class BaseController<T>(DbContext context) : Controller where T : Entity
+public abstract class BaseController<TObject, TData, TView>(DbContext c,
+    AbstractViewFactory<TData, TView> f, Func<TData?, TObject> createObject) : Controller
+    where TObject : Entity<TData> where TData : EntityData<TData>, new() where TView : EntityView, new()
 {
-    private readonly Repo<T> _repo = new(context);
-
-    public async Task<IActionResult> Index() => View(await _repo.GetAll());
-
-    public async Task<IActionResult> Details(int? id)
+    private const byte pageSize = 10;
+    private readonly Repo<TObject, TData> r = new(c, createObject);
+    private async Task<IActionResult> showAsync(string? viewName, int? id)
     {
-        if (id == null) return NotFound();
-        var entity = await _repo.GetById(id);
-        return entity == null ? NotFound() : View(entity);
+        var o = await r.GetAsync(id);
+        var v = await f.CreateView(o?.data, true);
+        return (o == null) ? NotFound() : View(viewName, v);
     }
-
-    public IActionResult Create() => View();
-
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create(T entity)
+    public async Task<IActionResult> Index(int pageIdx = 0, string? orderBy = null,
+     string? filter = null, int? selectedId = null)
     {
-        if (!ModelState.IsValid) return View(entity);
-        await _repo.Add(entity);
+        ViewBag.PageIdx = pageIdx;
+        ViewBag.PageCount = await r.PageCount(pageSize, filter);
+        ViewBag.OrderBy = orderBy;
+        ViewBag.Filter = filter;
+        ViewBag.SelectedId = selectedId;
+        return View((await r.GetAsync(pageIdx, pageSize, orderBy, filter))
+            .Select(x => f.CreateView(x?.data)));
+    }
+    public async Task<IActionResult> Details(int? id) => await showAsync(nameof(Details), id);
+    public IActionResult Create() => View(new TView());
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create(TView v)
+    {
+        if (!ModelState.IsValid) return View(v);
+        var d = f.CreateData(v);
+        await r.AddAsync(createObject(d));
         return RedirectToAction(nameof(Index));
     }
-
-    public async Task<IActionResult> Edit(int? id)
+    public async Task<IActionResult> Edit(int? id) => await showAsync(nameof(Edit), id);
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int id, TView v)
     {
-        if (id == null) return NotFound();
-        var entity = await _repo.GetById(id);
-        return entity == null ? NotFound() : View(entity);
-    }
-
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, T entity)
-    {
-        if (id != entity.Id) return NotFound();
-        if (!ModelState.IsValid) return View(entity);
-        await _repo.Update(entity);
+        if (id != v.Id) return NotFound();
+        if (!ModelState.IsValid) return View(v);
+        var d = f.CreateData(v);
+        await r.UpdateAsync(createObject(d));
         return RedirectToAction(nameof(Index));
     }
-
-    public async Task<IActionResult> Delete(int? id)
-    {
-        if (id == null) return NotFound();
-        var entity = await _repo.GetById(id);
-        return entity == null ? NotFound() : View(entity);
-    }
-
-    [HttpPost, ActionName("Delete")]
-    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Delete(int? id) => await showAsync(nameof(Delete), id);
+    [HttpPost, ActionName("Delete"), ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        await _repo.Delete(id);
+        await r.DeleteAsync(id);
         return RedirectToAction(nameof(Index));
     }
 }
