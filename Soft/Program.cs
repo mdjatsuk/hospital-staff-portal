@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using MVC.Core;
 using MVC.Domain;
-using Mvc.Infra;
+using MVC.Infra;
 using MVC.Soft.Data;
 using Mvc.Soft.Data;
 
