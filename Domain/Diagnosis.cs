@@ -1,14 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MVC.Data;
 
 namespace MVC.Domain;
 
-public class Diagnosis : Entity
+public class Diagnosis(DiagnosisData d) : Entity<DiagnosisData>(d)
 {
-    [Required, Display(Name = "Diagnosis Name")]
-    [StringLength(100, ErrorMessage = "The Diagnosis Name cannot exceed 100 characters.")]
-    public string? DiagnosisName { get; set; }
-    [Required, StringLength(500, ErrorMessage = "The Description cannot exceed 500 characters.")]
-    public string? Description { get; set; }
-    [Display(Name = "Requires Surgery")]
-    public bool RequiresSurgery { get; set; }
+    public string? DiagnosisName => data?.DiagnosisName;
+    public string? Description => data?.Description;
+    public bool? RequiresSurgery => data?.RequiresSurgery;
 }

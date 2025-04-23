@@ -1,0 +1,10 @@
+﻿@using MVC.Domain
+@model Appointment;
+
+@{
+	Layout = "_Details";
+}
+
+@{
+	await Html.RenderPartialAsync("_ShowAppointment", Model);
+}

@@ -13,7 +13,7 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<Patient> Patients { get; set; } = default!;
 
-    public DbSet<AppointmentData> AppointmentData { get; set; } = default!;
+    public DbSet<Appointment> Appointments { get; set; } = default!;
     public DbSet<Doctor> Doctors { get; set; } = default!;
     public DbSet<Diagnosis> Diagnoses { get; set; } = default!;
 }

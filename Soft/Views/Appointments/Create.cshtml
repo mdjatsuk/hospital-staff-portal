@@ -1,0 +1,12 @@
+﻿@using MVC.Domain
+@model Appointment;
+
+@{
+	Layout = "_Create";
+}
+
+@{
+	await Html.RenderPartialAsync("_EditAppointment", Model);
+}
+
+
