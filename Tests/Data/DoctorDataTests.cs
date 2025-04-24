@@ -16,7 +16,7 @@ namespace MVC.Tests.Data;
         obj.FirstName = "John";
         obj.LastName = "Doe";
         obj.Specialization = Specialties.Cardiology;
-        obj.PhoneNumber = "12345678";
+        obj.PhoneNumber = 12345678;
     }
     [TestMethod] public void CloneTest()
     {
@@ -25,6 +25,6 @@ namespace MVC.Tests.Data;
         equal("John", d?.FirstName);
         equal("Doe", d?.LastName);
         equal(Specialties.Cardiology, d?.Specialization);
-        equal("12345678", d?.PhoneNumber);
+        equal(12345678, d?.PhoneNumber);
     }
 }

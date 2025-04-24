@@ -20,7 +20,7 @@ namespace MVC.Tests.Facade;
             FirstName = "Valid First Name",
             LastName = "Valid Last Name",
             Specialization = Specialties.Cardiology,
-            PhoneNumber = "12345678"
+            PhoneNumber = 12345678
         };
     }
     [TestMethod] public void FirstNameIsRequiredTest()
@@ -49,7 +49,7 @@ namespace MVC.Tests.Facade;
     }
     [TestMethod] public void PhoneNumberValidationTest()
     {
-        view!.PhoneNumber = "123";
+        view!.PhoneNumber = 123;
         var results = validate(view);
         isTrue(results.Any(r => r.ErrorMessage!.Contains("The phone number must be exactly 8 digits.")));
     }
