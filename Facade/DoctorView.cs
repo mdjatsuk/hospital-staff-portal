@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using MVC.Data;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 namespace MVC.Facade;
 
@@ -8,7 +9,7 @@ namespace MVC.Facade;
     public string? FirstName { get; set; }
     [Display(Name = lastName), Required, StringLength(nameLength, MinimumLength = minNameLength, ErrorMessage = firstNameError)]
     public string? LastName { get; set; }
-    [Display(Name = specializationName), Required] public string? Specialization { get; set; }
+    [Display(Name = specializationName), Required] public Specialties? Specialization { get; set; }
 
     [Display(Name = phoneNumberName), Required, RegularExpression(phoneNumberEx, ErrorMessage = phoneNumberError)]
     public string? PhoneNumber { get; set; }
