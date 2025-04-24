@@ -7,7 +7,7 @@ namespace MVC.Facade;
 {
     [Display(Name = firstName), Required, StringLength(nameLength, MinimumLength = minNameLength, ErrorMessage = firstNameError)]
     public string? FirstName { get; set; }
-    [Display(Name = lastName), Required, StringLength(nameLength, MinimumLength = minNameLength, ErrorMessage = firstNameError)]
+    [Display(Name = lastName), Required, StringLength(nameLength, MinimumLength = minNameLength, ErrorMessage = lastNameError)]
     public string? LastName { get; set; }
     [Display(Name = specializationName), Required] public Specialties? Specialization { get; set; }
 
