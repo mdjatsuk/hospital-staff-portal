@@ -1,0 +1,7 @@
+﻿@using MVC.Facade
+@using MVC.Core.Editors
+@model IEnumerable<PatientView>
+
+<h3>Related Patients</h3>
+
+@Html.RelatedTable(Model)

@@ -1,10 +1,26 @@
-﻿@using MVC.Core.Editors
-@using MVC.Domain	
-@model IEnumerable<MVC.Facade.DoctorView>
+﻿@using MVC.Core
+@using MVC.Core.Editors
+@using MVC.Domain
+@using MVC.Facade
+@model IEnumerable<DoctorView>
 
 @{
-	ViewData["Title"] = "List of Doctors";
+	ViewData["Title"] = "Index";
 	Layout = "_Index";
+
+	async Task<IEnumerable<PatientView>> relatedPatients() {
+		var id = ViewBag.SelectedId;
+		var doctor = await Services.Get<IDoctorsRepo>()?.GetAsync(id) as Doctor;
+		if (doctor != null) await doctor.LoadLazy();
+		var appointments = doctor?.Patients?.Where(x => x is not null);
+		return appointments?.Select(x => new PatientViewFactory().CreateView(x!.data)) ?? [];
+	}
 }
 
-@Html.TableFor(Model)
+@Html.TableFor(Model, true)
+
+
+@if (ViewBag.SelectedId != null)
+{
+	@await Html.PartialAsync("_RelatedDoctors", await relatedPatients()) 
+}
