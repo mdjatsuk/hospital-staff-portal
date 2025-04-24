@@ -5,12 +5,6 @@
 @{
 	ViewData["Title"] = "List of Patients";
 	Layout = "_Index";
-	var propsToShow = new[] {
-		nameof(MVC.Facade.PatientView.DiagnosisId),
-		nameof(MVC.Facade.PatientView.FirstName),
-		nameof(MVC.Facade.PatientView.LastName),
-		nameof(MVC.Facade.PatientView.DateOfBirth),
-		nameof(MVC.Facade.PatientView.Gender) };
 }
 
-@Html.TableFor(Model,propsToShow)
+@Html.TableFor(Model)
