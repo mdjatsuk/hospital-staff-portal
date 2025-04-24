@@ -63,7 +63,7 @@ internal class Program
                 using var scope = app.Services.CreateScope();
                 services = scope.ServiceProvider;
                 var db = services.GetRequiredService<ApplicationDbContext>();
-                await new DbInitializer(db).Initialize(10000);
+                await new DbInitializer(db).Initialize(200);
             }
             catch (Exception e)
             {
