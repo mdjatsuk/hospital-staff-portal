@@ -1,10 +1,11 @@
 ﻿using MVC.Aids.Attributes;
 using System.ComponentModel.DataAnnotations;
 using MVC.Data;
+using System.ComponentModel;
 
 namespace MVC.Facade;
 
-public sealed class PatientView : EntityView
+[DisplayName("Patients")] public sealed class PatientView : EntityView
 {
     [Display(Name = firstName), Required, StringLength(nameLength, MinimumLength = minNameLength, ErrorMessage = firstNameError)]
     public string? FirstName { get; set; }

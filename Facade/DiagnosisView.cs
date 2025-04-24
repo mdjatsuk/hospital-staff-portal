@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace MVC.Facade;
 
-public sealed class DiagnosisView : EntityView
+[DisplayName("Diagnosis")] public sealed class DiagnosisView : EntityView
 {
     [Display(Name = diagnosName), Required, StringLength(diagnosLength, ErrorMessage = diagnosError)]
     public string? DiagnosisName { get; set; }
