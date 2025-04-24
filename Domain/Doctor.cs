@@ -1,4 +1,5 @@
-﻿using MVC.Data;
+﻿using MVC.Core;
+using MVC.Data;
 
 namespace MVC.Domain;
 
@@ -9,4 +10,24 @@ public class Doctor(DoctorData d) : Entity<DoctorData>(d)
     public Specialties? Specialization => data?.Specialization;
     public string? PhoneNumber => data?.PhoneNumber;
     public string FullName => $"{FirstName} {LastName}";
+
+    internal List<Appointment> appointments = [];
+    public List<Patient?> Patients => appointments?
+        .Where(r => r.Patient is not null)
+        .Select(r => r.Patient)
+        .ToList() ?? [];
+
+    public override async Task LoadLazy()
+    {
+        await base.LoadLazy();
+        appointments.Clear();
+        var roles = await (Services
+            .Get<IAppointmentsRepo>()?
+            .GetAsync(nameof(Appointment.DoctorId), Id ?? 0))!;
+        foreach (var r in roles)
+        {
+            await r.LoadLazy();
+            appointments.Add(r);
+        }
+    }
 }

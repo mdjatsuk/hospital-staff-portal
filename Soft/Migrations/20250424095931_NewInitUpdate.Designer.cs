@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVC.Soft.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250423225630_initAfterUpdate")]
-    partial class initAfterUpdate
+    [Migration("20250424095931_NewInitUpdate")]
+    partial class NewInitUpdate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,6 +38,9 @@ namespace MVC.Soft.Migrations
 
                     b.Property<DateTime?>("Date")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("DiagnosisNameId")
+                        .HasColumnType("int");
 
                     b.Property<int>("DoctorId")
                         .HasColumnType("int");
@@ -64,8 +67,8 @@ namespace MVC.Soft.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DiagnosisName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("DiagnosisName")
+                        .HasColumnType("int");
 
                     b.Property<bool>("RequiresSurgery")
                         .HasColumnType("bit");
@@ -92,8 +95,8 @@ namespace MVC.Soft.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Specialization")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Specialization")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

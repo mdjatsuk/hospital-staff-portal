@@ -36,6 +36,9 @@ namespace MVC.Soft.Migrations
                     b.Property<DateTime?>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("DiagnosisNameId")
+                        .HasColumnType("int");
+
                     b.Property<int>("DoctorId")
                         .HasColumnType("int");
 
@@ -61,8 +64,8 @@ namespace MVC.Soft.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DiagnosisName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("DiagnosisName")
+                        .HasColumnType("int");
 
                     b.Property<bool>("RequiresSurgery")
                         .HasColumnType("bit");
@@ -107,9 +110,6 @@ namespace MVC.Soft.Migrations
 
                     b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("DiagnosisId")
-                        .HasColumnType("int");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");

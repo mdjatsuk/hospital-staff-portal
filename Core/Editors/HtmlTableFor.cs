@@ -147,9 +147,9 @@ public static class HtmlTableFor
             return new HtmlString(dt?.ToShortDateString() ?? string.Empty);
         }
 
-        if (p.Name == "Price" && v is double price)
+        if (p.Name == "AppointmentFee" && v is double fee)
         {
-            return new HtmlString($"{price:C}");
+            return new HtmlString($"{fee:C}");
         }
 
         return new HtmlString(v.ToString() ?? string.Empty);
@@ -163,12 +163,12 @@ public static class HtmlTableFor
 
         if (itemId != null)
         {
-            //if (hasSelect)
-            //{
-            //    tdActions.InnerHtml.AppendHtml(h.ActionLink("Select", "Index", controllerName,
-            //        new { selectedId = itemId, pageIdx = h.ViewBag.PageIdx, orderBy = h.ViewBag.OrderBy, filter = h.ViewBag.Filter }));
-            //    tdActions.InnerHtml.Append(" | ");
-            //}
+            if (hasSelect)
+            {
+                tdActions.InnerHtml.AppendHtml(h.ActionLink("Select", "Index", controllerName,
+                    new { selectedId = itemId, pageIdx = h.ViewBag.PageIdx, orderBy = h.ViewBag.OrderBy, filter = h.ViewBag.Filter }));
+                tdActions.InnerHtml.Append(" | ");
+            }
             tdActions.InnerHtml.AppendHtml($"<a href='/{controllerName}/Edit/{itemId}'>Edit</a> | ");
             tdActions.InnerHtml.AppendHtml($"<a href='/{controllerName}/Details/{itemId}'>Details</a> | ");
             tdActions.InnerHtml.AppendHtml($"<a href='/{controllerName}/Delete/{itemId}'>Delete</a>");
