@@ -19,13 +19,11 @@ public abstract class EntityView
 
     protected internal const string locationError = "Location must start with a capital letter.";
     protected internal const string appointError = "Appointment Fee must be zero or positive.";
-    protected internal const string diagnosError = "The Diagnosis Name cannot exceed 100 characters.";
     protected internal const string descriptionError = "The Description cannot exceed 500 characters.";
     protected internal const string phoneNumberError = "The phone number must be exactly 8 digits.";
     protected internal const string firstNameError = "First Name must be between 2 and 50 characters.";
     protected internal const string lastNameError = "Last Name must be between 2 and 50 characters.";
 
-    protected internal const int diagnosLength = 100;
     protected internal const int descriptionLength = 500;
     protected internal const int nameLength = 50;
     protected internal const int minNameLength = 2;
