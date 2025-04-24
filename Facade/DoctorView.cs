@@ -11,7 +11,7 @@ namespace MVC.Facade;
     public string? LastName { get; set; }
     [Display(Name = specializationName), Required] public Specialties? Specialization { get; set; }
 
-    [Display(Name = phoneNumberName), Required, RegularExpression(phoneNumberEx, ErrorMessage = phoneNumberError)]
-    public string? PhoneNumber { get; set; }
+    [Display(Name = phoneNumberName), Required, Range(50000000, 59999999, ErrorMessage = phoneNumberError)]
+    public long? PhoneNumber { get; set; }
 
 }

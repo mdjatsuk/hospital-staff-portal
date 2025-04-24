@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace MVC.Soft.Migrations
+namespace Soft.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class NewIntital : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,6 +17,7 @@ namespace MVC.Soft.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    DiagnosisNameId = table.Column<int>(type: "int", nullable: false),
                     DoctorId = table.Column<int>(type: "int", nullable: false),
                     PatientId = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -73,7 +74,7 @@ namespace MVC.Soft.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DiagnosisName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DiagnosisName = table.Column<int>(type: "int", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RequiresSurgery = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -91,7 +92,7 @@ namespace MVC.Soft.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Specialization = table.Column<int>(type: "int", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    PhoneNumber = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {

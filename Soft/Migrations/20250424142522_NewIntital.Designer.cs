@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace MVC.Soft.Migrations
+namespace Soft.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250424093550_init")]
-    partial class init
+    [Migration("20250424142522_NewIntital")]
+    partial class NewIntital
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,6 +38,9 @@ namespace MVC.Soft.Migrations
 
                     b.Property<DateTime?>("Date")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("DiagnosisNameId")
+                        .HasColumnType("int");
 
                     b.Property<int>("DoctorId")
                         .HasColumnType("int");
@@ -64,8 +67,8 @@ namespace MVC.Soft.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DiagnosisName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("DiagnosisName")
+                        .HasColumnType("int");
 
                     b.Property<bool>("RequiresSurgery")
                         .HasColumnType("bit");
@@ -89,8 +92,8 @@ namespace MVC.Soft.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<long?>("PhoneNumber")
+                        .HasColumnType("bigint");
 
                     b.Property<int?>("Specialization")
                         .HasColumnType("int");

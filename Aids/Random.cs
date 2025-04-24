@@ -122,7 +122,7 @@ public static class Random
         if (t == typeof(sbyte)) return Int8(-10, 10);
         if (t == typeof(short)) return Int16(-100, 100);
         if (t == typeof(int)) return Int32(-1000, 1000);
-        if (t == typeof(long)) return Int64(-10000, 10000);
+        if (t == typeof(long)) return Int64(50000000, 59999999);
         if (t == typeof(string)) return String(5, 10, "abcdefghijklmnopqrstuvwxyz");
         if (t == typeof(byte)) return UInt8(0, 10);
         if (t == typeof(ushort)) return UInt16(0, 100);

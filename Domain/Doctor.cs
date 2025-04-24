@@ -8,7 +8,7 @@ public class Doctor(DoctorData d) : Entity<DoctorData>(d)
     public string? FirstName => data?.FirstName;
     public string? LastName => data?.LastName;
     public Specialties? Specialization => data?.Specialization;
-    public string? PhoneNumber => data?.PhoneNumber;
+    public long? PhoneNumber => data?.PhoneNumber;
     public string FullName => $"{FirstName} {LastName}";
 
     internal List<Appointment> appointments = [];
