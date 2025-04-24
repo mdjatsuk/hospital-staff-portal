@@ -11,4 +11,5 @@ public sealed class DoctorView : EntityView
 
     [Display(Name = phoneNumberName), Required, RegularExpression(phoneNumberEx, ErrorMessage = phoneNumberError)]
     public string? PhoneNumber { get; set; }
+
 }

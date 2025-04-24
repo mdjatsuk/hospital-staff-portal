@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace Mvc.Core.Editors;
+namespace MVC.Core.Editors;
 public static class HtmlInputForEnum
 {
     public static IHtmlContent InputForEnum<TModel, TResult>(

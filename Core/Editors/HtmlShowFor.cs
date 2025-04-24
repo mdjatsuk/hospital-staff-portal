@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Mvc.Core.Editors;
+using MVC.Core.Editors;
 using System.Linq.Expressions;
 
 namespace MVC.Core.Editors;

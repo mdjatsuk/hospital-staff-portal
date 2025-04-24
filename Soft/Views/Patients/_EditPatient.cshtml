@@ -1,8 +1,15 @@
-﻿@using Mvc.Core.Editors
+﻿@using MVC.Core
 @using MVC.Core.Editors;
 @using MVC.Domain;
 @model MVC.Facade.PatientView
 
+@{
+    var diagnosis = await Services.Get<IDiagnosesRepo>()?.GetAsync()! ?? [];
+    diagnosis = diagnosis.OrderBy(m => m.DiagnosisName).ToList();
+    var selectDiagnosis = new SelectList(diagnosis, "Id", "DiagnosisName", Model.DiagnosisId);
+}
+
+@Html.SelectFor(x => x.DiagnosisId, selectDiagnosis)
 @Html.InputFor(x => x.FirstName)
 @Html.InputFor(x => x.LastName)
 @Html.InputFor(x => x.DateOfBirth)
