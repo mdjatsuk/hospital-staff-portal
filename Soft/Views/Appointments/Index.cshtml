@@ -5,6 +5,12 @@
 @{
 	ViewData["Title"] = "List of Appointments";
 	Layout = "_Index";
+	var propsToShow = new[] {
+		nameof(MVC.Facade.AppointmentView.DoctorId),
+		nameof(MVC.Facade.AppointmentView.PatientId),
+		nameof(MVC.Facade.AppointmentView.Date),
+		nameof(MVC.Facade.AppointmentView.Location),
+		nameof(MVC.Facade.AppointmentView.AppointmentFee) };
 }
 
-@Html.TableFor(Model)
+@Html.TableFor(Model,propsToShow)

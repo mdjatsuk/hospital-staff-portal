@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mvc.Core.Editors;
+namespace MVC.Core.Editors;
 
 public static class HtmlForShow
 {

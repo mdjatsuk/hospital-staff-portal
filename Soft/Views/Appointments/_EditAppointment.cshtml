@@ -1,6 +1,19 @@
-﻿@using MVC.Core.Editors;
+﻿@using MVC.Core
+@using MVC.Core.Editors
+@using MVC.Domain
 @model MVC.Facade.AppointmentView
 
+@{
+    var doctors = await Services.Get<IDoctorsRepo>()?.GetAsync()! ?? [];
+    var patients = await Services.Get<IPatientsRepo>()?.GetAsync()! ?? [];
+    doctors = doctors.OrderBy(m => m.FullName).ToList();
+    patients = patients.OrderBy(p => p.FullName).ToList();
+    var selectDoctors = new SelectList(doctors, "Id", "FullName", Model.DoctorId);
+    var selectPatients = new SelectList(patients, "Id", "FullName", Model.PatientId);
+}
+
+@Html.SelectFor(x => x.DoctorId, selectDoctors)
+@Html.SelectFor(x => x.PatientId, selectPatients)
 @Html.InputFor(x => x.Date)
 @Html.InputFor(x => x.Location)
 @Html.InputFor(x => x.AppointmentFee)

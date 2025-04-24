@@ -15,4 +15,7 @@ public sealed class PatientView : EntityView
     [Display(Name = birthName), DataType(DataType.Date), Required, DateOfBirthValidation]
     public DateTime? DateOfBirth { get; set; }
     public Genders? Gender { get; set; }
+    [Display(Name = "Diagnos")] public int DiagnosisId { get; set; }
+    [Display(Name = "Diagnos")] public string? Diagnosis { get; set; }
+
 }

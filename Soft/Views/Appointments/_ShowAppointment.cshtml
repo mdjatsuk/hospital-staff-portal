@@ -2,6 +2,8 @@
 @using MVC.Domain;
 @model MVC.Facade.AppointmentView
 
+@Html.ShowFor(x => x.Doctor)
+@Html.ShowFor(x => x.Patient)
 @Html.ShowFor(x => x.Date)
 @Html.ShowFor(x => x.Location)
 @Html.ShowFor(x => x.AppointmentFee)

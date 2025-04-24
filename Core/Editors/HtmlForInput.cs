@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq.Expressions;
 
-namespace Mvc.Core.Editors;
+namespace MVC.Core.Editors;
 
 public static class HtmlForInput
 {
