@@ -31,8 +31,6 @@ namespace MVC.Tests.Facade;
             LastName = "View Last Name",
             DateOfBirth = new DateTime(1990, 1, 1),
             Gender = Genders.Female,
-            DiagnosisId = 2,
-            Diagnosis = "View Diagnosis"
         };
         return v;
     }
@@ -45,7 +43,6 @@ namespace MVC.Tests.Facade;
             LastName = "Data Last Name",
             DateOfBirth = new DateTime(1980, 1, 1),
             Gender = Genders.Male,
-            DiagnosisId = 3
         };
         return d;
     }
@@ -59,7 +56,6 @@ namespace MVC.Tests.Facade;
         equal(data?.LastName, v.LastName);
         equal(data?.DateOfBirth, v.DateOfBirth);
         equal(data?.Gender, v.Gender);
-        equal(data?.DiagnosisId, v.DiagnosisId);
     }
     [TestMethod] public void CreateDataTest()
     {
@@ -71,6 +67,5 @@ namespace MVC.Tests.Facade;
         equal(view?.LastName, d.LastName);
         equal(view?.DateOfBirth, d.DateOfBirth);
         equal(view?.Gender, d.Gender);
-        equal(view?.DiagnosisId, d.DiagnosisId);
     }
 }

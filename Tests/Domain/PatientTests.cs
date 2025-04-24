@@ -15,7 +15,6 @@ namespace MVC.Tests.Domain;
         var d = new PatientData
         {
             Id = 1,
-            DiagnosisId = 2,
             FirstName = "Jane",
             LastName = "Doe",
             DateOfBirth = new DateTime(1990, 1, 1),
@@ -23,7 +22,6 @@ namespace MVC.Tests.Domain;
         };
         return new Patient(d);
     }
-    [TestMethod] public void DiagnosisIdTest() => equal(2, obj?.DiagnosisId);
     [TestMethod] public void FirstNameTest() => equal("Jane", obj?.FirstName);
     [TestMethod] public void LastNameTest() => equal("Doe", obj?.LastName);
     [TestMethod] public void DateOfBirthTest() => equal(new DateTime(1990, 1, 1), obj?.DateOfBirth);

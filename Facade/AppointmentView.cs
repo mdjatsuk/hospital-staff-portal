@@ -7,6 +7,7 @@ namespace MVC.Facade;
 [DisplayName("Appointments")] public sealed class AppointmentView : EntityView
 {
     [Display(Name = "Diagnosis")] public int DiagnosisNameId { get; set; }
+    [Display(Name = "Diagnosis")] public int DiagnosisName { get; set; }
     [Display(Name = dateName), Required, DataType(DataType.Date)] public DateTime? Date { get; set; }
     [Display(Name = "Doctor")] public int DoctorId { get; set; }
     [Display(Name = "Patient")] public int PatientId { get; set; }

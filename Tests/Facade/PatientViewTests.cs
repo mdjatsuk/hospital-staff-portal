@@ -21,8 +21,6 @@ namespace MVC.Tests.Facade;
             LastName = "Valid Last Name",
             DateOfBirth = new DateTime(1990, 1, 1),
             Gender = Genders.Female,
-            DiagnosisId = 2,
-            Diagnosis = "Valid Diagnosis"
         };
     }
     [TestMethod] public void FirstNameIsRequiredTest()
@@ -60,12 +58,6 @@ namespace MVC.Tests.Facade;
         view!.Gender = null;
         var results = validate(view);
         isFalse(results.Any(r => r.ErrorMessage!.Contains("The field Gender is required.")));
-    }
-    [TestMethod] public void DiagnosisIdValidationTest()
-    {
-        view!.DiagnosisId = 0;
-        var results = validate(view);
-        isFalse(results.Any());
     }
     private List<ValidationResult> validate(object model)
     {
