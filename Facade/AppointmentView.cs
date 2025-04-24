@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace MVC.Facade;
 
-public sealed class AppointmentView : EntityView
+[DisplayName("Appointments")] public sealed class AppointmentView : EntityView
 {
     [Display(Name = dateName), Required, DataType(DataType.Date)] public DateTime? Date { get; set; }
     [Display(Name = "Doctor")] public int DoctorId { get; set; }
