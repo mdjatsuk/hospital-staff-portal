@@ -26,6 +26,11 @@ internal class Program
         builder.Services.AddTransient<IDoctorsRepo, DoctorsRepo>();
         builder.Services.AddTransient<IPatientsRepo, PatientsRepo>();
 
+        builder.Services.AddTransient<DbInitializer>();
+        builder.Services.AddSingleton<OpenAiService>();
+
+
+
         Services.init(builder.Services);
 
         var app = builder.Build();
@@ -62,8 +67,8 @@ internal class Program
             {
                 using var scope = app.Services.CreateScope();
                 services = scope.ServiceProvider;
-                var db = services.GetRequiredService<ApplicationDbContext>();
-                await new DbInitializer(db).Initialize(200);
+                var initializer = services.GetRequiredService<DbInitializer>();
+                await initializer.Initialize(1000, 250);
             }
             catch (Exception e)
             {
