@@ -2,12 +2,12 @@
 using System.Text;
 using System.Text.Json;
 
-public class OpenAiService
+public class DeepSeekService
 {
     private readonly HttpClient _http;
     private readonly string _apiKey;
 
-    public OpenAiService(IConfiguration config)
+    public DeepSeekService(IConfiguration config)
     {
         _http = new HttpClient();
         _apiKey = config["OpenAI:ApiKey"] ?? throw new Exception("OpenAI API key not found.");
@@ -17,7 +17,7 @@ public class OpenAiService
     {
         var request = new
         {
-            model = "gpt-4.1-nano",
+            model = "deepseek-ai/DeepSeek-V",
             messages = new[]
             {
                 new { role = "system", content = "Generate a realistic random person's full name (first and last). Reply with only the name." },
@@ -30,7 +30,7 @@ public class OpenAiService
         var content = new StringContent(json, Encoding.UTF8, "application/json");
         _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _apiKey);
 
-        var response = await _http.PostAsync("https://api.openai.com/v1/chat/completions", content);
+        var response = await _http.PostAsync("https://api.deepinfra.com/v1/openai/chat/completions", content);
         var responseString = await response.Content.ReadAsStringAsync();
 
         using var doc = JsonDocument.Parse(responseString);

@@ -28,6 +28,7 @@ internal class Program
 
         builder.Services.AddTransient<DbInitializer>();
         builder.Services.AddSingleton<OpenAiService>();
+        //builder.Services.AddSingleton<DeepSeekService>();
 
 
 
@@ -68,7 +69,7 @@ internal class Program
                 using var scope = app.Services.CreateScope();
                 services = scope.ServiceProvider;
                 var initializer = services.GetRequiredService<DbInitializer>();
-                await initializer.Initialize(1000, 250);
+                await initializer.Initialize(10, 5);
             }
             catch (Exception e)
             {

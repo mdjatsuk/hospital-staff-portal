@@ -60,7 +60,7 @@ public class DbInitializer(ApplicationDbContext? c, OpenAiService ai)
         var list = new List<TEntity>(size);
         var toGenerate = count - cnt;
 
-        if (typeof(TEntity).Name == nameof(Patient))
+        if (typeof(TEntity) == typeof(PatientData))
         {
             for (int i = 0; i < toGenerate; i++)
             {
@@ -73,11 +73,8 @@ public class DbInitializer(ApplicationDbContext? c, OpenAiService ai)
                     LastName = parts.ElementAtOrDefault(1) ?? "Surname"
                 };
 
-                var patient = new Patient(patientData) as TEntity;
-
-                if (patient is null) continue;
-
-                list.Add(patient);
+                // Directly add PatientData to the DbSet
+                list.Add(patientData as TEntity);
                 if (list.Count >= size)
                 {
                     await save(set, list);
