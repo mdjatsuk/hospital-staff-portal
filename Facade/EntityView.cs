@@ -13,6 +13,12 @@ public abstract class EntityView
     protected internal const string birthName = "Date Of Birth";
     protected internal const string appointName = "Appointment Fee";
     protected internal const string diagnosName = "Diagnosis Name";
+    protected internal const string diagnosis = "Diagnosis";
+    protected internal const string doctor = "Doctor";
+    protected internal const string patient = "Patient";
+    protected internal const string doctors = "Doctors";
+    protected internal const string patients = "Patients";
+    protected internal const string appointments = "Appointments";
 
     protected internal const string locationEx = @"^[A-Z].*";
     protected internal const string phoneNumberEx = @"^\d{8}$";
@@ -30,6 +36,7 @@ public abstract class EntityView
     protected internal const int male = 0;
     protected internal const int female = 1;
     protected internal const double appointMaxFee = double.MaxValue;
+    protected internal const int appointMinFee = 0;
 
     public int Id { get; set; }
 }

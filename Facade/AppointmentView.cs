@@ -4,16 +4,16 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MVC.Facade;
 
-[DisplayName("Appointments")] public sealed class AppointmentView : EntityView
+[DisplayName(appointments)] public sealed class AppointmentView : EntityView
 {
-    [Display(Name = "Diagnosis")] public int DiagnosisNameId { get; set; }
+    [Display(Name = diagnosis)] public int DiagnosisNameId { get; set; }
     [Display(Name = dateName), Required, DataType(DataType.Date)] public DateTime? Date { get; set; }
-    [Display(Name = "Doctor")] public int DoctorId { get; set; }
-    [Display(Name = "Patient")] public int PatientId { get; set; }
-    [Display(Name = "Doctor")] public string? Doctor { get; set; }
-    [Display(Name = "Patient")] public string? Patient { get; set; }
+    [Display(Name = doctor)] public int DoctorId { get; set; }
+    [Display(Name = patient)] public int PatientId { get; set; }
+    [Display(Name = doctor)] public string? Doctor { get; set; }
+    [Display(Name = patient)] public string? Patient { get; set; }
     [Required, RegularExpression(locationEx, ErrorMessage = locationError)] public string? Location { get; set; }
 
-    [Display(Name = appointName), Range(0, appointMaxFee, ErrorMessage = appointError)]
+    [Display(Name = appointName), Range(appointMinFee, appointMaxFee, ErrorMessage = appointError)]
     public double? AppointmentFee { get; set; }
 }

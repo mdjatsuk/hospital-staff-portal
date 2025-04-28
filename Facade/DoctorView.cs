@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 namespace MVC.Facade;
 
-[DisplayName("Doctors")] public sealed class DoctorView : EntityView
+[DisplayName(doctors)] public sealed class DoctorView : EntityView
 {
     [Display(Name = firstName), Required, StringLength(nameLength, MinimumLength = minNameLength, ErrorMessage = firstNameError)]
     public string? FirstName { get; set; }
