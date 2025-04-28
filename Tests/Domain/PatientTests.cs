@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace MVC.Tests.Domain;
 
-[TestClass] public class PatientTests : BaseClassTests<Patient, Entity<PatientData>>
+[TestClass]
+public class PatientTests : BaseClassTests<Patient, Entity<PatientData>>
 {
     protected override Patient createObj()
     {

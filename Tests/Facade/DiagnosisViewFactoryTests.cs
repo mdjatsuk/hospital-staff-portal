@@ -8,16 +8,19 @@ using System.Threading.Tasks;
 
 namespace MVC.Tests.Facade;
 
-[TestClass] public class DiagnosisViewFactoryTests : BaseTests
+[TestClass]
+public class DiagnosisViewFactoryTests : BaseTests
 {
     private DiagnosisData? data;
     private DiagnosisView? view;
-    [TestInitialize] public void TestInitialize()
+    [TestInitialize]
+    public void TestInitialize()
     {
         data = crData();
         view = crView();
     }
-    [TestCleanup] public void TestCleanup()
+    [TestCleanup]
+    public void TestCleanup()
     {
         data = null;
         view = null;
@@ -27,6 +30,7 @@ namespace MVC.Tests.Facade;
         var v = new DiagnosisView
         {
             Id = 1,
+            DiagnosisName = DiagnosisEnum.Anemia,
             Description = "View Description",
             RequiresSurgery = true
         };
@@ -37,12 +41,14 @@ namespace MVC.Tests.Facade;
         var d = new DiagnosisData
         {
             Id = 1000,
+            DiagnosisName = DiagnosisEnum.Anemia,
             Description = "Data Description",
             RequiresSurgery = false
         };
         return d;
     }
-    [TestMethod] public void CreateViewTest()
+    [TestMethod]
+    public void CreateViewTest()
     {
         var f = new DiagnosisViewFactory();
         var v = f.CreateView(data);
@@ -52,7 +58,8 @@ namespace MVC.Tests.Facade;
         equal(data?.Description, v.Description);
         equal(data?.RequiresSurgery, v.RequiresSurgery);
     }
-    [TestMethod] public void CreateDataTest()
+    [TestMethod]
+    public void CreateDataTest()
     {
         var f = new DiagnosisViewFactory();
         var d = f.CreateData(view);
