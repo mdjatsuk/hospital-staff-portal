@@ -11,95 +11,84 @@ public class OpenAiService
     {
         _http = new HttpClient();
         _apiKey = config["OpenAI:ApiKey"] ?? throw new Exception("OpenAI API key not found.");
+
+        _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _apiKey);
     }
 
     public async Task<List<string>> GenerateRandomNamesAsync(int namesToRequest)
     {
         var names = new List<string>();
+        int namesPerRequest = 1000; // Always maximum 1000 per request
         int remainingNames = namesToRequest;
 
         while (remainingNames > 0)
         {
-            int currentBatchSize = CalculateDynamicBatchSize(remainingNames);
+            int currentBatchSize = Math.Min(remainingNames, namesPerRequest);
 
             var request = new
             {
                 model = "gpt-3.5-turbo",
                 messages = new[]
                 {
-                    new { role = "system", content = "Reply ONLY with a list of full names separated by commas. DO NOT number them, just names." },
-                    new { role = "user", content = $"Generate {currentBatchSize} random full names (first and last name), separated by commas. Do not number them!" }
+                new
+                {
+                    role = "system",
+                    content = $"You are a machine API. You must generate exactly {currentBatchSize} random realistic full names (first name and last name), separated by commas. No numbering, no bullets, no newlines, no extra text or explanations. Only output a single line of names separated by commas. Failure to follow exactly will result in task rejection."
                 },
-                temperature = 0.7
+                new
+                {
+                    role = "user",
+                    content = $"Generate exactly {currentBatchSize} random realistic full names (first and last names), separated by commas. No extra text, no newlines, no numbering, only the names."
+                }
+            },
+                temperature = 0.7,
             };
 
             var json = JsonSerializer.Serialize(request);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _apiKey);
 
-            var response = await SendRequestWithRetriesAsync(content);
-
-            using var doc = JsonDocument.Parse(response);
-            var responseNames = doc.RootElement
-                .GetProperty("choices")[0]
-                .GetProperty("message")
-                .GetProperty("content")
-                .GetString()?
-                .Trim()
-                .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-
-            if (responseNames != null)
-            {
-                names.AddRange(responseNames.Select(n => n.Trim()));
-            }
-
-            remainingNames -= currentBatchSize;
-        }
-
-        return names.Take(namesToRequest).ToList(); // Guarantee exact count
-    }
-
-    private int CalculateDynamicBatchSize(int remainingNames)
-    {
-        if (remainingNames <= 5)
-            return remainingNames;
-        else if (remainingNames <= 20)
-            return 5;
-        else if (remainingNames <= 50)
-            return 10;
-        else
-            return 15;
-    }
-
-    private async Task<string> SendRequestWithRetriesAsync(HttpContent content)
-    {
-        int maxRetries = 3;
-        int delayMilliseconds = 2000; // start with 2 seconds
-
-        for (int attempt = 0; attempt <= maxRetries; attempt++)
-        {
             var response = await _http.PostAsync("https://api.openai.com/v1/chat/completions", content);
             var responseString = await response.Content.ReadAsStringAsync();
 
             if (response.IsSuccessStatusCode)
             {
-                return responseString;
-            }
+                using var doc = JsonDocument.Parse(responseString);
+                var responseNames = doc.RootElement
+                    .GetProperty("choices")[0]
+                    .GetProperty("message")
+                    .GetProperty("content")
+                    .GetString()?
+                    .Trim()
+                    .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(n => n.Trim())
+                    .Where(n => !string.IsNullOrWhiteSpace(n))
+                    .ToList();
 
-            if (response.StatusCode == System.Net.HttpStatusCode.TooManyRequests || responseString.Contains("rate_limit_exceeded"))
-            {
-                if (attempt == maxRetries)
-                    throw new Exception("Rate limit exceeded and retries exhausted: " + responseString);
-
-                await Task.Delay(delayMilliseconds);
-                delayMilliseconds *= 2; // exponential backoff
+                if (responseNames != null)
+                {
+                    names.AddRange(responseNames);
+                }
             }
             else
             {
                 throw new Exception("Failed to generate names: " + responseString);
             }
+
+            remainingNames = namesToRequest - names.Count;
+
+            if (remainingNames > 0)
+            {
+                Console.WriteLine($"Generated {names.Count}. Still missing {remainingNames} names, retrying...");
+            }
+            else if (remainingNames < 0)
+            {
+                // Too many names generated, cut the list
+                names = names.Take(namesToRequest).ToList();
+                break;
+            }
         }
 
-        throw new Exception("Unexpected error during retries.");
+        return names;
     }
 }

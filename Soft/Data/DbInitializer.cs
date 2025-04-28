@@ -4,7 +4,7 @@ using MVC.Data;
 using MVC.Domain;
 using MVC.Soft.Data;
 
-namespace Mvc.Soft.Data
+namespace MVC.Soft.Data
 {
     public class DbInitializer
     {
@@ -39,7 +39,7 @@ namespace Mvc.Soft.Data
             catch (Exception ex)
             {
                 Console.WriteLine($"Error during database initialization: {ex.Message}");
-                throw; // Optionally rethrow if you want app startup to fail
+                throw;
             }
         }
 
@@ -47,6 +47,7 @@ namespace Mvc.Soft.Data
         {
             var t = set?.GetType().GetGenericArguments().FirstOrDefault();
             if (t == null) return null;
+
             return typeof(DbInitializer)
                 .GetMethod(nameof(seedData), BindingFlags.NonPublic | BindingFlags.Instance)!
                 .MakeGenericMethod(t);
@@ -71,37 +72,46 @@ namespace Mvc.Soft.Data
         }
 
         private async Task seedData<TEntity>(DbSet<TEntity> set)
-           where TEntity : EntityData, new()
+            where TEntity : EntityData, new()
         {
             try
             {
-                var cnt = set.Count();
-                var list = new List<TEntity>(size);
-                var toGenerate = count - cnt;
+                var existingCount = set.Count();
+                var toGenerate = count - existingCount;
+
+                if (toGenerate <= 0 || existingCount >= toGenerate) return; // No need to seed
 
                 if (typeof(TEntity) == typeof(PatientData))
                 {
-                    for (int i = 0; i < toGenerate; i++)
-                    {
-                        var names = await ai.GenerateRandomNamesAsync(1);
-                        var name = names.FirstOrDefault() ?? "Default Name";
-                        var parts = name.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                    var list = new List<TEntity>(size);
 
-                        var patientData = new PatientData
+                    // Generate all needed names in batches
+                    var names = await ai.GenerateRandomNamesAsync(toGenerate);
+
+                    foreach (var name in names)
+                    {
+                        // Remove any trailing punctuation or spaces (like period)
+                        var cleanedName = name.Trim().TrimEnd('.', ',', ';', '!', '?');
+
+                        var parts = cleanedName.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+                        var patient = new PatientData
                         {
                             FirstName = parts.ElementAtOrDefault(0) ?? "Name",
                             LastName = parts.ElementAtOrDefault(1) ?? "Surname",
                         };
 
-                        list.Add(patientData as TEntity);
+                        list.Add(patient as TEntity);
+
                         if (list.Count >= size)
                         {
                             await save(set, list);
                         }
                     }
+
+                    await save(set, list); // Save any leftovers
                 }
 
-                await save(set, list);
                 Console.WriteLine($"Total records in {typeof(TEntity).Name}: {set.Count()}");
             }
             catch (Exception ex)
@@ -110,6 +120,7 @@ namespace Mvc.Soft.Data
                 throw;
             }
         }
+
 
         private async Task save<TEntity>(DbSet<TEntity> set, List<TEntity> list) where TEntity : EntityData, new()
         {

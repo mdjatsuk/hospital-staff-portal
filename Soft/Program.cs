@@ -4,7 +4,6 @@ using MVC.Core;
 using MVC.Domain;
 using MVC.Infra;
 using MVC.Soft.Data;
-using Mvc.Soft.Data;
 
 internal class Program
 {
@@ -38,7 +37,7 @@ internal class Program
         using (var scope = app.Services.CreateScope()) // <-- Create a service scope
         {
             var initializer = scope.ServiceProvider.GetRequiredService<DbInitializer>();
-            await initializer.Initialize(20, 5); // <-- Seed data before app.Run
+            await initializer.Initialize(1000, 250); // <-- Seed data before app.Run
         }
 
         if (app.Environment.IsDevelopment())
