@@ -30,7 +30,7 @@ namespace MVC.Tests.Facade;
             FirstName = "View First Name",
             LastName = "View Last Name",
             Specialization = Specialties.Cardiology,
-            PhoneNumber = "12345678"
+            PhoneNumber = 12345678
         };
         return v;
     }
@@ -42,7 +42,7 @@ namespace MVC.Tests.Facade;
             FirstName = "Data First Name",
             LastName = "Data Last Name",
             Specialization = Specialties.Neurology,
-            PhoneNumber = "87654321"
+            PhoneNumber = 87654321
         };
         return d;
     }

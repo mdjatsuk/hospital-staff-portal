@@ -13,7 +13,6 @@ namespace MVC.Tests.Data;
     {
         base.Initialize();
         if (obj == null) return;
-        obj.DiagnosisId = 1;
         obj.FirstName = "Jane";
         obj.LastName = "Doe";
         obj.DateOfBirth = new DateTime(1990, 1, 1);
@@ -23,7 +22,6 @@ namespace MVC.Tests.Data;
     {
         var d = obj?.Clone();
         notNull(d);
-        equal(1, d?.DiagnosisId);
         equal("Jane", d?.FirstName);
         equal("Doe", d?.LastName);
         equal(new DateTime(1990, 1, 1), d?.DateOfBirth);

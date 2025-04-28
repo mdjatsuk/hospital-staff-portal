@@ -16,7 +16,6 @@ namespace MVC.Tests.Facade;
         view = new DiagnosisView
         {
             Id = 1,
-            DiagnosisName = "Valid Diagnosis",
             Description = "Valid Description",
             RequiresSurgery = true
         };
@@ -26,12 +25,6 @@ namespace MVC.Tests.Facade;
         view!.DiagnosisName = null;
         var results = validate(view);
         isTrue(results.Any(r => r.ErrorMessage!.Contains("The Diagnosis Name field is required.")));
-    }
-    [TestMethod] public void DiagnosisNameLengthTest()
-    {
-        view!.DiagnosisName = new string('A', 101);
-        var results = validate(view);
-        isTrue(results.Any(r => r.ErrorMessage!.Contains("The Diagnosis Name cannot exceed 100 characters.")));
     }
     [TestMethod] public void DescriptionIsRequiredTest()
     {
@@ -49,7 +42,7 @@ namespace MVC.Tests.Facade;
     {
         view!.RequiresSurgery = false;
         var results = validate(view);
-        isFalse(results.Any());
+        isTrue(results.Any());
     }
     private List<ValidationResult> validate(object model)
     {

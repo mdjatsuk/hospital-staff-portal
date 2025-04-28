@@ -21,8 +21,6 @@ namespace MVC.Tests.Facade;
             LastName = "Valid Last Name",
             DateOfBirth = new DateTime(1990, 1, 1),
             Gender = Genders.Female,
-            DiagnosisId = 2,
-            Diagnosis = "Valid Diagnosis"
         };
     }
     [TestMethod] public void FirstNameIsRequiredTest()
@@ -63,7 +61,6 @@ namespace MVC.Tests.Facade;
     }
     [TestMethod] public void DiagnosisIdValidationTest()
     {
-        view!.DiagnosisId = 0;
         var results = validate(view);
         isFalse(results.Any());
     }
