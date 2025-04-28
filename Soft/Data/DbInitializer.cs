@@ -22,7 +22,7 @@ namespace MVC.Soft.Data
         public async Task Initialize(int itemsCount = 100, int listSize = 25)
         {
             count = itemsCount;
-            size = listSize;
+            size = listSize * 2;
             if (c is null) return;
 
             try
@@ -72,7 +72,7 @@ namespace MVC.Soft.Data
         }
 
         private async Task seedData<TEntity>(DbSet<TEntity> set)
-            where TEntity : EntityData, new()
+    where TEntity : EntityData, new()
         {
             try
             {
@@ -81,20 +81,24 @@ namespace MVC.Soft.Data
 
                 if (toGenerate <= 0 || existingCount >= toGenerate) return; // No need to seed
 
-                if (typeof(TEntity) == typeof(PatientData))
+                var list = new List<TEntity>(size);
+
+                // Generate names in batches for both patients and doctors
+                var namesWithGenders = await ai.GenerateRandomNamesWithGendersAsync(toGenerate);
+
+                var patientCount = 0;
+                var doctorCount = 0;
+
+                foreach (var nameWithGender in namesWithGenders)
                 {
-                    var list = new List<TEntity>(size);
+                    // Remove any trailing punctuation or spaces (like period)
+                    var cleanedName = nameWithGender.FullName.Trim().TrimEnd('.', ',', ';', '!', '?');
 
-                    // Generate all needed names in batches
-                    var namesWithGenders = await ai.GenerateRandomNamesWithGendersAsync(toGenerate);
+                    var parts = cleanedName.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
-                    foreach (var nameWithGender in namesWithGenders)
+                    // Handle seeding for PatientData
+                    if (patientCount < toGenerate && typeof(TEntity) == typeof(PatientData))
                     {
-                        // Remove any trailing punctuation or spaces (like period)
-                        var cleanedName = nameWithGender.FullName.Trim().TrimEnd('.', ',', ';', '!', '?');
-
-                        var parts = cleanedName.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-
                         var gender = nameWithGender.Gender == 0 ? Genders.Male : Genders.Female;
 
                         var patient = new PatientData
@@ -105,17 +109,43 @@ namespace MVC.Soft.Data
                         };
 
                         list.Add(patient as TEntity);
+                        patientCount++;
 
+                        // Save when we reach the batch size
+                        if (list.Count >= size)
+                        {
+                            await save(set, list);
+                        }
+                    }
+                    // Handle seeding for DoctorData
+                    else if (doctorCount < toGenerate && typeof(TEntity) == typeof(DoctorData))
+                    {
+                        var doctor = new DoctorData
+                        {
+                            FirstName = parts.ElementAtOrDefault(0) ?? "Name",
+                            LastName = parts.ElementAtOrDefault(1) ?? "Surname"
+                        };
+
+                        list.Add(doctor as TEntity);
+                        doctorCount++;
+
+                        // Save when we reach the batch size
                         if (list.Count >= size)
                         {
                             await save(set, list);
                         }
                     }
 
-                    await save(set, list); // Save any leftovers
+                    // If both patient and doctor counts have been met, we can stop
+                    if (patientCount >= toGenerate && doctorCount >= toGenerate)
+                    {
+                        break;
+                    }
                 }
 
-                Console.WriteLine($"Total records in {typeof(TEntity).Name}: {set.Count()}");
+                // Save any leftovers
+                await save(set, list);
+
             }
             catch (Exception ex)
             {
@@ -123,6 +153,8 @@ namespace MVC.Soft.Data
                 throw;
             }
         }
+
+
 
         private async Task save<TEntity>(DbSet<TEntity> set, List<TEntity> list) where TEntity : EntityData, new()
         {

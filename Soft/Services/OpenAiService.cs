@@ -18,13 +18,16 @@ public class OpenAiService
         _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _apiKey);
     }
 
-    public async Task<List<(string FullName, Genders Gender)>> GenerateRandomNamesWithGendersAsync(int batchSize)
+    public async Task<List<(string FullName, Genders Gender)>> GenerateRandomNamesWithGendersAsync(int toGenerate)
     {
         var result = new List<(string FullName, Genders Gender)>();
         int generatedCount = 0;
+        int maxBatchSize = 1000;
+        int minBatchSize = 200;
+        toGenerate *= 2;
 
         // Ensure the batch size does not exceed the maximum allowed
-        batchSize = Math.Min(batchSize, MaxBatchSize);
+        var batchSize = Math.Min(toGenerate + minBatchSize, maxBatchSize);
 
         int remainingNames = batchSize;
 
@@ -40,19 +43,20 @@ public class OpenAiService
                 model = "gpt-3.5-turbo",
                 messages = new[]
                 {
-                new
-                {
-                    role = "system",
-                    content = $"You are an API. Generate exactly {requestBatchSize} random full names (first name and last name), followed by a comma and 0 for Male or 1 for Female. Separate each entry by a semicolon (;). No extra text."
+                    new
+                    {
+                        role = "system",
+                        content = $"You are an API that generates random full names (first name and last name) with gender (0 for Male, 1 for Female). Generate exactly {requestBatchSize} full names, each followed by a comma and gender. Ensure there is no extra text, and each entry must be separated by a semicolon (;). If you do not provide exactly {requestBatchSize} names, the request will be considered invalid and will not be processed. No deviations are allowed."
+                    },
+                    new
+                    {
+                        role = "user",
+                        content = $"Generate exactly {requestBatchSize} random full names. After each name, include a comma and gender (0 for Male, 1 for Female). Separate each entry by a semicolon (;). Ensure there is no extra text. If you fail to generate exactly {requestBatchSize} names, the request will be rejected."
+                    }
                 },
-                new
-                {
-                    role = "user",
-                    content = $"Generate exactly {requestBatchSize} full names with gender 0 (Male) or 1 (Female) after a comma, separated by semicolons (;)."
-                }
-            },
                 temperature = 0.7
             };
+
 
             var json = JsonSerializer.Serialize(request);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
