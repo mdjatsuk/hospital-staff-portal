@@ -5,44 +5,62 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MVC.Data;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace MVC.Tests.Facade;
 
-[TestClass] public class DiagnosisViewTests : BaseTests
+[TestClass]
+public class DiagnosisViewTests : BaseTests
 {
     private DiagnosisView? view;
-    [TestInitialize] public void TestInitialize()
+    [TestInitialize]
+    public void TestInitialize()
     {
         view = new DiagnosisView
         {
             Id = 1,
+            DiagnosisName = DiagnosisEnum.Anemia,
             Description = "Valid Description",
             RequiresSurgery = true
         };
     }
-    [TestMethod] public void DiagnosisNameIsRequiredTest()
+    [TestMethod]
+    public void DiagnosisNameIsRequiredTest()
     {
         view!.DiagnosisName = null;
         var results = validate(view);
         isTrue(results.Any(r => r.ErrorMessage!.Contains("The Diagnosis Name field is required.")));
     }
-    [TestMethod] public void DescriptionIsRequiredTest()
+    [TestMethod]
+    public void DiagnosisNameLengthTest()
+    {
+        view!.DiagnosisName = DiagnosisEnum.Anemia;
+        var diagnosisNameString = view!.DiagnosisName.ToString();
+        var results = validate(view);
+        isTrue(diagnosisNameString.Length <= 100, "Diagnosis Name length exceeds the limit.");
+        isTrue(results.Any(r => r.ErrorMessage!.Contains("The Diagnosis Name cannot exceed 100 characters.")));
+    }
+    [TestMethod]
+    public void DescriptionIsRequiredTest()
     {
         view!.Description = null;
         var results = validate(view);
         isTrue(results.Any(r => r.ErrorMessage!.Contains("The Description field is required.")));
     }
-    [TestMethod] public void DescriptionLengthTest()
+    [TestMethod]
+    public void DescriptionLengthTest()
     {
         view!.Description = new string('A', 501);
         var results = validate(view);
         isTrue(results.Any(r => r.ErrorMessage!.Contains("The Description cannot exceed 500 characters.")));
     }
-    [TestMethod] public void RequiresSurgeryTest()
+    [TestMethod]
+    public void RequiresSurgeryTest()
     {
         view!.RequiresSurgery = false;
         var results = validate(view);
-        isTrue(results.Any());
+        isFalse(results.Any());
     }
     private List<ValidationResult> validate(object model)
     {
