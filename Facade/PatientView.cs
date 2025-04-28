@@ -5,7 +5,7 @@ using System.ComponentModel;
 
 namespace MVC.Facade;
 
-[DisplayName("Patients")] public sealed class PatientView : EntityView
+[DisplayName(patients)] public sealed class PatientView : EntityView
 {
     [Display(Name = firstName), Required, StringLength(nameLength, MinimumLength = minNameLength, ErrorMessage = firstNameError)]
     public string? FirstName { get; set; }

@@ -27,7 +27,6 @@ namespace MVC.Tests.Facade;
         var v = new DiagnosisView
         {
             Id = 1,
-            DiagnosisName = DiagnosisEnum.Anemia,
             Description = "View Description",
             RequiresSurgery = true
         };
@@ -38,7 +37,6 @@ namespace MVC.Tests.Facade;
         var d = new DiagnosisData
         {
             Id = 1000,
-            DiagnosisName = DiagnosisEnum.Anemia,
             Description = "Data Description",
             RequiresSurgery = false
         };

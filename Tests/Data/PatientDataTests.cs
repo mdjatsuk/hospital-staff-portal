@@ -25,6 +25,6 @@ namespace MVC.Tests.Data;
         equal("Jane", d?.FirstName);
         equal("Doe", d?.LastName);
         equal(new DateTime(1990, 1, 1), d?.DateOfBirth);
-        equal(Genders.Female, d?.Gender.GetValueOrDefault());
+        equal(Genders.Female, d?.Gender);
     }
 }

@@ -59,6 +59,11 @@ namespace MVC.Tests.Facade;
         var results = validate(view);
         isFalse(results.Any(r => r.ErrorMessage!.Contains("The field Gender is required.")));
     }
+    [TestMethod] public void DiagnosisIdValidationTest()
+    {
+        var results = validate(view);
+        isFalse(results.Any());
+    }
     private List<ValidationResult> validate(object model)
     {
         var context = new ValidationContext(model, null, null);

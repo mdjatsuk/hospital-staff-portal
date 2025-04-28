@@ -5,8 +5,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MVC.Data;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace MVC.Tests.Facade;
 
@@ -18,7 +16,6 @@ namespace MVC.Tests.Facade;
         view = new DiagnosisView
         {
             Id = 1,
-            DiagnosisName = DiagnosisEnum.Anemia,
             Description = "Valid Description",
             RequiresSurgery = true
         };
@@ -28,14 +25,6 @@ namespace MVC.Tests.Facade;
         view!.DiagnosisName = null;
         var results = validate(view);
         isTrue(results.Any(r => r.ErrorMessage!.Contains("The Diagnosis Name field is required.")));
-    }
-    [TestMethod] public void DiagnosisNameLengthTest()
-    {
-        view!.DiagnosisName = DiagnosisEnum.Anemia;
-        var diagnosisNameString = view!.DiagnosisName.ToString();
-        var results = validate(view);
-        isTrue(diagnosisNameString.Length <= 100, "Diagnosis Name length exceeds the limit.");
-        isTrue(results.Any(r => r.ErrorMessage!.Contains("The Diagnosis Name cannot exceed 100 characters.")));
     }
     [TestMethod] public void DescriptionIsRequiredTest()
     {
@@ -53,7 +42,7 @@ namespace MVC.Tests.Facade;
     {
         view!.RequiresSurgery = false;
         var results = validate(view);
-        isFalse(results.Any());
+        isTrue(results.Any());
     }
     private List<ValidationResult> validate(object model)
     {

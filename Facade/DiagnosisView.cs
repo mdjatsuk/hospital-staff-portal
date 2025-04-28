@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MVC.Facade;
 
-[DisplayName("Diagnosis")] public sealed class DiagnosisView : EntityView
+[DisplayName(diagnosis)] public sealed class DiagnosisView : EntityView
 {
     [Display(Name = diagnosName), Required]
     public DiagnosisEnum? DiagnosisName { get; set; }
