@@ -19,7 +19,7 @@ namespace MVC.Soft.Data
             ai = aiService;
         }
 
-        public async Task Initialize(int itemsCount = 1000, int listSize = 250)
+        public async Task Initialize(int itemsCount = 100, int listSize = 25)
         {
             count = itemsCount;
             size = listSize;
@@ -86,19 +86,22 @@ namespace MVC.Soft.Data
                     var list = new List<TEntity>(size);
 
                     // Generate all needed names in batches
-                    var names = await ai.GenerateRandomNamesAsync(toGenerate);
+                    var namesWithGenders = await ai.GenerateRandomNamesWithGendersAsync(toGenerate);
 
-                    foreach (var name in names)
+                    foreach (var nameWithGender in namesWithGenders)
                     {
                         // Remove any trailing punctuation or spaces (like period)
-                        var cleanedName = name.Trim().TrimEnd('.', ',', ';', '!', '?');
+                        var cleanedName = nameWithGender.FullName.Trim().TrimEnd('.', ',', ';', '!', '?');
 
                         var parts = cleanedName.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+                        var gender = nameWithGender.Gender == 0 ? Genders.Male : Genders.Female;
 
                         var patient = new PatientData
                         {
                             FirstName = parts.ElementAtOrDefault(0) ?? "Name",
                             LastName = parts.ElementAtOrDefault(1) ?? "Surname",
+                            Gender = gender
                         };
 
                         list.Add(patient as TEntity);
@@ -120,7 +123,6 @@ namespace MVC.Soft.Data
                 throw;
             }
         }
-
 
         private async Task save<TEntity>(DbSet<TEntity> set, List<TEntity> list) where TEntity : EntityData, new()
         {
