@@ -9,19 +9,20 @@ using System.Threading.Tasks;
 namespace MVC.Tests.Facade;
 
 [TestClass]
-public class DiagnosisViewFactoryTests : BaseTests
+public class DiagnosisViewFactoryTests : 
+    SealedTests<DiagnosisViewFactory, AbstractViewFactory<DiagnosisData, DiagnosisView>>
 {
     private DiagnosisData? data;
     private DiagnosisView? view;
-    [TestInitialize]
-    public void TestInitialize()
+    [TestInitialize] public override void Initialize()
     {
+        base.Initialize();
         data = crData();
         view = crView();
     }
-    [TestCleanup]
-    public void TestCleanup()
+    [TestCleanup] public override void Cleanup()
     {
+        base.Cleanup();
         data = null;
         view = null;
     }

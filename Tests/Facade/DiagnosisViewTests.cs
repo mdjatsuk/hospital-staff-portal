@@ -13,6 +13,7 @@ namespace MVC.Tests.Facade;
 [TestClass]
 public class DiagnosisViewTests : BaseTests
 {
+    protected override Type setType() => typeof(DiagnosisView);
     private DiagnosisView? view;
     [TestInitialize]
     public void TestInitialize()

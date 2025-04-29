@@ -1,4 +1,6 @@
-﻿using MVC.Facade;
+﻿using MVC.Aids;
+using MVC.Data;
+using MVC.Facade;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,6 +12,7 @@ namespace MVC.Tests.Facade;
 
 [TestClass] public class AppointmentViewTests : BaseTests
 {
+    protected override Type setType() => typeof(AppointmentView);
     private AppointmentView? view;
     [TestInitialize] public void TestInitialize()
     {

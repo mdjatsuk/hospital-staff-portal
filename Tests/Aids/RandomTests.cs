@@ -10,6 +10,7 @@ namespace MVC.Tests.Aids;
 
 [TestClass] public sealed class RandomTests : BaseTests
 {
+    protected override Type setType() => typeof(Random);
     private sealed class TestClass
     {
         public bool? Boolean { get; set; }
