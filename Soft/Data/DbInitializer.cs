@@ -103,7 +103,8 @@ public class DbInitializer
                         {
                             FirstName = firstName,
                             LastName = lastName,
-                            Gender = gender
+                            Gender = gender,
+                            DateOfBirth = Aids.Random.DateTime(DateTime.Now.AddYears(-60), DateTime.Now)
                         };
                         list.Add(patient as TEntity);
                         patientCount++;
@@ -113,7 +114,9 @@ public class DbInitializer
                         var doctor = new DoctorData
                         {
                             FirstName = firstName,
-                            LastName = lastName
+                            LastName = lastName,
+                            Specialization = (Specialties?)Aids.Random.EnumOf(typeof(Specialties)),
+                            PhoneNumber = Aids.Random.Int64(10000000, 99999999)
                         };
                         list.Add(doctor as TEntity);
                         doctorCount++;
@@ -138,7 +141,7 @@ public class DbInitializer
                 }
             }
 
-            // Save any leftovers
+           
             await save(set, list);
         }
         catch (Exception ex)
@@ -150,16 +153,17 @@ public class DbInitializer
 
     private IEnumerable<TEntity> getData<TEntity>(int toGenerate) where TEntity : EntityData, new()
     {
-        for (var i = 0; i < toGenerate; i++)
+        if (typeof(TEntity) != typeof(PatientData) && typeof(TEntity) != typeof(DoctorData))
         {
-            if (typeof(TEntity) != typeof(PatientData) && typeof(TEntity) != typeof(DoctorData))
+            for (var i = 0; i < toGenerate; i++)
             {
-                var d = MVC.Aids.Random.Object<TEntity>();
+                var d = Aids.Random.Object<TEntity>();
                 if (d is null) continue;
                 d.Id = 0;
                 yield return d;
             }
         }
+        
     }
 
     private async Task save<TEntity>(DbSet<TEntity> set, List<TEntity> list) where TEntity : EntityData, new()

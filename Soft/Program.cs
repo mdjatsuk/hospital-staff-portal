@@ -7,7 +7,7 @@ using MVC.Soft.Data;
 
 internal class Program
 {
-    private static async Task Main(string[] args) // <-- Make Main async
+    private static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
         var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContext")
@@ -57,7 +57,7 @@ internal class Program
         app.MapRazorPages()
             .WithStaticAssets();
 
-        await app.RunAsync(); // <-- await here too
+        await app.RunAsync();
     }
 
     private static void seedData(WebApplication app)
@@ -69,7 +69,7 @@ internal class Program
                 using var scope = app.Services.CreateScope();
                 services = scope.ServiceProvider;
                 var initializer = scope.ServiceProvider.GetRequiredService<DbInitializer>();
-                await initializer.Initialize(150);
+                await initializer.Initialize(10);
             }
             catch (Exception e)
             {
