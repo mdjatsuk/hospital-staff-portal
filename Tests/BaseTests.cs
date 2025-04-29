@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Routing.Matching;
 using System.Diagnostics;
+using System.Formats.Asn1;
 using System.Reflection;
 
 namespace MVC.Tests;
@@ -7,8 +8,35 @@ namespace MVC.Tests;
 public abstract class BaseTests
 {
     protected Type? type;
+    protected abstract Type setType();
+    [TestInitialize] public virtual void Initialize() => type = setType();
+    [TestCleanup] public virtual void Cleanup() => type = null;
 
     protected const int repeatCount = 1000;
+
+    [TestMethod] public virtual void IsTested()
+    {
+        var testMethods = GetType()
+            .GetMethods(BindingFlags.Public | BindingFlags.Instance)
+            .Where(m => m.GetCustomAttribute<TestMethodAttribute>() != null)
+            .Select(m => m.Name).ToArray();
+
+        var members = type!
+            .GetMembers(BindingFlags.Public
+                | BindingFlags.Instance
+                | BindingFlags.Static
+                | BindingFlags.DeclaredOnly)
+            .Select(m => m.Name)
+            .Where(m => !m.Contains("get_") && !m.Contains("set_") && !m.Contains(".ctor"))
+            .Where(m => !testMethods.Contains(m + "Test"))
+            .ToArray();
+
+        if (members.Length == 0) return;
+        var notTestedMembers = string.Join(", ", members);
+        if (members.Length == 1)
+            notTested($"Test method for <{notTestedMembers}> not found.");
+        notTested($"Test methods for <{notTestedMembers}> not found.");
+    }
     protected void equal<T>(T? x, T? y, string? msg = null) => Assert.AreEqual(x, y, msg);
     protected void notEqual<T>(T? x, T? y, string? msg = null) => Assert.AreNotEqual(x, y, msg);
     protected void isTrue(bool x, string? msg = null) => Assert.IsTrue(x, msg);
