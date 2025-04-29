@@ -4,11 +4,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MVC.Tests.Data;
 
 [TestClass] public class AppointmentDataTests : SealedTests<AppointmentData, EntityData<AppointmentData>>
 {
+    [TestMethod] public void DiagnosisNameIdTest() => isProperty<int>();
+    [TestMethod] public void DoctorIdTest() => isProperty<int>();
+    [TestMethod] public void PatientIdTest() => isProperty<int>();
+    [TestMethod] public void DateTest() => isProperty<DateTime?>();
+    [TestMethod] public void LocationTest() => isProperty<string>();
+    [TestMethod] public void AppointmentFeeTest() => isProperty<double>();
     [TestInitialize] public override void Initialize()
     {
         base.Initialize();

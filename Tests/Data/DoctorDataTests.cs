@@ -9,6 +9,10 @@ namespace MVC.Tests.Data;
 
 [TestClass] public class DoctorDataTests : SealedTests<DoctorData, EntityData<DoctorData>>
 {
+    [TestMethod] public void FirstNameTest() => isProperty<string>();
+    [TestMethod] public void LastNameTest() => isProperty<string>();
+    [TestMethod] public void SpecializationTest() => isProperty<Specialties?>();
+    [TestMethod] public void PhoneNumberTest() => isProperty<long?>();
     [TestInitialize] public override void Initialize()
     {
         base.Initialize();

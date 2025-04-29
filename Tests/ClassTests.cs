@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -26,8 +27,16 @@ public abstract class BaseClassTests<TClass, TBaseClass> : BaseTests
 {
     protected TClass? obj;
     protected abstract TClass createObj();
-    [TestInitialize] public virtual void Initialize() => obj = createObj();
-    [TestCleanup] public virtual void Cleanup() => obj = null;
+    [TestInitialize] public virtual void Initialize()
+    {
+        type = typeof(TClass);
+        obj = createObj();
+    }
+    [TestCleanup] public virtual void Cleanup()
+    {
+        type = null;
+        obj = null;;
+    }
     [TestMethod] public void CanCreateTest() => notNull(obj);
     [TestMethod] public void IsTypeOfTest() => isType(obj, typeof(TClass));
     [TestMethod] public void IsBaseTypeOfTest() => equal(obj?.GetType().BaseType, typeof(TBaseClass));
@@ -55,5 +64,14 @@ public abstract class BaseClassTests<TClass, TBaseClass> : BaseTests
             notTested($"Test method for <{notTestedMembers}> not found.");
         notTested($"Test methods for <{notTestedMembers}> not found.");
     }
+
+    protected override void canGet<T>(PropertyInfo pi, T? expected) where T : default
+    {
+        var actual = pi.GetValue(obj);
+        equal(actual, expected);
+    }
+
+    protected override void canSet<T>(PropertyInfo pi, T? v)
+        where T : default => pi.SetValue(obj, v);
 }
 
