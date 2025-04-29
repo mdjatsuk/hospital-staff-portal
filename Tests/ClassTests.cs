@@ -20,21 +20,27 @@ public abstract class SealedTests<TClass, TBaseClass> :ClassTests<TClass, TBaseC
 {
     [TestMethod] public void IsSealedTest() => isTrue(typeof(TClass).IsSealed);
 }
-
+public abstract class AbstractTests<TClass, TBaseClass> : BaseClassTests<TClass, TBaseClass>
+    where TClass : class
+    where TBaseClass : class
+{
+    [TestMethod] public void IsAbstractTest() => isTrue(typeof(TClass).IsAbstract);
+}
 public abstract class BaseClassTests<TClass, TBaseClass> : BaseTests
     where TClass : class
     where TBaseClass : class
 {
     protected TClass? obj;
     protected abstract TClass createObj();
+    protected override Type setType() => typeof(TClass);
     [TestInitialize] public virtual void Initialize()
     {
-        type = typeof(TClass);
+        base.Initialize();
         obj = createObj();
     }
     [TestCleanup] public virtual void Cleanup()
     {
-        type = null;
+        base.Cleanup();
         obj = null;;
     }
     [TestMethod] public void CanCreateTest() => notNull(obj);

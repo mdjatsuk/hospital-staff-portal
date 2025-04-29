@@ -8,8 +8,4 @@
 	<RootNameSpace>$(SolutionName).$(MSBuildProjectName.Replace(" ", "_"))</RootNameSpace>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="GoF\Structural\" />
-  </ItemGroup>
-
 </Project>
