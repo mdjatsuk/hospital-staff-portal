@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Soft.Migrations
+namespace MVC.Soft.Migrations
 {
     /// <inheritdoc />
-    public partial class NewIntital : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

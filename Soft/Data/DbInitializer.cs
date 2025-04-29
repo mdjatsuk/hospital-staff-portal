@@ -1,84 +1,167 @@
-﻿using System.Reflection;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using MVC.Data;
 using MVC.Soft.Data;
-namespace Mvc.Soft.Data;
+using NuGet.Packaging.Signing;
+using System.Reflection;
 
-public class DbInitializer(ApplicationDbContext? c)
+public class DbInitializer
 {
+    private readonly ApplicationDbContext? c;
+    private readonly OpenAiService ai;
     private int count;
-    private int size;
-    public async Task Initialize(int itemsCount = 1000, int listSize = 250)
+    private int batchSize;
+
+    public DbInitializer(ApplicationDbContext? context, OpenAiService aiService)
     {
-        count = itemsCount;
-        size = listSize;
+        c = context;
+        ai = aiService;
+    }
+
+    public async Task Initialize(int itemsCount = 10)
+    {
         if (c is null) return;
-        c.Database.EnsureCreated();
-        foreach (var set in sets)
+
+        count = itemsCount;
+        batchSize = Math.Max(1, count / 4);
+
+        try
         {
-            var method = methodInfo(set);
-            if (method is null) continue;
-            await (Task)method.Invoke(this, [set])!;
+            c.Database.EnsureCreated();
+
+            foreach (var set in GetDbSets())
+            {
+                var method = GetSeedMethod(set);
+                if (method is not null)
+                {
+                    await (Task)method.Invoke(this, new[] { set })!;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error during database initialization: {ex.Message}");
+            throw;
         }
     }
-    private MethodInfo? methodInfo(object? set)
+
+    private IEnumerable<object?> GetDbSets()
+    {
+        return c?.GetType()
+                  .GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly)
+                  .Where(p => p.PropertyType.IsGenericType && p.PropertyType.GetGenericTypeDefinition() == typeof(DbSet<>))
+                  .Select(p => p.GetValue(c))
+                  .Where(v => v is not null)
+               ?? Enumerable.Empty<object?>();
+    }
+
+    private MethodInfo? GetSeedMethod(object? set)
     {
         var t = set?.GetType().GetGenericArguments().FirstOrDefault();
         if (t == null) return null;
+
         return typeof(DbInitializer)
-            .GetMethod(nameof(seedData), BindingFlags.NonPublic | BindingFlags.Instance)!
+            .GetMethod(nameof(SeedData), BindingFlags.NonPublic | BindingFlags.Instance)?
             .MakeGenericMethod(t);
     }
-    private IEnumerable<object?> sets
+
+    private async Task SeedData<TEntity>(DbSet<TEntity> set)
+        where TEntity : EntityData, new()
     {
-        get
+        try
         {
-            var t = c?.GetType();
-            var props = t?.GetProperties(
-                BindingFlags.Instance |
-                BindingFlags.Public |
-                BindingFlags.DeclaredOnly
-            );
-            var dbProps = props?.Where(p => p.PropertyType.IsGenericType &&
-                p.PropertyType.GetGenericTypeDefinition() == typeof(DbSet<>));
-            var setObjects = dbProps?.Select(p => p.GetValue(c));
-            var notNull = setObjects?.Where(p => p is not null);
-            var result = notNull?.ToArray() ?? [];
-            return result;
+            var existingCount = set.Count();
+            var toGenerate = count - existingCount;
+            if (toGenerate <= 0) return;
+
+            var list = new List<TEntity>(batchSize);
+
+            if (typeof(TEntity) == typeof(PatientData) || typeof(TEntity) == typeof(DoctorData))
+            {
+                await SeedSpecialEntities<TEntity>(set, toGenerate, list);
+            }
+            else
+            {
+                foreach (var entity in GenerateGenericData<TEntity>(toGenerate))
+                {
+                    list.Add(entity);
+                    if (list.Count >= batchSize)
+                        await SaveBatch(set, list);
+                }
+            }
+
+            await SaveBatch(set, list);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error during seeding {typeof(TEntity).Name}: {ex.Message}");
+            throw;
         }
     }
-    private async Task seedData<TEntity>(DbSet<TEntity> set)
-       where TEntity : EntityData, new()
+
+    private async Task SeedSpecialEntities<TEntity>(DbSet<TEntity> set, int toGenerate, List<TEntity> list)
+        where TEntity : EntityData, new()
     {
-        var cnt = set.Count();
-        var list = new List<TEntity>(size);
-        foreach (var d in getData<TEntity>(count - cnt))
+        var names = await ai.GenerateRandomNamesWithGendersAsync(toGenerate);
+
+        foreach (var name in names)
         {
-            list.Add(d);
-            Thread.Sleep(1);
-            if (list.Count < size) continue;
-            await save(set, list);
+            var (first, last) = SplitName(name.FullName);
+            var gender = name.Gender == 0 ? Genders.Male : Genders.Female;
+
+            object? entity = typeof(TEntity) switch
+            {
+                var t when t == typeof(PatientData) => new PatientData
+                {
+                    FirstName = first,
+                    LastName = last,
+                    Gender = gender,
+                    DateOfBirth = MVC.Aids.Random.DateTime(DateTime.Now.AddYears(-60), DateTime.Now)
+                },
+                var t when t == typeof(DoctorData) => new DoctorData
+                {
+                    FirstName = first,
+                    LastName = last,
+                    Specialization = (Specialties?)MVC.Aids.Random.EnumOf(typeof(Specialties)),
+                    PhoneNumber = MVC.Aids.Random.Int64(10000000, 99999999)
+                },
+                _ => null
+            };
+
+            if (entity is TEntity typedEntity)
+                list.Add(typedEntity);
+
+            if (list.Count >= batchSize)
+                await SaveBatch(set, list);
         }
-        await save(set, list);
     }
-    private IEnumerable<TEntity> getData<TEntity>(int cnt) where TEntity : EntityData, new()
+
+    private static (string FirstName, string LastName) SplitName(string fullName)
     {
-        for (var i = 0; i < cnt; i++)
+        var cleaned = fullName.Trim().TrimEnd('.', ',', ';', '!', '?');
+        var parts = cleaned.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        return (parts.ElementAtOrDefault(0) ?? "Name", parts.ElementAtOrDefault(1) ?? "Surname");
+    }
+
+    private IEnumerable<TEntity> GenerateGenericData<TEntity>(int count)
+        where TEntity : EntityData, new()
+    {
+        for (int i = 0; i < count; i++)
         {
-            var d = MVC.Aids.Random.Object<TEntity>();
-            if (d is null) continue;
-            d.Id = 0;
-            yield return d;
+            var obj = MVC.Aids.Random.Object<TEntity>();
+            if (obj is null) continue;
+            obj.Id = 0;
+            yield return obj;
         }
     }
-    private async Task save<TEntity>(DbSet<TEntity> set, List<TEntity> list) where TEntity : EntityData, new()
+
+    private async Task SaveBatch<TEntity>(DbSet<TEntity> set, List<TEntity> list)
+        where TEntity : EntityData
     {
-        if (c is not null)
+        if (c is not null && list.Any())
         {
             set.AddRange(list);
             await c.SaveChangesAsync();
+            list.Clear();
         }
-        list.Clear();
     }
 }
-
