@@ -37,7 +37,7 @@ internal class Program
         using (var scope = app.Services.CreateScope()) // <-- Create a service scope
         {
             var initializer = scope.ServiceProvider.GetRequiredService<DbInitializer>();
-            await initializer.Initialize(100, 25); // <-- Seed data before app.Run
+            await initializer.Initialize(100); // <-- Seed data before app.Run
         }
 
         if (app.Environment.IsDevelopment())
