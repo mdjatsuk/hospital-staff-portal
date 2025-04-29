@@ -34,15 +34,10 @@ internal class Program
 
         var app = builder.Build();
 
-        using (var scope = app.Services.CreateScope()) // <-- Create a service scope
-        {
-            var initializer = scope.ServiceProvider.GetRequiredService<DbInitializer>();
-            await initializer.Initialize(100); // <-- Seed data before app.Run
-        }
-
         if (app.Environment.IsDevelopment())
         {
             app.UseMigrationsEndPoint();
+            seedData(app);
         }
         else
         {
@@ -63,5 +58,24 @@ internal class Program
             .WithStaticAssets();
 
         await app.RunAsync(); // <-- await here too
+    }
+
+    private static void seedData(WebApplication app)
+    {
+        Task.Run(async () => {
+            IServiceProvider? services = null;
+            try
+            {
+                using var scope = app.Services.CreateScope();
+                services = scope.ServiceProvider;
+                var initializer = scope.ServiceProvider.GetRequiredService<DbInitializer>();
+                await initializer.Initialize(150);
+            }
+            catch (Exception e)
+            {
+                var logger = services?.GetRequiredService<ILogger<Program>>();
+                logger?.LogError(e, "An error occurred while seeding the database.");
+            }
+        });
     }
 }

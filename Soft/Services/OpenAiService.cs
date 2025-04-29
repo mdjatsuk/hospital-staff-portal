@@ -23,11 +23,10 @@ public class OpenAiService
         var result = new List<(string FullName, Genders Gender)>();
         int generatedCount = 0;
         int maxBatchSize = 1000;
-        int minBatchSize = 200;
         toGenerate *= 2;
 
         // Ensure the batch size does not exceed the maximum allowed
-        var batchSize = Math.Min(toGenerate + minBatchSize, maxBatchSize);
+        var batchSize = Math.Min(toGenerate, maxBatchSize);
 
         int remainingNames = batchSize;
 

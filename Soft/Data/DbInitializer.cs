@@ -79,7 +79,7 @@ public class DbInitializer
             var existingCount = set.Count();
             var toGenerate = count - existingCount;
 
-            if (toGenerate <= 0 || toGenerate <= existingCount) return;
+            if (toGenerate <= 0) return;
 
             var list = new List<TEntity>(size);
 
