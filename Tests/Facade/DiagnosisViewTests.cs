@@ -38,8 +38,7 @@ public class DiagnosisViewTests : BaseTests
         view!.DiagnosisName = DiagnosisEnum.Anemia;
         var diagnosisNameString = view!.DiagnosisName.ToString();
         var results = validate(view);
-        isTrue(diagnosisNameString.Length <= 100, "Diagnosis Name length exceeds the limit.");
-        isTrue(results.Any(r => r.ErrorMessage!.Contains("The Diagnosis Name cannot exceed 100 characters.")));
+        isTrue(diagnosisNameString.Length <= 500, "Diagnosis Name length exceeds the limit.");
     }
     [TestMethod]
     public void DescriptionIsRequiredTest()

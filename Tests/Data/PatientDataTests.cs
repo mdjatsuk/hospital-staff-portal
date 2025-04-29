@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MVC.Tests.Data;
 
-[TestClass] public class PatientDataTests : ClassTests<PatientData, EntityData<PatientData>>
+[TestClass] public class PatientDataTests : SealedTests<PatientData, EntityData<PatientData>>
 {
     [TestInitialize] public override void Initialize()
     {
