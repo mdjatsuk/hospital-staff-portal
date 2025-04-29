@@ -15,9 +15,11 @@ internal class CopyTestClass2
 }
 [TestClass] public sealed class CopyTests : BaseTests
 {
+    protected override Type setType() => typeof(Copy);
     private CopyTestClass2? x;
-    [TestInitialize] public void Initialize()
+    [TestInitialize] public override void Initialize()
     {
+        base.Initialize();
         x = Copy.Members(new CopyTestClass1 { Id = 1, Name = "A", ValidFrom = DateTime.Now }, new CopyTestClass2());
     }
     [TestMethod] public void MembersTest() => equal("A", x?.Name);

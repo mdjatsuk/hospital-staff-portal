@@ -8,17 +8,20 @@ using System.Threading.Tasks;
 
 namespace MVC.Tests.Facade;
 
-[TestClass] public class DoctorViewFactoryTests : BaseTests
+[TestClass] public class DoctorViewFactoryTests : 
+    SealedTests<DoctorViewFactory, AbstractViewFactory<DoctorData, DoctorView>>
 {
     private DoctorData? data;
     private DoctorView? view;
-    [TestInitialize] public void TestInitialize()
+    [TestInitialize] public override void Initialize()
     {
+        base.Initialize();
         data = crData();
         view = crView();
     }
-    [TestCleanup] public void TestCleanup()
+    [TestCleanup] public override void Cleanup()
     {
+        base.Cleanup();
         data = null;
         view = null;
     }

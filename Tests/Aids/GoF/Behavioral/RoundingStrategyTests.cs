@@ -9,6 +9,7 @@ namespace MVC.Tests.Aids.GoF.Behavioral;
 
 [TestClass] public class RoundingStrategyTests : BaseTests
 {
+    protected override Type? setType() => typeof(RoundingStrategy);
     const double x = 14.451;
     const double y = -14.451;
     [DataRow(3, 5, x, x)]

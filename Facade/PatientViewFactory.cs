@@ -8,7 +8,5 @@ using System.Threading.Tasks;
 
 namespace MVC.Facade
 {
-    public sealed class PatientViewFactory : AbstractViewFactory<PatientData, PatientView> 
-    {
-    }
+    public sealed class PatientViewFactory : AbstractViewFactory<PatientData, PatientView> { }
 }
