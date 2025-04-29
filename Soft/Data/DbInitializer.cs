@@ -99,25 +99,31 @@ public class DbInitializer
     }
 
     private async Task SeedSpecialEntities<TEntity>(DbSet<TEntity> set, int toGenerate, List<TEntity> list)
-        where TEntity : EntityData, new()
+    where TEntity : EntityData, new()
     {
         var names = await ai.GenerateRandomNamesWithGendersAsync(toGenerate);
 
+        var doctorCount = 0;
+        var patientCount = 0;
+
         foreach (var name in names)
         {
+            if (doctorCount >= count && patientCount >= count)
+                break;  
+
             var (first, last) = SplitName(name.FullName);
             var gender = name.Gender == 0 ? Genders.Male : Genders.Female;
 
             object? entity = typeof(TEntity) switch
             {
-                var t when t == typeof(PatientData) => new PatientData
+                var t when t == typeof(PatientData) && patientCount < count => new PatientData
                 {
                     FirstName = first,
                     LastName = last,
                     Gender = gender,
                     DateOfBirth = MVC.Aids.Random.DateTime(DateTime.Now.AddYears(-60), DateTime.Now)
                 },
-                var t when t == typeof(DoctorData) => new DoctorData
+                var t when t == typeof(DoctorData) && doctorCount < count => new DoctorData
                 {
                     FirstName = first,
                     LastName = last,
@@ -128,12 +134,23 @@ public class DbInitializer
             };
 
             if (entity is TEntity typedEntity)
+            {
                 list.Add(typedEntity);
+
+                if (typeof(TEntity) == typeof(PatientData)) patientCount++;
+                if (typeof(TEntity) == typeof(DoctorData)) doctorCount++;
+            }
+
+            if (doctorCount >= count && patientCount >= count)
+                break;
 
             if (list.Count >= batchSize)
                 await SaveBatch(set, list);
         }
+
+        await SaveBatch(set, list);
     }
+
 
     private static (string FirstName, string LastName) SplitName(string fullName)
     {
