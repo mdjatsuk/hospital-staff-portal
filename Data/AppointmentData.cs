@@ -5,7 +5,6 @@ namespace MVC.Data;
 
 public sealed class AppointmentData : EntityData<AppointmentData>
 {
-    public int DiagnosisNameId { get; set; }
     public int DoctorId { get; set; }
     public int PatientId { get; set; }
     public DateTime? Date { get; set; }
