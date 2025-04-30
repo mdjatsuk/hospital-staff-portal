@@ -19,10 +19,8 @@ namespace MVC.Soft.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DoctorId = table.Column<int>(type: "int", nullable: false),
                     PatientId = table.Column<int>(type: "int", nullable: false),
-                    DoctorFullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PatientFullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Room = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AppointmentFee = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>

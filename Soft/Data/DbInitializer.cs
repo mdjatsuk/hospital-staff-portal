@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Globalization;
+using Microsoft.EntityFrameworkCore;
 using MVC.Data;
 using MVC.Domain;
 using MVC.Soft.Data;
 using System.Reflection;
+using Microsoft.CodeAnalysis;
 
 public class DbInitializer
 {
@@ -117,7 +119,7 @@ public class DbInitializer
             var (first, last) = SplitName(name.fullName);
             var gender = name.gender;
 
-            object? entity = CreateEntity<TEntity>(first, last, gender, null, Diagnoses.Unknown);
+            object? entity = CreateEntity<TEntity>(first, last, gender, null, Diagnoses.Unknown, null);
 
             if (entity is TEntity typedEntity)
             {
@@ -142,7 +144,7 @@ public class DbInitializer
 
             Diagnoses diagnosis = descriptionsWithDiagnosis.diagnosis;
 
-            object? entity = CreateEntity<TEntity>(null, null, Genders.Unknown, description, diagnosis);
+            object? entity = CreateEntity<TEntity>(null, null, Genders.Unknown, description, diagnosis, null);
 
             if (entity is TEntity typedEntity)
             {
@@ -162,11 +164,33 @@ public class DbInitializer
 
     private async Task SeedAppointmentData<TEntity>(DbSet<TEntity> set, int toGenerate, List<TEntity> list) where TEntity : EntityData, new()
     {
-        throw new NotImplementedException();
+        var rooms = await ai.GenerateRandomRoomsAsync(toGenerate);
+
+        foreach (var room in rooms)
+        {
+            if (list.Count >= count) break;
+
+            object? entity = CreateEntity<TEntity>(null, null, Genders.Unknown, null, Diagnoses.Unknown, room);
+
+            if (entity is TEntity typedEntity)
+            {
+                list.Add(typedEntity);
+            }
+
+            if (list.Count >= batchSize)
+            {
+                await SaveBatch(set, list);
+            }
+        }
+        if (list.Any())
+        {
+            await SaveBatch(set, list);
+        }
+
     }
 
 
-    private object? CreateEntity<TEntity>(string? firstName, string? lastName, Genders gender, string? description, Diagnoses diagnosis)
+    private object? CreateEntity<TEntity>(string? firstName, string? lastName, Genders gender, string? description, Diagnoses diagnosis, string? room)
     {
         if (typeof(TEntity) == typeof(PatientData))
         {
@@ -201,9 +225,11 @@ public class DbInitializer
         {
             return new AppointmentData()
             {
-                DiagnosisName = diagnosis,
-                Description = description,
-                RequiresSurgery = MVC.Aids.Random.Boolean()
+                DoctorId = MVC.Aids.Random.Int32(1, count),
+                PatientId = MVC.Aids.Random.Int32(1, count),
+                Date = MVC.Aids.Random.DateTime(DateTime.Now, DateTime.Now.AddDays(30)),
+                Room = room,
+                AppointmentFee = MVC.Aids.Random.Double(50, 500)
             };
         }
 

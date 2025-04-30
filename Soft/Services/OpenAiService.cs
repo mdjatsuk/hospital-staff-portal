@@ -176,4 +176,15 @@ public class OpenAiService
         }));
     }
 
+    public async Task<List<string>> GenerateRandomRoomsAsync(int toGenerate)
+    {
+        string instruction = $"You are an API that generates realistic hospital room codes. " +
+                             $"Each room must consist of two uppercase letters followed by three digits, like 'AB302'. " +
+                             $"Generate exactly {toGenerate} unique room codes. Separate each room code with a semicolon (;). " +
+                             $"No extra text.";
+
+        return await GenerateDataAsync(toGenerate, instruction, ParseResponseToList);
+    }
+
+
 }

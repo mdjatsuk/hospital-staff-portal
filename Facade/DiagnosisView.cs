@@ -8,7 +8,7 @@ namespace MVC.Facade;
 public sealed class DiagnosisView : EntityView
 {
     [Display(Name = diagnosName), Required]
-    public DiagnosisEnum? DiagnosisName { get; set; }
+    public Diagnoses? DiagnosisName { get; set; }
 
     [Required, StringLength(descriptionLength, ErrorMessage = descriptionError)]
     public string? Description { get; set; }

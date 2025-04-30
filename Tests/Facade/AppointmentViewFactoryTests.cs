@@ -33,7 +33,7 @@ namespace MVC.Tests.Facade;
             DoctorId = 2,
             PatientId = 3,
             Date = DateTime.Today,
-            Location = "View Location",
+            Room = "View Location",
             AppointmentFee = 200.0
         };
         return v;
@@ -46,7 +46,7 @@ namespace MVC.Tests.Facade;
             DoctorId = 4,
             PatientId = 5,
             Date = DateTime.Today.AddDays(-1),
-            Location = "Data Location",
+            Room = "Data Location",
             AppointmentFee = 300.0
         };
         return d;
@@ -60,7 +60,7 @@ namespace MVC.Tests.Facade;
         equal(data?.DoctorId, v.DoctorId);
         equal(data?.PatientId, v.PatientId);
         equal(data?.Date, v.Date);
-        equal(data?.Location, v.Location);
+        equal(data?.Room, v.Room);
         equal(data?.AppointmentFee, v.AppointmentFee);
     }
     [TestMethod] public void CreateDataTest()
@@ -72,7 +72,7 @@ namespace MVC.Tests.Facade;
         equal(view?.DoctorId, d.DoctorId);
         equal(view?.PatientId, d.PatientId);
         equal(view?.Date, d.Date);
-        equal(view?.Location, d.Location);
+        equal(view?.Room, d.Room);
         equal(view?.AppointmentFee, d.AppointmentFee);
     }
 }

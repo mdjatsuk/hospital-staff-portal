@@ -18,7 +18,7 @@ namespace MVC.Tests.Domain;
             DoctorId = 2,
             PatientId = 3,
             Date = DateTime.Today,
-            Location = "Test Location",
+            Room = "Test Location",
             AppointmentFee = 100.0
         };
         return new Appointment(d);

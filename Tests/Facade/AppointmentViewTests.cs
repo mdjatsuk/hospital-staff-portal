@@ -18,7 +18,7 @@ namespace MVC.Tests.Facade;
     [TestMethod] public void PatientIdTest() => isProperty<int>("Patient");
     [TestMethod] public void DoctorTest() => isProperty<string?>("Doctor");
     [TestMethod] public void PatientTest() => isProperty<string?>("Patient");
-    [TestMethod] public void LocationTest() => isProperty<string?>(null, EntityView.locationEx);
+    [TestMethod] public void LocationTest() => isProperty<string?>(null, EntityView.RoomEx);
     [TestMethod] public void AppointmentFeeTest() => isProperty<double?>("Appointment Fee");
     protected override Type setType() => typeof(AppointmentView);
     private AppointmentView? view;
@@ -30,7 +30,7 @@ namespace MVC.Tests.Facade;
             DoctorId = 2,
             PatientId = 3,
             Date = DateTime.Today,
-            Location = "Valid Location",
+            Room = "Valid Location",
             AppointmentFee = 100.0
         };
     }
@@ -42,7 +42,7 @@ namespace MVC.Tests.Facade;
     }
     [TestMethod] public void LocationValidationTest()
     {
-        view!.Location = "invalid location";
+        view!.Room = "invalid location";
         var results = validate(view);
         isTrue(results.Any(r => r.ErrorMessage!.Contains("Location must start with a capital letter.")));
     }
