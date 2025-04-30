@@ -11,7 +11,7 @@ namespace MVC.Tests.Data;
 {
     [TestMethod] public void FirstNameTest() => isProperty<string>();
     [TestMethod] public void LastNameTest() => isProperty<string>();
-    [TestMethod] public void SpecializationTest() => isProperty<Specialties?>();
+    [TestMethod] public void SpecializationTest() => isProperty<Specialities?>();
     [TestMethod] public void PhoneNumberTest() => isProperty<long?>();
     [TestInitialize] public override void Initialize()
     {
@@ -19,7 +19,7 @@ namespace MVC.Tests.Data;
         if (obj == null) return;
         obj.FirstName = "John";
         obj.LastName = "Doe";
-        obj.Specialization = Specialties.Cardiology;
+        obj.Specialization = Specialities.Cardiology;
         obj.PhoneNumber = 12345678;
     }
     [TestMethod] public void CloneTest()
@@ -28,7 +28,7 @@ namespace MVC.Tests.Data;
         notNull(d);
         equal("John", d?.FirstName);
         equal("Doe", d?.LastName);
-        equal(Specialties.Cardiology, d?.Specialization);
+        equal(Specialities.Cardiology, d?.Specialization);
         equal(12345678, d?.PhoneNumber);
     }
 }

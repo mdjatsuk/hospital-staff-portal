@@ -17,14 +17,14 @@ namespace MVC.Tests.Domain;
             Id = 1,
             FirstName = "John",
             LastName = "Doe",
-            Specialization = Specialties.Cardiology,
+            Specialization = Specialities.Cardiology,
             PhoneNumber = 12345678
         };
         return new Doctor(d);
     }
     [TestMethod] public void FirstNameTest() => equal("John", obj?.FirstName);
     [TestMethod] public void LastNameTest() => equal("Doe", obj?.LastName);
-    [TestMethod] public void SpecializationTest() => equal(Specialties.Cardiology, obj?.Specialization);
+    [TestMethod] public void SpecializationTest() => equal(Specialities.Cardiology, obj?.Specialization);
     [TestMethod] public void PhoneNumberTest() => equal(12345678, obj?.PhoneNumber);
     [TestMethod] public void FullNameTest() => equal("John Doe", obj?.FullName);
     [TestMethod] public void IdTest() => equal(1, obj?.Id);

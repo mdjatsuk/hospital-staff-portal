@@ -10,7 +10,6 @@ namespace MVC.Tests.Data;
 
 [TestClass] public class AppointmentDataTests : SealedTests<AppointmentData, EntityData<AppointmentData>>
 {
-    [TestMethod] public void DiagnosisNameIdTest() => isProperty<int>();
     [TestMethod] public void DoctorIdTest() => isProperty<int>();
     [TestMethod] public void PatientIdTest() => isProperty<int>();
     [TestMethod] public void DateTest() => isProperty<DateTime?>();
