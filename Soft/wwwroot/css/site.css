@@ -148,3 +148,44 @@ footer,
     color: black;
     text-decoration: none;
 }
+
+/* Add shadow and hover effect to the hospital-avatar image */
+.highlight-image {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.highlight-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Add shadow and hover effect to buttons */
+.shadow-button {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.shadow-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Style for the navbar logo */
+.navbar-logo {
+    height: 70px; /* Adjust height for a larger size */
+    width: 140px; /* Adjust width for a rectangular shape */
+    border-radius: 15px; /* Adds rounded edges */
+    object-fit: cover; /* Ensures the image scales properly within the rectangle */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow for a modern look */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover animation */
+}
+
+/* Hover effect for the logo */
+.navbar-logo:hover {
+    transform: scale(1.05); /* Slightly enlarges the image on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Intensifies the shadow on hover */
+}
+
+
+
