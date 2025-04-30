@@ -9,7 +9,7 @@ namespace MVC.Facade;
     public string? FirstName { get; set; }
     [Display(Name = lastName), Required, StringLength(nameLength, MinimumLength = minNameLength, ErrorMessage = lastNameError)]
     public string? LastName { get; set; }
-    [Display(Name = specializationName), Required] public Specialties? Specialization { get; set; }
+    [Display(Name = specializationName), Required] public Specialities? Specialization { get; set; }
 
     [Display(Name = phoneNumberName), Required, Range(50000000, 59999999, ErrorMessage = phoneNumberError)]
     public long? PhoneNumber { get; set; }

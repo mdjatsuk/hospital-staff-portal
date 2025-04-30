@@ -9,7 +9,10 @@ public abstract class AssemblyTests(string namespaceName) : BaseTests
     [TestMethod]
     public override void IsTested()
     {
-        var testNamespace = namespaceName.Replace("MVC", "MVC.Tests");
+        var testNamespace = string.Empty;
+        if (namespaceName.StartsWith("MVC"))
+            testNamespace = namespaceName.Replace("MVC", "MVC.Tests");
+        else testNamespace = "MVC.Tests." + namespaceName;
         var testAssembly = Assembly.GetExecutingAssembly();
         var testClasses = testAssembly
             .GetTypes()
@@ -19,15 +22,18 @@ public abstract class AssemblyTests(string namespaceName) : BaseTests
 
         var domain = AppDomain.CurrentDomain;
         var assemblies = domain.GetAssemblies();
-        namespaceName = namespaceName.Replace("MVC", "");
-
+        var assemblyName = namespaceName.Replace("Mvc", "");
         var assembly = assemblies
-            .FirstOrDefault(a => (a?.FullName is not null) && a.FullName.StartsWith(namespaceName));
+            .FirstOrDefault(a => a.FullName?.StartsWith(namespaceName) ?? false);
+        if (assembly == null) assembly = assemblies
+            .FirstOrDefault(a => a.FullName?.StartsWith(assemblyName) ?? false);
         if (assembly == null) notTested($"Assembly {namespaceName} not found.");
 
         var classes = assembly?
             .GetTypes()
-            .Select(t => t.Name).Select(t => {
+            .Where(t => !t.IsInterface && t.IsPublic)
+            .Select(t => t.Name)
+            .Select(t => {
                 var i = t.IndexOf('`');
                 return i > 0 ? t.Substring(0, i) : t;
             })

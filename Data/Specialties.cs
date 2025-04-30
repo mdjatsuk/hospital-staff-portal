@@ -1,6 +1,6 @@
 ﻿namespace MVC.Data;
 
-public enum Specialties
+public enum Specialities
 {
     Nephrology = 0,
     Endocrinology = 1,

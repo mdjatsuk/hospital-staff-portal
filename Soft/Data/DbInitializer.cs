@@ -128,7 +128,7 @@ public class DbInitializer
                 {
                     FirstName = first,
                     LastName = last,
-                    Specialization = (Specialties?)MVC.Aids.Random.EnumOf(typeof(Specialties)),
+                    Specialization = (Specialities?)MVC.Aids.Random.EnumOf(typeof(Specialities)),
                     PhoneNumber = MVC.Aids.Random.Int64(10000000, 99999999)
                 },
                 _ => null

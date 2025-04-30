@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.Routing.Matching;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
-using System.Formats.Asn1;
 using System.Reflection;
 
 namespace MVC.Tests;
@@ -60,7 +59,34 @@ public abstract class BaseTests
         canSet(pi!, v);
         canGet(pi!, v);
     }
-
+    protected void isProperty<T>(string? displayName,DataType? dataType = null, bool isReadOnly = false)
+    {
+        isProperty<T>(isReadOnly);
+        var pi = getPropertyInfo();
+        isDisplayName(pi, displayName);
+        isDataType(pi, dataType);
+    }
+    protected void isProperty<T>(string? displayName, string regExpr, bool isReadOnly = false)
+    {
+        isProperty<T>(displayName,(DataType?) null, isReadOnly);
+        var pi = getPropertyInfo();
+        isRegularExpr(pi, regExpr);
+    }
+    private void isRegularExpr(PropertyInfo? pi, string regExpr)
+    {
+        var actual = pi?.GetCustomAttribute<RegularExpressionAttribute>()?.Pattern;
+        equal(regExpr, actual);
+    }
+    private void isDataType(PropertyInfo? pi, DataType? dataType)
+    {
+        var actual = pi?.GetCustomAttribute<DataTypeAttribute>()?.DataType;
+        equal(dataType,actual);
+    }
+    private void isDisplayName(PropertyInfo? pi, string? displayName)
+    {
+        var actual = pi?.GetCustomAttribute<DisplayAttribute>()?.Name;
+        equal(actual, displayName);
+    }
     protected PropertyInfo? getPropertyInfo()
     {
         var n = getPropertyName();
@@ -91,4 +117,47 @@ public abstract class BaseTests
     protected void canWrite(PropertyInfo pi) => isTrue(pi.CanWrite, $"Property '{pi.Name}' does not have a setter.");
     protected virtual void canSet<T>(PropertyInfo pi, T? v) => fail();
     protected virtual void canGet<T>(PropertyInfo pi, T? v) => fail();
+}
+
+public abstract class EnumTests<TEnum>(int count) : BaseTests where TEnum : Enum
+{
+    protected override Type setType() => typeof(TEnum);
+    protected string[] membersName { get; set; } = getNames();
+
+    private static string[] getNames()
+    {
+        var t = typeof(TEnum);
+        var fields = t.GetFields(BindingFlags.Public | BindingFlags.Static);
+        var names = fields.Select(f => f.Name);
+        var result = names.ToArray();
+        return result;
+    }
+
+    [TestMethod] public void CountTest() => equal(membersName.Length, count);
+
+    [TestMethod]
+    public override void IsTested()
+    {
+        var testMethods = GetType()
+            .GetMethods(BindingFlags.Public | BindingFlags.Instance)
+            .Where(m => m.GetCustomAttribute<TestMethodAttribute>() != null)
+            .Select(m => m.Name).ToArray();
+        notNull(type);
+        var members = membersName
+            .Where(name => !testMethods.Contains(name + "Test"))
+            .ToArray();
+        if (members.Length == 0) return;
+        var notTestedMembers = string.Join(", ", members);
+        if (members.Length == 1)
+            notTested($"Test method for <{notTestedMembers}> not found.");
+        notTested($"Test methods for <{notTestedMembers}> not found.");
+    }
+
+    protected void isEnum(int value)
+    {
+        var name = getPropertyName();
+        notNull(name);
+        var actual = Enum.Parse(typeof(TEnum), name!);
+        equal((int)actual, value);
+    }
 }
