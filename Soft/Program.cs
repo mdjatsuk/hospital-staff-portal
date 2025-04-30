@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using MVC.Core;
 using MVC.Domain;
 using MVC.Infra;
 using MVC.Soft.Data;
+using MVC.Soft.Services;
 
 internal class Program
 {
@@ -30,6 +32,9 @@ internal class Program
 
         builder.Services.AddTransient<DbInitializer>();
         builder.Services.AddSingleton<OpenAiService>();
+
+        builder.Services.AddTransient<IEmailSender, EmailSender>();
+        builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 
         Services.init(builder.Services);
 
