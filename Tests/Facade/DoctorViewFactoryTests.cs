@@ -32,7 +32,7 @@ namespace MVC.Tests.Facade;
             Id = 1,
             FirstName = "View First Name",
             LastName = "View Last Name",
-            Specialization = Specialties.Cardiology,
+            Specialization = Specialities.Cardiology,
             PhoneNumber = 12345678
         };
         return v;
@@ -44,7 +44,7 @@ namespace MVC.Tests.Facade;
             Id = 1000,
             FirstName = "Data First Name",
             LastName = "Data Last Name",
-            Specialization = Specialties.Neurology,
+            Specialization = Specialities.Neurology,
             PhoneNumber = 87654321
         };
         return d;

@@ -20,7 +20,7 @@ namespace MVC.Tests.Facade;
             Id = 1,
             FirstName = "Valid First Name",
             LastName = "Valid Last Name",
-            Specialization = Specialties.Cardiology,
+            Specialization = Specialities.Cardiology,
             PhoneNumber = 12345678
         };
     }
