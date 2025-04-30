@@ -1,4 +1,5 @@
-﻿using MVC.Data;
+﻿using MVC.Aids.Attributes;
+using MVC.Data;
 using MVC.Facade;
 using System;
 using System.Collections.Generic;
@@ -9,8 +10,13 @@ using System.Threading.Tasks;
 
 namespace MVC.Tests.Facade;
 
-[TestClass] public class PatientViewTests : BaseTests
+[TestClass] public class PatientViewTests : SealedTests<PatientView, EntityView>
 {
+    [TestMethod] public override void DisplayNameTest() => isDisplayName("Patients");
+    [TestMethod] public void FirstNameTest() => isProperty<string?>("First Name");
+    [TestMethod] public void LastNameTest() => isProperty<string?>("Last Name");
+    [TestMethod] public void DateOfBirthTest() => isProperty<DateTime?>("Date Of Birth", DataType.Date);
+    [TestMethod] public void GenderTest() => isProperty<Genders?>(null);
     protected override Type setType() => typeof(PatientView);
     private PatientView? view;
     [TestInitialize] public void TestInitialize()

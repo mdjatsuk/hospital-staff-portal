@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.Routing.Matching;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
-using System.Formats.Asn1;
 using System.Reflection;
 
 namespace MVC.Tests;
@@ -60,7 +59,34 @@ public abstract class BaseTests
         canSet(pi!, v);
         canGet(pi!, v);
     }
-
+    protected void isProperty<T>(string? displayName,DataType? dataType = null, bool isReadOnly = false)
+    {
+        isProperty<T>(isReadOnly);
+        var pi = getPropertyInfo();
+        isDisplayName(pi, displayName);
+        isDataType(pi, dataType);
+    }
+    protected void isProperty<T>(string? displayName, string regExpr, bool isReadOnly = false)
+    {
+        isProperty<T>(displayName,(DataType?) null, isReadOnly);
+        var pi = getPropertyInfo();
+        isRegularExpr(pi, regExpr);
+    }
+    private void isRegularExpr(PropertyInfo? pi, string regExpr)
+    {
+        var actual = pi?.GetCustomAttribute<RegularExpressionAttribute>()?.Pattern;
+        equal(regExpr, actual);
+    }
+    private void isDataType(PropertyInfo? pi, DataType? dataType)
+    {
+        var actual = pi?.GetCustomAttribute<DataTypeAttribute>()?.DataType;
+        equal(dataType,actual);
+    }
+    private void isDisplayName(PropertyInfo? pi, string? displayName)
+    {
+        var actual = pi?.GetCustomAttribute<DisplayAttribute>()?.Name;
+        equal(actual, displayName);
+    }
     protected PropertyInfo? getPropertyInfo()
     {
         var n = getPropertyName();
