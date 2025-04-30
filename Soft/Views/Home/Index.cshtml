@@ -4,29 +4,26 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
-<div class="container mt-1">
-	<div class="p-5 mx-auto shadow-sm" 
-	     style="max-width: 1300px; 
-	            border-radius: 20px;
-	            background: linear-gradient(135deg, rgba(59,130,246,0.9), rgba(96,165,250,0.85));
-	            backdrop-filter: blur(10px);
-	            color: white;
-	            text-align: center;">
-		<h1 class="display-5" style="font-family: 'Poppins', sans-serif; font-weight: 700; letter-spacing: 0.5px;">
-			Hospital Info System
-		</h1>
-		<p class="mt-5" style="font-family: 'Roboto', sans-serif; font-size: 1.1rem; opacity: 0.95;">
-			Streamline your workflow and manage hospital operations efficiently.
-		</p>
-	</div>
+<div class="container mt-1 fade-in-zoom">
+    <div class="p-5 mx-auto shadow-sm"
+         style="max-width: 1300px;
+                border-radius: 20px;
+                background: linear-gradient(135deg, rgba(59,130,246,0.9), rgba(96,165,250,0.85));
+                backdrop-filter: blur(10px);
+                color: white;
+                text-align: center;">
+        <h1 class="display-5" style="font-family: 'Poppins', sans-serif; font-weight: 700; letter-spacing: 0.5px;">
+            Hospital Info System
+        </h1>
+        <p class="mt-5" style="font-family: 'Roboto', sans-serif; font-size: 1.1rem; opacity: 0.95;">
+            Streamline your workflow and manage hospital operations efficiently.
+        </p>
+    </div>
 </div>
 
-
-
-<div class="container mt-5 mb-5">
+<div class="container mt-5 mb-5 fade-in-zoom">
 	<div class="row justify-content-center">
-		@foreach (var card in new[] 
-		          {
+		@foreach (var card in new[] {
 			          new { Title = "Manage Appointments", Text = "Schedule, view, or update appointments for patients with ease.", Link = "/Appointments", ButtonText = "Manage Appointments" },
 			          new { Title = "Our Doctors", Text = "View and collaborate with your fellow medical professionals.", Link = "/Doctors", ButtonText = "View Doctors" },
 			          new { Title = "Patient Records", Text = "Access and manage patient records securely and efficiently.", Link = "/Patients", ButtonText = "View Records" },
@@ -37,10 +34,11 @@
 			<div class="col-md-4 mb-4">
 				<div class="card">
 					<div class="card-body text-center">
-						<h5 class="card-title">@card.Title</h5>
-						<p class="card-text">@card.Text</p>
-						<div class="d-grid gap-3">
+						<h5 class="card-title" style="font-family: 'Poppins', sans-serif; font-weight: 600; color: #3b82f6;">@card.Title</h5>
+						<p class="card-text" style="font-family: 'Roboto', sans-serif; color: #475569;">@card.Text</p>
+						<div class="d-grid gap-2">
 							<a href="@card.Link" class="btn btn-outline-primary">@card.ButtonText</a>
+
 						</div>
 					</div>
 				</div>
