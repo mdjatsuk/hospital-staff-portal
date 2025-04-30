@@ -1,9 +1,9 @@
 ﻿using MVC.Core;
 using MVC.Domain;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
-public class MedicalRecord(MedicalRecordData d) : Entity<MedicalRecordData>(d)
+public sealed class MedicalRecord(MedicalRecordData? d) : Entity<MedicalRecordData>(d)
 {
+    public MedicalRecord() : this(null) { }
     public int PatientId => data?.PatientId ?? 0;
     public int DiagnosisId => data?.DiagnosisId ?? 0;
     public DateTime? DiagnosedOn => data?.DiagnosedOn;

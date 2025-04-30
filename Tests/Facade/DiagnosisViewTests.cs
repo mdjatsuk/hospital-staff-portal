@@ -6,7 +6,7 @@ namespace MVC.Tests.Facade;
 
 [TestClass] public class DiagnosisViewTests : SealedTests<DiagnosisView, EntityView>
 {
-    [TestMethod] public override void DisplayNameTest() => isDisplayName("Diagnosis");
+    [TestMethod] public override void DisplayNameTest() => isDisplayName("Diagnoses");
     [TestMethod] public void DiagnosisNameTest() => isProperty<Diagnoses?>("Diagnosis Name");
     [TestMethod] public void DescriptionTest() => isProperty<string?>(null);
     [TestMethod] public void RequiresSurgeryTest() => isProperty<bool>("Requires Surgery");

@@ -3,8 +3,9 @@ using MVC.Data;
 
 namespace MVC.Domain;
 
-public class Doctor(DoctorData d) : Entity<DoctorData>(d)
+public sealed class Doctor(DoctorData? d) : Entity<DoctorData>(d)
 {
+    public Doctor() : this(null) { }
     public string? FirstName => data?.FirstName;
     public string? LastName => data?.LastName;
     public Specialities? Specialization => data?.Specialization;

@@ -2,7 +2,12 @@
 
 namespace MVC.Domain;
 
-public class Entity<TData>(TData? d) where TData : EntityData<TData>
+public interface IEntity
+{
+    public int? Id { get; }
+    public Task LoadLazy();
+}
+public class Entity<TData>(TData? d) : IEntity where TData : EntityData<TData>
 {
     public TData? data { get; } = d?.Clone();
     public int? Id => data?.Id;

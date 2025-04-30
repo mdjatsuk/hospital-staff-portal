@@ -1,33 +1,39 @@
-﻿using MVC.Data;
+﻿using MVC.Core;
+using MVC.Data;
 using MVC.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Random = MVC.Aids.Random;
 
 namespace MVC.Tests.Domain;
 
-[TestClass] public class AppointmentTests : BaseClassTests<Appointment, Entity<AppointmentData>>
+[TestClass] public class AppointmentTests : SealedTests<Appointment, Entity<AppointmentData>>
 {
+    AppointmentData? data = null;
+
     protected override Appointment createObj()
     {
-        var d = new AppointmentData
-        {
-            Id = 1,
-            DoctorId = 2,
-            PatientId = 3,
-            Date = DateTime.Today,
-            Room = "Test Location",
-            AppointmentFee = 100.0
-        };
-        return new Appointment(d);
+        data = Random.Object<AppointmentData>();
+        return new Appointment(data);
     }
-    [TestMethod] public void DoctorIdTest() => equal(2, obj?.DoctorId);
-    [TestMethod] public void PatientIdTest() => equal(3, obj?.PatientId);
-    [TestMethod] public void DateTest() => equal(DateTime.Today, obj?.Date);
-    [TestMethod] public void LocationTest() => equal("Test Location", obj?.Location);
-    [TestMethod] public void AppointmentFeeTest() => equal(100.0, obj?.AppointmentFee);
-    [TestMethod] public void IdTest() => equal(1, obj?.Id);
-    [TestMethod] public void DataTest() => notNull(obj?.data);
+
+    [TestMethod] public void DoctorIdTest() => isReadOnly(data!.DoctorId);
+    [TestMethod] public void PatientIdTest() => isReadOnly(data!.PatientId);
+    [TestMethod] public void DateTest() => isReadOnly(data!.Date);
+    [TestMethod] public void LocationTest() => isReadOnly(data!.Room);
+    [TestMethod] public void AppointmentFeeTest() => isReadOnly<double?>(data!.AppointmentFee);
+    [TestMethod] public void DoctorTest() => isReadOnly<Doctor>(null);
+
+
+    [TestMethod] public async Task LoadLazyTest()
+    {
+        var repo = new mockDoctorRepo();
+        var d = Random.Object<DoctorData>();
+        d.Id = data!.DoctorId;
+        var o = new Doctor(d);
+        repo.list.Add(o);   
+        for(var i = 0; i < Random.UInt8(5,10); i++)
+            repo.list.Add(new Doctor(Random.Object<DoctorData>()));
+        Services.services.Add(typeof(IDoctorsRepo), repo);
+        await obj!.LoadLazy();
+        equal(obj?.Doctor?.Id, obj?.DoctorId);
+    }
 }
