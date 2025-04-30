@@ -165,7 +165,13 @@ public static class HtmlTableFor
         {
             if (hasSelect)
             {
-                tdActions.InnerHtml.AppendHtml(h.ActionLink("Select", "Index", controllerName,
+                var buttonText = typeof(TModel).Name switch
+                {
+                    "PatientView" => "Diagnoses",
+                    "DoctorView" => "Patients",
+                    _ => "Select"
+                };
+                tdActions.InnerHtml.AppendHtml(h.ActionLink(buttonText, "Index", controllerName,
                     new { selectedId = itemId, pageIdx = h.ViewBag.PageIdx, orderBy = h.ViewBag.OrderBy, filter = h.ViewBag.Filter }));
                 tdActions.InnerHtml.Append(" | ");
             }
