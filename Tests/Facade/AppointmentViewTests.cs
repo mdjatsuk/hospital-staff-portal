@@ -14,6 +14,7 @@ namespace MVC.Tests.Facade;
 
 [TestClass] public class AppointmentViewTests : SealedTests<AppointmentView, EntityView>
 {
+    [TestMethod] public override void DisplayNameTest() => isDisplayName("Appointments");
     [TestMethod] public void DateTest() => isProperty<DateTime?>("Date");
     [TestMethod] public void DoctorIdTest() => isProperty<int>("Doctor");
     [TestMethod] public void PatientIdTest() => isProperty<int>("Patient");

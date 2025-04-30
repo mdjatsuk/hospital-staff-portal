@@ -1,6 +1,7 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -19,6 +20,13 @@ public abstract class SealedTests<TClass, TBaseClass> : ClassTests<TClass, TBase
     where TBaseClass : class
 {
     [TestMethod] public void IsSealedTest() => isTrue(typeof(TClass).IsSealed);
+    [TestMethod] public virtual void DisplayNameTest() => isDisplayName();
+
+    protected void isDisplayName(string? displayName = null)
+    {
+        var actual = type?.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName;
+        equal(displayName, actual);
+    }
 }
 public abstract class AbstractTests<TClass, TBaseClass> : BaseClassTests<TClass, TBaseClass>
     where TClass : class

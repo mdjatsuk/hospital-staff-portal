@@ -11,6 +11,7 @@ namespace MVC.Tests.Facade;
 
 [TestClass] public class DoctorViewTests : SealedTests<DoctorView, EntityView>
 {
+    [TestMethod] public override void DisplayNameTest() => isDisplayName("Doctors");
     [TestMethod] public void FirstNameTest() => isProperty<string?>("First Name");
     [TestMethod] public void LastNameTest() => isProperty<string?>("Last Name");
     [TestMethod] public void SpecializationTest() => isProperty<Specialities?>("Specialization");
