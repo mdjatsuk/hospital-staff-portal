@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace MVC.Tests.Domain;
 
 [TestClass]
-public class DiagnosisTests : BaseClassTests<Diagnosis, Entity<DiagnosisData>>
+public class DiagnosisTests : SealedTests<Diagnosis, Entity<DiagnosisData>>
 {
     protected override Diagnosis createObj()
     {
