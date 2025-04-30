@@ -114,13 +114,13 @@ public static class Random
         if (t.IsEnum) return EnumOf(t);
         if (t == typeof(bool)) return Boolean();
         if (t == typeof(char)) return Char('A', 'Z');
-        if (t == typeof(DateTime)) return DateTime(System.DateTime.Now.AddYears(-10), System.DateTime.Now.AddYears(10));
+        if (t == typeof(DateTime)) return DateTime(System.DateTime.Now.AddYears(-60), System.DateTime.Now);
         if (t == typeof(decimal)) return Decimal(-100.00m, 100.00m).DoRound(s);
         if (t == typeof(double)) return Double(-100.0, 100.0).DoRound(s);
         if (t == typeof(float)) return Float(-10.0f, 10.0f).DoRound(s);
         if (t == typeof(sbyte)) return Int8(-10, 10);
         if (t == typeof(short)) return Int16(-100, 100);
-        if (t == typeof(int)) return Int32(-1000, 1000);
+        if (t == typeof(int)) return Int32(1, 1000);
         if (t == typeof(long)) return Int64(50000000, 59999999);
         if (t == typeof(string)) return String(5, 10, "abcdefghijklmnopqrstuvwxyz");
         if (t == typeof(byte)) return UInt8(0, 10);

@@ -24,29 +24,28 @@
 
 
 <div class="container mt-5 mb-5">
-    <div class="row justify-content-center">
-        @foreach (var card in new[]
-        {
-        new { Title = "Manage Appointments", Text = "Schedule, view, or update appointments for patients with ease.", Link = "/Appointments", ButtonText = "Manage Appointments" },
-        new { Title = "Our Doctors", Text = "View and collaborate with your fellow medical professionals.", Link = "/Doctors", ButtonText = "View Doctors" },
-        new { Title = "Patient Records", Text = "Access and manage patient records securely and efficiently.", Link = "/Patients", ButtonText = "View Records" },
-        new { Title = "Diagnoses", Text = "Review and manage diagnoses and treatment plans with precision.", Link = "/Diagnoses", ButtonText = "View Diagnoses" },
-        new { Title = "Medical Records", Text = "Easily access, review, and manage comprehensive medical records.", Link = "/MedicalRecords", ButtonText = "View Medical Records" }
-        })
-        {
-            <div class="col-md-4 mb-4">
-                <div class="card" style="border: none; border-radius: 15px; overflow: hidden; background: #f8fafc; box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08); transition: transform 0.3s;">
-                    <div class="card-body text-center" style="padding: 30px;">
-                        <h5 class="card-title" style="font-family: 'Poppins', sans-serif; font-weight: 600; color: #3b82f6;">@card.Title</h5>
-                        <p class="card-text" style="font-family: 'Roboto', sans-serif; color: #475569; margin: 15px 0;">@card.Text</p>
-                        <div class="d-grid gap-3">
-                            <a href="@card.Link" class="btn btn-outline-primary" style="border-radius: 30px; padding: 10px 20px; font-family: 'Roboto', sans-serif; font-weight: 500; color: #3b82f6; border: 2px solid #3b82f6;">
-                                @card.ButtonText
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
+	<div class="row justify-content-center">
+		@foreach (var card in new[] 
+		          {
+			          new { Title = "Manage Appointments", Text = "Schedule, view, or update appointments for patients with ease.", Link = "/Appointments", ButtonText = "Manage Appointments" },
+			          new { Title = "Our Doctors", Text = "View and collaborate with your fellow medical professionals.", Link = "/Doctors", ButtonText = "View Doctors" },
+			          new { Title = "Patient Records", Text = "Access and manage patient records securely and efficiently.", Link = "/Patients", ButtonText = "View Records" },
+			          new { Title = "Diagnoses", Text = "Review and manage diagnoses and treatment plans with precision.", Link = "/Diagnoses", ButtonText = "View Diagnoses" },
+			          new { Title = "Medical Records", Text = "Easily access, review, and manage comprehensive medical records.", Link = "/MedicalRecords", ButtonText = "View Medical Records" }
+		          })
+		{
+			<div class="col-md-4 mb-4">
+				<div class="card">
+					<div class="card-body text-center">
+						<h5 class="card-title">@card.Title</h5>
+						<p class="card-text">@card.Text</p>
+						<div class="d-grid gap-3">
+							<a href="@card.Link" class="btn btn-outline-primary">@card.ButtonText</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		}
+	</div>
 </div>
+
