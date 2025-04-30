@@ -36,10 +36,16 @@ namespace MVC.Soft.Migrations
                     b.Property<DateTime?>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("DoctorFullName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("DoctorId")
                         .HasColumnType("int");
 
                     b.Property<string>("Location")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PatientFullName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PatientId")

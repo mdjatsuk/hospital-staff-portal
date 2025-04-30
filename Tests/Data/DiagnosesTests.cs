@@ -2,7 +2,7 @@
 
 namespace MVC.Tests.Data
 {
-    [TestClass] public class DiagnosisEnumTests() : EnumTests<DiagnosisEnum>(11)
+    [TestClass] public class DiagnosesTests() : EnumTests<Diagnoses>(11)
     {
         [TestMethod] public void HypertensionTest() => isEnum(0);
 

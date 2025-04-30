@@ -1,3 +1,3 @@
 ﻿namespace MVC.Data;
 
-public enum Genders { Male = 0, Female = 1 }
+public enum Genders { Unknown = 0, Male = 1, Female = 2 }
