@@ -1,64 +1,65 @@
 ﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
 @{
-	ViewData["Title"] = "Index";
-	var title = MVC.Core.TypeHelper.DisplayName(Model, "Index");
-	Layout = "_Layout";
+    ViewData["Title"] = "Index";
+    var title = MVC.Core.TypeHelper.DisplayName(Model, "Index");
+    Layout = "_Layout";
 
-	var prevDisabled = ViewBag.PageIdx <= 0 ? "disabled" : "";
-	var nextDisabled = ViewBag.PageIdx + 1 == ViewBag.PageCount ? "disabled" : "";
+    var prevDisabled = ViewBag.PageIdx <= 0 ? "disabled" : "";
+    var nextDisabled = ViewBag.PageIdx + 1 == ViewBag.PageCount ? "disabled" : "";
 }
 
-<h1>@title</h1>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
-<div class="d-flex justify-content-between mb-4">
-	<a asp-action="Index" asp-controller="Home" class="btn btn-outline-secondary">← Back to Home</a>
-	<a asp-action="Create" class="btn btn-outline-primary">+ Create New</a>
+<div class="container mt-5">
+    <h1 class="mb-4" style="font-family: 'Poppins', sans-serif; font-weight: 700;">@title</h1>
+		
+    <div class="d-flex justify-content-between mb-4">
+        <a asp-action="Index" asp-controller="Home" class="btn btn-outline-primary">← Back to Home</a>
+        <a asp-action="Create" class="btn btn-outline-primary">+ Create New</a>
+    </div>
+
+    <form asp-action="Index" method="get" class="mb-4">
+        <div class="input-group" style="max-width: 500px;">
+            <input type="text" name="Filter" value="@ViewBag.Filter" class="form-control" placeholder="Find by name..." />
+            <button type="submit" class="btn btn-outline-primary rounded-3 ms-3">Search</button>
+            <a asp-action="Index" class="btn btn-link text-decoration-none">Reset</a>
+        </div>
+    </form>
+
+    @RenderBody()
+
+    <div class="d-flex align-items-center justify-content-between mt-4">
+        <div class="btn-group">
+            <a asp-action="Index"
+               asp-route-pageIdx="0"
+               asp-route-orderBy="@(ViewBag.OrderBy)"
+               asp-route-filter="@(ViewBag.Filter)"
+               class="btn btn-outline-primary @prevDisabled">First</a>
+
+            <a asp-action="Index"
+               asp-route-pageIdx="@(ViewBag.PageIdx-1)"
+               asp-route-orderBy="@(ViewBag.OrderBy)"
+               asp-route-filter="@(ViewBag.Filter)"
+               class="btn btn-outline-primary @prevDisabled">Previous</a>
+        </div>
+
+        <div style="font-family: 'Roboto', sans-serif;">
+            Page <strong>@(ViewBag.PageIdx + 1)</strong> of <strong>@ViewBag.PageCount</strong>
+        </div>
+
+        <div class="btn-group">
+            <a asp-action="Index"
+               asp-route-pageIdx="@(ViewBag.PageIdx+1)"
+               asp-route-orderBy="@(ViewBag.OrderBy)"
+               asp-route-filter="@(ViewBag.Filter)"
+               class="btn btn-outline-primary @nextDisabled">Next</a>
+
+            <a asp-action="Index"
+               asp-route-pageIdx="@(ViewBag.PageCount-1)"
+               asp-route-orderBy="@(ViewBag.OrderBy)"
+               asp-route-filter="@(ViewBag.Filter)"
+               class="btn btn-outline-primary @nextDisabled">Last</a>
+        </div>
+    </div>
 </div>
-
-<form asp-action="Index" method="get">
-	<p>
-		<div>
-			<label>
-				Find by name:
-				<input type="text" name="Filter" value="@ViewBag.Filter"
-					   class="form-control"
-					   style="width: auto; display: inline-block; margin-right: 10px" />
-			</label>
-			<input type="submit" value="Search" class="btn btn-outline-primary" /> |
-			<a asp-action="Index">Back to Full List</a>
-		</div>
-	</p>
-</form>
-
-@RenderBody()
-
-<a asp-action="Index"
-   asp-route-pageIdx="0"
-   asp-route-orderBy="@(ViewBag.OrderBy)"
-   asp-route-filter="@(ViewBag.Filter)"
-   class="btn btn-secondary @prevDisabled">
-	First
-</a>
-<a asp-action="Index"
-   asp-route-pageIdx="@(ViewBag.PageIdx-1)"
-   asp-route-orderBy="@(ViewBag.OrderBy)"
-   asp-route-filter="@(ViewBag.Filter)"
-   class="btn btn-outline-secondary @prevDisabled">
-	Previous
-</a>
-Page @(ViewBag.PageIdx + 1) of @ViewBag.PageCount
-<a asp-action="Index"
-   asp-route-pageIdx="@(ViewBag.PageIdx+1)"
-   asp-route-orderBy="@(ViewBag.OrderBy)"
-   asp-route-filter="@(ViewBag.Filter)"
-   class="btn btn-outline-secondary @nextDisabled">
-	Next
-</a>
-<a asp-action="Index"
-   asp-route-pageIdx="@(ViewBag.PageCount-1)"
-   asp-route-orderBy="@(ViewBag.OrderBy)"
-   asp-route-filter="@(ViewBag.Filter)"
-   class="btn btn-secondary @nextDisabled">
-	Last
-</a>
 
