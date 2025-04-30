@@ -1,0 +1,14 @@
+﻿@using MVC.Core.Editors
+@using MVC.Domain
+@model IEnumerable<MVC.Facade.MedicalRecordView>
+
+@{
+	ViewData["Title"] = "List of Appointments";
+	Layout = "_Index";
+	var propsToShow = new[] {
+		nameof(MVC.Facade.MedicalRecordView.DiagnosisId),
+		nameof(MVC.Facade.MedicalRecordView.PatientId),
+		nameof(MVC.Facade.MedicalRecordView.DiagnosedOn) };
+}
+
+@Html.TableFor(Model,propsToShow)

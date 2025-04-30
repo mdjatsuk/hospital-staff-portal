@@ -18,6 +18,10 @@ public sealed class PatientsRepo(DbContext db)
     : Repo<Patient, PatientData>(db, d => new(d)), IPatientsRepo
 { }
 
+public sealed class MedicalRecords(DbContext db)
+    : Repo<MedicalRecord, MedicalRecordData>(db, d => new(d)), IMedicalRecords
+{ }
+
 public class Repo<TObject, TData>(DbContext c, Func<TData?, TObject> f)
     : IRepo<TObject> where TObject : Entity<TData> where TData : EntityData<TData>
 {
