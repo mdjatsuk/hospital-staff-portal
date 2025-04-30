@@ -15,7 +15,7 @@ namespace MVC.Tests.Facade;
     [TestMethod] public override void DisplayNameTest() => isDisplayName("Patients");
     [TestMethod] public void FirstNameTest() => isProperty<string?>("First Name");
     [TestMethod] public void LastNameTest() => isProperty<string?>("Last Name");
-    [TestMethod] public void DateOfBirthTest() => isProperty<DateTime?>("Date Of Birth");
+    [TestMethod] public void DateOfBirthTest() => isProperty<DateTime?>("Date Of Birth", DataType.Date);
     [TestMethod] public void GenderTest() => isProperty<Genders?>(null);
     protected override Type setType() => typeof(PatientView);
     private PatientView? view;

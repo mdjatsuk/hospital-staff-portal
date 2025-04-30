@@ -1,6 +1,4 @@
 ﻿using MVC.Aids;
-using MVC.Data;
-using MVC.Domain;
 using MVC.Facade;
 using System;
 using System.Collections.Generic;
@@ -15,12 +13,12 @@ namespace MVC.Tests.Facade;
 [TestClass] public class AppointmentViewTests : SealedTests<AppointmentView, EntityView>
 {
     [TestMethod] public override void DisplayNameTest() => isDisplayName("Appointments");
-    [TestMethod] public void DateTest() => isProperty<DateTime?>("Date");
+    [TestMethod] public void DateTest() => isProperty<DateTime?>("Date",DataType.Date);
     [TestMethod] public void DoctorIdTest() => isProperty<int>("Doctor");
     [TestMethod] public void PatientIdTest() => isProperty<int>("Patient");
     [TestMethod] public void DoctorTest() => isProperty<string?>("Doctor");
     [TestMethod] public void PatientTest() => isProperty<string?>("Patient");
-    [TestMethod] public void LocationTest() => isProperty<string?>(null);
+    [TestMethod] public void LocationTest() => isProperty<string?>(null, EntityView.locationEx);
     [TestMethod] public void AppointmentFeeTest() => isProperty<double?>("Appointment Fee");
     protected override Type setType() => typeof(AppointmentView);
     private AppointmentView? view;
