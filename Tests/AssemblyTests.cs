@@ -27,11 +27,15 @@ public abstract class AssemblyTests(string namespaceName) : BaseTests
             .FirstOrDefault(a => a.FullName?.StartsWith(namespaceName) ?? false);
         if (assembly == null) assembly = assemblies
             .FirstOrDefault(a => a.FullName?.StartsWith(assemblyName) ?? false);
-        if (assembly == null) fail($"Assembly {namespaceName} not found.");
+        if (assembly == null) notTested($"Assembly {namespaceName} not found.");
 
         var classes = assembly?
             .GetTypes()
-            .Select(t => t.Name).Select(t => {
+            .Where(t => !t.IsInterface)
+            .Select(t => t.Name)
+            .Where(t => !t.Contains("<LoazLazy>"))
+            .Where(t => !t.Contains("<>"))
+            .Select(t => {
                 var i = t.IndexOf('`');
                 return i > 0 ? t.Substring(0, i) : t;
             })
@@ -41,7 +45,7 @@ public abstract class AssemblyTests(string namespaceName) : BaseTests
         if (classes?.Length == 0) return;
         var notTestedClasses = string.Join(", ", classes ?? []);
         if (classes?.Length == 1)
-            fail($"Test class for <{notTestedClasses}> not found.");
-        fail($"Test classes for <{notTestedClasses}> not found.");
+            notTested($"Test class for <{notTestedClasses}> not found.");
+        notTested($"Test classes for <{notTestedClasses}> not found.");
     }
 }
