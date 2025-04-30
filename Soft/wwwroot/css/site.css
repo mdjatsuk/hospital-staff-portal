@@ -187,5 +187,43 @@ footer,
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Intensifies the shadow on hover */
 }
 
+body {
+     background-color: #f8fafc;
+     font-family: 'Roboto', sans-serif;
+ }
+
+.btn-outline-primary {
+    color: #3b82f6; /* Use blue from homepage */
+    border-color: #3b82f6; /* Use blue from homepage */
+}
+
+.btn-outline-primary:hover {
+    background-color: #3b82f6; /* Use blue from homepage */
+    color: white;
+    border-color: #3b82f6; /* Use blue from homepage */
+}
+
+.btn-outline-secondary:hover {
+    background-color: #e2e8f0;
+}
+
+.btn-link {
+    color: #3b82f6; /* Use blue from homepage */
+}
+
+.btn-link:hover {
+    color: #3b82f6; /* Use blue from homepage */
+    text-decoration: underline;
+}
+
+.rounded-3 {
+    border-radius: 15px;
+}
+
+.ms-3 {
+    margin-left: 15px;
+}
+
+
 
 

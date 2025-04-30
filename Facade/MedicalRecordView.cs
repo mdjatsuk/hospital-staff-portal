@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MVC.Facade
 {
-    [DisplayName("Medical Record")]
+    [DisplayName(medicalRecords)]
     public sealed class MedicalRecordView : EntityView
     {
         [Display(Name = diagnosis)] public int DiagnosisId { get; set; }

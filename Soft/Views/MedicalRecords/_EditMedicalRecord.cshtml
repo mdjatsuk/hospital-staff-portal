@@ -6,9 +6,9 @@
 @{
     var diagnoses = await Services.Get<IDiagnosesRepo>()?.GetAsync()! ?? [];
     var patients = await Services.Get<IPatientsRepo>()?.GetAsync()! ?? [];
-    diagnoses = diagnoses.OrderBy(m => m.Description).ToList();
+    diagnoses = diagnoses.OrderBy(m => m.DiagnosisName).ToList();
     patients = patients.OrderBy(p => p.FullName).ToList();
-    var selectDiagnoses = new SelectList(diagnoses, "Id", "Diagnosis", Model.DiagnosisId);
+    var selectDiagnoses = new SelectList(diagnoses, "Id", "DiagnosisName", Model.DiagnosisId);
     var selectPatients = new SelectList(patients, "Id", "FullName", Model.PatientId);
 }
 
