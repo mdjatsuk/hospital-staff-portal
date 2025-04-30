@@ -1,5 +1,6 @@
 ﻿using MVC.Aids;
 using MVC.Data;
+using MVC.Domain;
 using MVC.Facade;
 using System;
 using System.Collections.Generic;
@@ -7,11 +8,19 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MVC.Tests.Facade;
 
-[TestClass] public class AppointmentViewTests : BaseTests
+[TestClass] public class AppointmentViewTests : SealedTests<AppointmentView, EntityView>
 {
+    [TestMethod] public void DateTest() => isProperty<DateTime?>("Date");
+    [TestMethod] public void DoctorIdTest() => isProperty<int>("Doctor");
+    [TestMethod] public void PatientIdTest() => isProperty<int>("Patient");
+    [TestMethod] public void DoctorTest() => isProperty<string?>("Doctor");
+    [TestMethod] public void PatientTest() => isProperty<string?>("Patient");
+    [TestMethod] public void LocationTest() => isProperty<string?>(null);
+    [TestMethod] public void AppointmentFeeTest() => isProperty<double?>("Appointment Fee");
     protected override Type setType() => typeof(AppointmentView);
     private AppointmentView? view;
     [TestInitialize] public void TestInitialize()

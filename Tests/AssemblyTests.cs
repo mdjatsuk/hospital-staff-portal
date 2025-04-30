@@ -31,10 +31,8 @@ public abstract class AssemblyTests(string namespaceName) : BaseTests
 
         var classes = assembly?
             .GetTypes()
-            .Where(t => !t.IsInterface)
+            .Where(t => !t.IsInterface && t.IsPublic)
             .Select(t => t.Name)
-            .Where(t => !t.Contains("<LoazLazy>"))
-            .Where(t => !t.Contains("<>"))
             .Select(t => {
                 var i = t.IndexOf('`');
                 return i > 0 ? t.Substring(0, i) : t;

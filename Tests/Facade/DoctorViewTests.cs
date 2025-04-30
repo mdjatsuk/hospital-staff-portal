@@ -9,8 +9,12 @@ using System.Threading.Tasks;
 
 namespace MVC.Tests.Facade;
 
-[TestClass] public class DoctorViewTests : BaseTests
+[TestClass] public class DoctorViewTests : SealedTests<DoctorView, EntityView>
 {
+    [TestMethod] public void FirstNameTest() => isProperty<string?>("First Name");
+    [TestMethod] public void LastNameTest() => isProperty<string?>("Last Name");
+    [TestMethod] public void SpecializationTest() => isProperty<Specialities?>("Specialization");
+    [TestMethod] public void PhoneNumberTest() => isProperty<long?>("Phone Number");
     protected override Type setType() => typeof(DoctorView);
     private DoctorView? view;
     [TestInitialize] public void TestInitialize()
@@ -54,7 +58,7 @@ namespace MVC.Tests.Facade;
         var results = validate(view);
         isTrue(results.Any(r => r.ErrorMessage!.Contains("The phone number must be exactly 8 digits.")));
     }
-    [TestMethod] public void SpecializationTest()
+    [TestMethod] public void SpecializationTest_2()
     {
         view!.Specialization = null;
         var results = validate(view);
