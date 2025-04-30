@@ -6,18 +6,14 @@
 @{
     var doctors = await Services.Get<IDoctorsRepo>()?.GetAsync()! ?? [];
     var patients = await Services.Get<IPatientsRepo>()?.GetAsync()! ?? [];
-	var diagnosis = await Services.Get<IDiagnosesRepo>()?.GetAsync()! ?? [];
     doctors = doctors.OrderBy(m => m.FullName).ToList();
     patients = patients.OrderBy(p => p.FullName).ToList();
-	diagnosis = diagnosis.OrderBy(d => d.DiagnosisName).ToList();
     var selectDoctors = new SelectList(doctors, "Id", "FullName", Model.DoctorId);
     var selectPatients = new SelectList(patients, "Id", "FullName", Model.PatientId);
-	var selectDiagnosis = new SelectList(diagnosis, "Id", "DiagnosisName", Model.DiagnosisNameId);
 }
 
 @Html.SelectFor(x => x.DoctorId, selectDoctors)
 @Html.SelectFor(x => x.PatientId, selectPatients)
-@Html.SelectFor(x => x.DiagnosisNameId, selectDiagnosis)
 @Html.InputFor(x => x.Date)
 @Html.InputFor(x => x.Location)
 @Html.InputFor(x => x.AppointmentFee)

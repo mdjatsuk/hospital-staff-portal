@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MVC.Data;
+using MVC.Domain;
 using MVC.Soft.Data;
 using NuGet.Packaging.Signing;
 using System.Reflection;
@@ -167,6 +168,19 @@ public class DbInitializer
             var obj = MVC.Aids.Random.Object<TEntity>();
             if (obj is null) continue;
             obj.Id = 0;
+
+            var idProps = typeof(TEntity).GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Where(p =>
+                    p.Name != nameof(EntityData.Id) &&
+                    p.Name.EndsWith("Id") &&
+                    p.PropertyType == typeof(int));
+
+            foreach (var prop in idProps)
+            {
+                var randomValue = MVC.Aids.Random.Int32(1, count);
+                prop.SetValue(obj, randomValue);
+            }
+
             yield return obj;
         }
     }
