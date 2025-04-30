@@ -24,7 +24,7 @@ public abstract class EntityView
     public const string RoomEx = @"^[A-Z]{2}\d{3}$";
     protected internal const string phoneNumberEx = @"^\d{8}$";
 
-    protected internal const string locationError = "Location must start with a capital letter.";
+    protected internal const string roomError = "A room must start with two capital letters followed by three digits (e.g., AB302).";
     protected internal const string appointError = "Appointment Fee must be zero or positive.";
     protected internal const string descriptionError = "The Description cannot exceed 500 characters.";
     protected internal const string phoneNumberError = "The phone number must be exactly 8 digits.";
