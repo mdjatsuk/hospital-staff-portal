@@ -10,6 +10,8 @@ namespace MVC.Domain
     public interface IDiagnosesRepo : IRepo<Diagnosis>;
     public interface IDoctorsRepo : IRepo<Doctor>;
     public interface IPatientsRepo : IRepo<Patient>;
+    public interface IMedicalRecords : IRepo<MedicalRecord> { }
+
     public interface IRepo<TObject>
     {
         public Task<int> PageCount(byte pageSize, string? filter);

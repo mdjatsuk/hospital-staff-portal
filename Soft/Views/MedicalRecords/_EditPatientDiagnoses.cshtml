@@ -1,0 +1,17 @@
+﻿@using MVC.Core
+@using MVC.Core.Editors
+@using MVC.Domain
+@model MVC.Facade.MedicalRecordView
+
+@{
+    var diagnoses = await Services.Get<IDiagnosesRepo>()?.GetAsync()! ?? [];
+    var patients = await Services.Get<IPatientsRepo>()?.GetAsync()! ?? [];
+    diagnoses = diagnoses.OrderBy(m => m.Description).ToList();
+    patients = patients.OrderBy(p => p.FullName).ToList();
+    var selectDiagnoses = new SelectList(diagnoses, "Id", "Diagnosis", Model.DiagnosisId);
+    var selectPatients = new SelectList(patients, "Id", "FullName", Model.PatientId);
+}
+
+@Html.SelectFor(x => x.DiagnosisId, selectDiagnoses)
+@Html.SelectFor(x => x.PatientId, selectPatients)
+@Html.InputFor(x => x.DiagnosedOn)

@@ -1,4 +1,5 @@
-﻿using MVC.Data;
+﻿using MVC.Core;
+using MVC.Data;
 
 namespace MVC.Domain;
 

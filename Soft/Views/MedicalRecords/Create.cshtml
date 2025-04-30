@@ -1,0 +1,12 @@
+﻿@using MVC.Domain
+@model MVC.Facade.MedicalRecordView
+
+@{
+	Layout = "_Create";
+}
+
+@{
+	await Html.RenderPartialAsync("_EditPatientDiagnoses", Model);
+}
+
+
