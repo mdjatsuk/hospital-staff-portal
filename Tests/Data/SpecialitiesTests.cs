@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MVC.Tests.Data
 {
-    [TestClass] public class SpeciailitiesTests() : EnumTests<Specialities>(10)
+    [TestClass] public class SpecialitiesTests() : EnumTests<Specialities>(10)
     {
         [TestMethod] public void NephrologyTest() => isEnum(0);
         [TestMethod] public void EndocrinologyTest() => isEnum(1);
