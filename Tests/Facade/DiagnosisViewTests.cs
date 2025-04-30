@@ -7,7 +7,7 @@ namespace MVC.Tests.Facade;
 [TestClass] public class DiagnosisViewTests : SealedTests<DiagnosisView, EntityView>
 {
     [TestMethod] public override void DisplayNameTest() => isDisplayName("Diagnosis");
-    [TestMethod] public void DiagnosisNameTest() => isProperty<DiagnosisEnum?>("Diagnosis Name");
+    [TestMethod] public void DiagnosisNameTest() => isProperty<Diagnoses?>("Diagnosis Name");
     [TestMethod] public void DescriptionTest() => isProperty<string?>(null);
     [TestMethod] public void RequiresSurgeryTest() => isProperty<bool>("Requires Surgery");
     protected override Type setType() => typeof(DiagnosisView);
@@ -17,7 +17,7 @@ namespace MVC.Tests.Facade;
         view = new DiagnosisView
         {
             Id = 1,
-            DiagnosisName = DiagnosisEnum.Anemia,
+            DiagnosisName = Diagnoses.Anemia,
             Description = "Valid Description",
             RequiresSurgery = true
         };
@@ -30,7 +30,7 @@ namespace MVC.Tests.Facade;
     }
     [TestMethod] public void DiagnosisNameLengthTest()
     {
-        view!.DiagnosisName = DiagnosisEnum.Anemia;
+        view!.DiagnosisName = Diagnoses.Anemia;
         var diagnosisNameString = view!.DiagnosisName.ToString();
         var results = validate(view);
         isTrue(diagnosisNameString.Length <= 500, "Diagnosis Name length exceeds the limit.");

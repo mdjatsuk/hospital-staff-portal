@@ -1,7 +1,8 @@
 ﻿using MVC.Data;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Text.Json;
+using System.Text;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 public class OpenAiService
 {
@@ -16,54 +17,46 @@ public class OpenAiService
         _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _apiKey);
     }
 
-    public async Task<List<(string FullName, Genders Gender)>> GenerateRandomNamesWithGendersAsync(int toGenerate)
+    public async Task<List<T>> GenerateDataAsync<T>(int toGenerate, string instruction, Func<string, List<T>> parseResponse)
     {
-        var result = new List<(string FullName, Genders Gender)>();
-
+        var result = new List<T>();
         int generatedCount = 0;
-        int batchSize = Math.Min(toGenerate * 2, MaxBatchSize);
-        int remainingNames = batchSize;
+        int remainingData = toGenerate;
 
-        while (remainingNames > 0)
+        while (remainingData > 0)
         {
-            int requestCount = Math.Min(remainingNames, MaxBatchSize);
-
-            var requestPayload = BuildOpenAiRequest(requestCount);
+            int requestCount = Math.Min(remainingData, MaxBatchSize);
+            var requestPayload = BuildOpenAiRequest(requestCount, instruction);
             var responseString = await SendOpenAiRequestAsync(requestPayload);
 
             if (string.IsNullOrWhiteSpace(responseString))
                 continue;
 
-            var parsed = TryParseResponse(responseString, out List<(string FullName, Genders Gender)> parsedEntries);
-
-            if (!parsed)
+            var parsed = parseResponse(responseString);
+            if (parsed == null || parsed.Count == 0)
                 continue;
 
-            foreach (var entry in parsedEntries)
+            foreach (var entry in parsed)
             {
                 result.Add(entry);
                 generatedCount++;
-                if (generatedCount >= batchSize)
+                if (generatedCount >= toGenerate)
                     break;
             }
 
-            remainingNames = batchSize - generatedCount;
+            remainingData = toGenerate - generatedCount;
 
-            if (remainingNames > 0)
+            if (remainingData > 0)
             {
-                Console.WriteLine($"Generated {generatedCount}. Still missing {remainingNames} names, retrying...");
+                Console.WriteLine($"Generated {generatedCount}. Still missing {remainingData} entries, retrying...");
             }
         }
 
-        return result.Take(batchSize).ToList();
+        return result.Take(toGenerate).ToList();
     }
 
-    private object BuildOpenAiRequest(int count)
+    private object BuildOpenAiRequest(int count, string instruction)
     {
-        string instruction = $"You are an API that generates random full names (first and last) with gender (0 for Male, 1 for Female). " +
-                             $"Generate exactly {count} full names, each followed by a comma and gender. " +
-                             $"Separate each entry with a semicolon (;). No extra text. Exact count required.";
-
         return new
         {
             model = "gpt-3.5-turbo",
@@ -87,18 +80,26 @@ public class OpenAiService
         if (!response.IsSuccessStatusCode)
             throw new Exception($"OpenAI request failed: {responseBody}");
 
-        using var doc = JsonDocument.Parse(responseBody);
-        return doc.RootElement
-                  .GetProperty("choices")[0]
-                  .GetProperty("message")
-                  .GetProperty("content")
-                  .GetString()?
-                  .Trim();
+        try
+        {
+            using var doc = JsonDocument.Parse(responseBody);
+            return doc.RootElement
+                      .GetProperty("choices")[0]
+                      .GetProperty("message")
+                      .GetProperty("content")
+                      .GetString()?
+                      .Trim();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Unexpected response format: {responseBody}", ex);
+        }
     }
 
-    private bool TryParseResponse(string response, out List<(string FullName, Genders Gender)> entries)
+    public List<(string, T)> ParseResponse<T>(string response, Func<string, T?> parseSecondValue) where T : struct
     {
-        entries = new();
+        var entries = new List<(string, T)>();
+        var uniqueEntries = new HashSet<(string, T)>();
         var rawEntries = response.Split(';', StringSplitOptions.RemoveEmptyEntries);
 
         foreach (var rawEntry in rawEntries)
@@ -108,14 +109,82 @@ public class OpenAiService
                 continue;
 
             var name = parts[0].Trim();
-            var genderStr = parts[1].Trim();
+            var secondValueStr = parts[1].Trim();
 
-            if (int.TryParse(genderStr, out int genderInt) && Enum.IsDefined(typeof(Genders), genderInt))
+            var secondValue = parseSecondValue(secondValueStr);
+
+            if (secondValue.HasValue)
             {
-                entries.Add((name, (Genders)genderInt));
+                var entry = (name, secondValue.Value);
+
+                if (uniqueEntries.Add(entry))
+                {
+                    entries.Add(entry);
+                }
             }
         }
 
-        return entries.Count > 0;
+        return entries;
     }
+
+    private List<string> ParseResponseToList(string response)
+    {
+        var entries = new List<string>();
+        var rawEntries = response.Split(';', StringSplitOptions.RemoveEmptyEntries);
+
+        foreach (var entry in rawEntries)
+        {
+            entries.Add(entry.Trim());
+        }
+
+        return entries;
+    }
+
+    public async Task<List<(string fullName, Genders gender)>> GenerateRandomNamesAndGendersAsync(int toGenerate)
+    {
+        string instruction = $"You are an API that generates random full names (first and last) with gender (1 for Male, 2 for Female). " +
+                             $"Generate exactly {toGenerate} full names, each followed by a comma and gender. " +
+                             $"Separate each entry with a semicolon (;). No extra text. Exact count required.";
+
+        return await GenerateDataAsync(toGenerate, instruction, response => ParseResponse<Genders>(response, genderStr =>
+        {
+            if (int.TryParse(genderStr, out int genderInt) && Enum.IsDefined(typeof(Genders), genderInt))
+            {
+                return (Genders)genderInt;
+            }
+            return null;
+        }));
+    }
+
+
+    public async Task<List<(string description, Diagnoses diagnosis)>> GenerateRandomDiagnosisDescriptionsAsync(int toGenerate)
+    {
+        string instruction = $"You are a medical AI that generates random, **very short** and realistic diagnosis descriptions, each followed by a diagnosis number. " +
+                             $"Use the following mapping: Hypertension (1), Diabetes (2), Asthma (3), Epilepsy (4), Pneumonia (5), Tuberculosis (6), " +
+                             $"Osteoarthritis (7), Migraine (8), Anemia (9), Gastric Ulcer (10), Hepatitis (11). " +
+                             $"Generate exactly {toGenerate} entries. Each entry must follow this format: description,diagnosis_number. " +
+                             $"Separate entries using a semicolon (;). Do not add any extra text or explanations. Output only the data.";
+
+
+        return await GenerateDataAsync(toGenerate, instruction, response => ParseResponse<Diagnoses>(response, diagnosisStr => 
+        {
+            if (int.TryParse(diagnosisStr, out int diagnosisInt) && Enum.IsDefined(typeof(Diagnoses), diagnosisInt))
+            {
+                return (Diagnoses)diagnosisInt;
+            }
+            return null;
+        }));
+    }
+
+    public async Task<List<string>> GenerateRandomRoomsAsync(int toGenerate)
+    {
+        string instruction = $"You are an API that generates realistic hospital room codes. " +
+                             $"Each room must consist of two uppercase letters followed by three digits, like 'AB302'. " +
+                             $"Generate exactly {toGenerate} unique room codes. Separate each room code with a semicolon (;). " +
+                             $"No extra text.";
+
+        return await GenerateDataAsync(toGenerate, instruction, ParseResponseToList);
+    }
+
+
 }

@@ -21,7 +21,7 @@ public abstract class EntityView
     protected internal const string appointments = "Appointments";
     protected internal const string medicalRecords = "Medical Records";
 
-    public const string locationEx = @"^[A-Z].*";
+    public const string RoomEx = @"^[A-Z]{2}\d{3}$";
     protected internal const string phoneNumberEx = @"^\d{8}$";
 
     protected internal const string locationError = "Location must start with a capital letter.";

@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Globalization;
+using Microsoft.EntityFrameworkCore;
 using MVC.Data;
 using MVC.Domain;
 using MVC.Soft.Data;
-using NuGet.Packaging.Signing;
 using System.Reflection;
+using Microsoft.CodeAnalysis;
 
 public class DbInitializer
 {
@@ -78,7 +79,15 @@ public class DbInitializer
 
             if (typeof(TEntity) == typeof(PatientData) || typeof(TEntity) == typeof(DoctorData))
             {
-                await SeedSpecialEntities<TEntity>(set, toGenerate, list);
+                await SeedWithNames<TEntity>(set, toGenerate, list);
+            }
+            else if (typeof(TEntity) == typeof(DiagnosisData))
+            {
+                await SeedDiagnosisData<TEntity>(set, toGenerate, list);
+            }
+            else if (typeof(TEntity) == typeof(AppointmentData))
+            {
+                await SeedAppointmentData<TEntity>(set, toGenerate, list);
             }
             else
             {
@@ -99,59 +108,133 @@ public class DbInitializer
         }
     }
 
-    private async Task SeedSpecialEntities<TEntity>(DbSet<TEntity> set, int toGenerate, List<TEntity> list)
-    where TEntity : EntityData, new()
+    private async Task SeedWithNames<TEntity>(DbSet<TEntity> set, int toGenerate, List<TEntity> list)
+        where TEntity : EntityData, new()
     {
-        var names = await ai.GenerateRandomNamesWithGendersAsync(toGenerate);
-
-        var doctorCount = 0;
-        var patientCount = 0;
-
+        var names = await ai.GenerateRandomNamesAndGendersAsync(toGenerate);
         foreach (var name in names)
         {
-            if (doctorCount >= count && patientCount >= count)
-                break;  
+            if (list.Count >= count) break;
 
-            var (first, last) = SplitName(name.FullName);
-            var gender = name.Gender == 0 ? Genders.Male : Genders.Female;
+            var (first, last) = SplitName(name.fullName);
+            var gender = name.gender;
 
-            object? entity = typeof(TEntity) switch
-            {
-                var t when t == typeof(PatientData) && patientCount < count => new PatientData
-                {
-                    FirstName = first,
-                    LastName = last,
-                    Gender = gender,
-                    DateOfBirth = MVC.Aids.Random.DateTime(DateTime.Now.AddYears(-60), DateTime.Now)
-                },
-                var t when t == typeof(DoctorData) && doctorCount < count => new DoctorData
-                {
-                    FirstName = first,
-                    LastName = last,
-                    Specialization = (Specialities?)MVC.Aids.Random.EnumOf(typeof(Specialities)),
-                    PhoneNumber = MVC.Aids.Random.Int64(10000000, 99999999)
-                },
-                _ => null
-            };
+            object? entity = CreateEntity<TEntity>(first, last, gender, null, Diagnoses.Unknown, null);
 
             if (entity is TEntity typedEntity)
             {
                 list.Add(typedEntity);
-
-                if (typeof(TEntity) == typeof(PatientData)) patientCount++;
-                if (typeof(TEntity) == typeof(DoctorData)) doctorCount++;
             }
-
-            if (doctorCount >= count && patientCount >= count)
-                break;
 
             if (list.Count >= batchSize)
                 await SaveBatch(set, list);
         }
-
-        await SaveBatch(set, list);
     }
 
+    private async Task SeedDiagnosisData<TEntity>(DbSet<TEntity> set, int toGenerate, List<TEntity> list)
+        where TEntity : EntityData, new()
+    {
+        var descriptionsWithDiagnoses = await ai.GenerateRandomDiagnosisDescriptionsAsync(toGenerate);
+
+        foreach (var descriptionsWithDiagnosis in descriptionsWithDiagnoses)
+        {
+            if (list.Count >= count) break;
+
+            var description = descriptionsWithDiagnosis.description;
+
+            Diagnoses diagnosis = descriptionsWithDiagnosis.diagnosis;
+
+            object? entity = CreateEntity<TEntity>(null, null, Genders.Unknown, description, diagnosis, null);
+
+            if (entity is TEntity typedEntity)
+            {
+                list.Add(typedEntity);
+            }
+
+            if (list.Count >= batchSize)
+            {
+                await SaveBatch(set, list);
+            }
+        } 
+        if (list.Any())
+        {
+            await SaveBatch(set, list);
+        }
+    }
+
+    private async Task SeedAppointmentData<TEntity>(DbSet<TEntity> set, int toGenerate, List<TEntity> list) where TEntity : EntityData, new()
+    {
+        var rooms = await ai.GenerateRandomRoomsAsync(toGenerate);
+
+        foreach (var room in rooms)
+        {
+            if (list.Count >= count) break;
+
+            object? entity = CreateEntity<TEntity>(null, null, Genders.Unknown, null, Diagnoses.Unknown, room);
+
+            if (entity is TEntity typedEntity)
+            {
+                list.Add(typedEntity);
+            }
+
+            if (list.Count >= batchSize)
+            {
+                await SaveBatch(set, list);
+            }
+        }
+        if (list.Any())
+        {
+            await SaveBatch(set, list);
+        }
+
+    }
+
+
+    private object? CreateEntity<TEntity>(string? firstName, string? lastName, Genders gender, string? description, Diagnoses diagnosis, string? room)
+    {
+        if (typeof(TEntity) == typeof(PatientData))
+        {
+            return new PatientData
+            {
+                FirstName = firstName,
+                LastName = lastName,
+                Gender = gender,
+                DateOfBirth = MVC.Aids.Random.DateTime(DateTime.Now.AddYears(-60), DateTime.Now)
+            };
+        }
+        if (typeof(TEntity) == typeof(DoctorData))
+        {
+            return new DoctorData
+            {
+                FirstName = firstName,
+                LastName = lastName,
+                Specialization = (Specialities?)MVC.Aids.Random.EnumOf(typeof(Specialities)),
+                PhoneNumber = MVC.Aids.Random.Int64(10000000, 99999999)
+            };
+        }
+        if (typeof(TEntity) == typeof(DiagnosisData))
+        {
+            return new DiagnosisData
+            {
+                DiagnosisName = diagnosis,
+                Description = description,
+                RequiresSurgery = MVC.Aids.Random.Boolean()
+            };
+        }
+        if (typeof(TEntity) == typeof(AppointmentData))
+        {
+            return new AppointmentData()
+            {
+                DoctorId = MVC.Aids.Random.Int32(1, count),
+                PatientId = MVC.Aids.Random.Int32(1, count),
+                Date = MVC.Aids.Random.DateTime(DateTime.Now, DateTime.Now.AddDays(30)),
+                Room = room,
+                AppointmentFee = MVC.Aids.Random.Double(50, 500)
+            };
+        }
+
+        return null;
+    }
 
     private static (string FirstName, string LastName) SplitName(string fullName)
     {

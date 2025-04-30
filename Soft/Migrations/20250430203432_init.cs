@@ -20,7 +20,7 @@ namespace MVC.Soft.Migrations
                     DoctorId = table.Column<int>(type: "int", nullable: false),
                     PatientId = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Room = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AppointmentFee = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>

@@ -22,7 +22,7 @@ namespace MVC.Tests.Data;
         obj.DoctorId = 1;
         obj.PatientId = 2;
         obj.Date = DateTime.Today;
-        obj.Location = "Test Location";
+        obj.Room = "Test Location";
         obj.AppointmentFee = 100.0;
     }
     [TestMethod] public void CloneTest()
@@ -32,7 +32,7 @@ namespace MVC.Tests.Data;
         equal(1, d?.DoctorId);
         equal(2, d?.PatientId);
         equal(DateTime.Today, d?.Date);
-        equal("Test Location", d?.Location);
+        equal("Test Location", d?.Room);
         equal(100.0, d?.AppointmentFee);
     }
 }

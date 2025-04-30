@@ -31,7 +31,7 @@ public class DiagnosisViewFactoryTests :
         var v = new DiagnosisView
         {
             Id = 1,
-            DiagnosisName = DiagnosisEnum.Anemia,
+            DiagnosisName = Diagnoses.Anemia,
             Description = "View Description",
             RequiresSurgery = true
         };
@@ -42,7 +42,7 @@ public class DiagnosisViewFactoryTests :
         var d = new DiagnosisData
         {
             Id = 1000,
-            DiagnosisName = DiagnosisEnum.Anemia,
+            DiagnosisName = Diagnoses.Anemia,
             Description = "Data Description",
             RequiresSurgery = false
         };

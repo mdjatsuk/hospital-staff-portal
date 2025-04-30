@@ -8,7 +8,7 @@ public class Appointment(AppointmentData d) : Entity<AppointmentData>(d)
     public int DoctorId => data?.DoctorId ?? 0;
     public int PatientId => data?.PatientId ?? 0;
     public DateTime? Date => data?.Date;
-    public string? Location => data?.Location;
+    public string? Location => data?.Room;
     public double? AppointmentFee => data?.AppointmentFee;
     public Doctor? Doctor => doctor;
     public Patient? Patient => patient;

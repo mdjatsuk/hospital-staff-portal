@@ -39,11 +39,11 @@ namespace MVC.Soft.Migrations
                     b.Property<int>("DoctorId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("PatientId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Room")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
