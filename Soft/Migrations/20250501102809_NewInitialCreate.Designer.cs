@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVC.Soft.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250501085547_NewInit")]
-    partial class NewInit
+    [Migration("20250501102809_NewInitialCreate")]
+    partial class NewInitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -136,11 +136,20 @@ namespace MVC.Soft.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("DescriptionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DescriptionName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Diagnos")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("DiagnosedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DiagnosisId")
-                        .HasColumnType("int");
+                    b.Property<string>("PatientFullName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PatientId")
                         .HasColumnType("int");

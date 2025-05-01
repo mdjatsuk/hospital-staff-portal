@@ -90,6 +90,10 @@ public class DbInitializer
             {
                 await SeedAppointmentData<TEntity>(set, toGenerate, list);
             }
+            else if (typeof(TEntity) == typeof(MedicalRecord))
+            {
+                
+            }
             else
             {
                 foreach (var entity in GenerateGenericData<TEntity>(toGenerate))
@@ -243,6 +247,31 @@ public class DbInitializer
                 Room = room,
                 AppointmentFee = Math.Round(MVC.Aids.Random.Double(50, 500), 2),
                 DoctorFullName = doctor != null ? $"{doctor.FirstName} {doctor.LastName}" : "Unknown Doctor"
+            };
+        }
+
+        if (typeof(TEntity) == typeof(MedicalRecordData))
+        {
+            var descriptionIds = c?.Diagnoses.Select(d => d.Id).ToList();
+            var patientIds = c?.Patients.Select(p => p.Id).ToList();
+
+            if (descriptionIds == null || descriptionIds.Count == 0 || patientIds == null || patientIds.Count == 0)
+                throw new InvalidOperationException("Doctors or Patients table is empty.");
+
+            var descriptionId = descriptionIds[Random.Shared.Next(descriptionIds.Count)];
+            var patientId = patientIds[Random.Shared.Next(patientIds.Count)];
+
+            var descriptionNew = c.Diagnoses.FirstOrDefault(d => d.Id == descriptionId);
+            var patient = c.Patients.FirstOrDefault(d => d.Id == patientId);
+
+            return new MedicalRecordData
+            {
+                DescriptionId = descriptionId,
+                PatientId = patientId,
+                DiagnosedOn = MVC.Aids.Random.DateTime(DateTime.Now.AddYears(-60), DateTime.Now),
+                Diagnos = (Diagnoses?)MVC.Aids.Random.EnumOf(typeof(Diagnoses)),
+                DescriptionName = descriptionNew != null ? $"{ descriptionNew.Description}" : "Unknown Doctor",
+                PatientFullName = patient != null ? $"{patient.FirstName} {patient.LastName}" : "Unknown Doctor"
             };
         }
 

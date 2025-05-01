@@ -2,8 +2,10 @@
 @using MVC.Domain;
 @model MVC.Facade.MedicalRecordView
 
-@Html.ShowFor(x => x.Diagnosis)
-@Html.ShowFor(x => x.Patient)
+@Html.ShowFor(x => x.PatientFullName)
+@Html.ShowFor(x => x.Diagnos)
+@Html.ShowFor(x => x.DescriptionName)
+@Html.ShowFor(x => x.PatientFullName)
 @Html.ShowFor(x => x.DiagnosedOn)
 
 
