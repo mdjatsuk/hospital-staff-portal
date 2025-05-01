@@ -13,13 +13,15 @@ public abstract class EntityView
     protected internal const string birthName = "Date Of Birth";
     protected internal const string appointName = "Appointment Fee";
     protected internal const string diagnosName = "Diagnosis Name";
-    protected internal const string diagnosis = "Diagnoses";
+    protected internal const string diagnoses = "Diagnoses";
     protected internal const string doctor = "Doctor";
     protected internal const string patient = "Patient";
     protected internal const string doctors = "Doctors";
     protected internal const string patients = "Patients";
     protected internal const string appointments = "Appointments";
     protected internal const string medicalRecords = "Medical Records";
+    protected internal const string descriptionName = "Description";
+    protected internal const string diagnosedOn = "Diagnosed on";
 
     public const string RoomEx = @"^[A-Z]{2}\d{3}$";
     protected internal const string phoneNumberEx = @"^\d{8}$";

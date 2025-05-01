@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MVC.Soft.Migrations
 {
     /// <inheritdoc />
-    public partial class NewInitialCreate : Migration
+    public partial class NewInit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -22,7 +22,8 @@ namespace MVC.Soft.Migrations
                     Date = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Room = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AppointmentFee = table.Column<double>(type: "float", nullable: false),
-                    DoctorFullName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    DoctorFullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PatientFullName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
