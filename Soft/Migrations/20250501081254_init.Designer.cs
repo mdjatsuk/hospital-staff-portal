@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVC.Soft.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250430203432_init")]
+    [Migration("20250501081254_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -38,6 +38,9 @@ namespace MVC.Soft.Migrations
 
                     b.Property<DateTime?>("Date")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("DoctorFullName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("DoctorId")
                         .HasColumnType("int");

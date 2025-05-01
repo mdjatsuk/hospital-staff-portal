@@ -10,4 +10,5 @@ public sealed class AppointmentData : EntityData<AppointmentData>
     public DateTime? Date { get; set; }
     public string? Room { get; set; }
     public double AppointmentFee { get; set; }
+    public string? DoctorFullName { get; set; }
 }

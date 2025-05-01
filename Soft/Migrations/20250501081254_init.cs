@@ -21,7 +21,8 @@ namespace MVC.Soft.Migrations
                     PatientId = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Room = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AppointmentFee = table.Column<double>(type: "float", nullable: false)
+                    AppointmentFee = table.Column<double>(type: "float", nullable: false),
+                    DoctorFullName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
