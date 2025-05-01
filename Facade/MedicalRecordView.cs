@@ -14,13 +14,13 @@ namespace MVC.Facade
     public sealed class MedicalRecordView : EntityView
     {
         [Display(Name = patient)] public int PatientId { get; set; }
-        [Display(Name = "Description")] public string? DescriptionId { get; set; }
-        [Display(Name = "Description")] public string? Description { get; set; }
+        [Display(Name = descriptionName)] public string? DescriptionId { get; set; }
+        [Display(Name = descriptionName)] public string? Description { get; set; }
         [Display(Name = patient)] public string? Patient { get; set; }
-        [Display(Name = "Diagnosis")] public Diagnoses? Diagnos { get; set; }
-        [Display(Name = "Description")] public string? DescriptionName { get; set; }
-        [Display(Name = "Patient")] public string? PatientFullName { get; set; }
-        [Display(Name = "Diagnosed on"), Required, DataType(DataType.Date)] public DateTime? DiagnosedOn { get; set; }
+        [Display(Name = diagnoses)] public Diagnoses? Diagnos { get; set; }
+        [Display(Name = descriptionName)] public string? DescriptionName { get; set; }
+        [Display(Name = patient)] public string? PatientFullName { get; set; }
+        [Display(Name = diagnosedOn), Required, DataType(DataType.Date)] public DateTime? DiagnosedOn { get; set; }
 
     }
 }

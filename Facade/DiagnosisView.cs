@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MVC.Facade;
 
-[DisplayName(diagnosis)] 
+[DisplayName(diagnoses)] 
 public sealed class DiagnosisView : EntityView
 {
     [Display(Name = diagnosName), Required]
