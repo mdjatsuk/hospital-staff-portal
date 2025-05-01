@@ -18,7 +18,7 @@ namespace MVC.Tests.Facade;
     [TestMethod] public void PatientIdTest() => isProperty<int>("Patient");
     [TestMethod] public void DoctorTest() => isProperty<string?>("Doctor");
     [TestMethod] public void PatientTest() => isProperty<string?>("Patient");
-    [TestMethod] public void LocationTest() => isProperty<string?>(null, EntityView.RoomEx);
+    [TestMethod] public void RoomTest() => isProperty<string?>(null, EntityView.RoomEx);
     [TestMethod] public void AppointmentFeeTest() => isProperty<double?>("Appointment Fee");
     protected override Type setType() => typeof(AppointmentView);
     private AppointmentView? view;
@@ -44,7 +44,7 @@ namespace MVC.Tests.Facade;
     {
         view!.Room = "invalid location";
         var results = validate(view);
-        isTrue(results.Any(r => r.ErrorMessage!.Contains("Location must start with a capital letter.")));
+        isTrue(results.Any(r => r.ErrorMessage!.Contains("A room must start with two capital letters followed by three digits (e.g., AB302).")));
     }
     [TestMethod] public void AppointmentFeeRangeTest()
     {

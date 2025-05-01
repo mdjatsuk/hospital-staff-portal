@@ -241,6 +241,7 @@ public class DbInitializer
                 PatientId = patientId,
                 Date = MVC.Aids.Random.DateTime(DateTime.Now, DateTime.Now.AddDays(30)),
                 Room = room,
+                AppointmentFee = Math.Round(MVC.Aids.Random.Double(50, 500), 2)
                 AppointmentFee = MVC.Aids.Random.Double(50, 500),
                 DoctorFullName = doctor != null ? $"{doctor.FirstName} {doctor.LastName}" : "Unknown Doctor"
             };

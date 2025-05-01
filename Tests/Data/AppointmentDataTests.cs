@@ -13,7 +13,7 @@ namespace MVC.Tests.Data;
     [TestMethod] public void DoctorIdTest() => isProperty<int>();
     [TestMethod] public void PatientIdTest() => isProperty<int>();
     [TestMethod] public void DateTest() => isProperty<DateTime?>();
-    [TestMethod] public void LocationTest() => isProperty<string>();
+    [TestMethod] public void RoomTest() => isProperty<string>();
     [TestMethod] public void AppointmentFeeTest() => isProperty<double>();
     [TestInitialize] public override void Initialize()
     {
