@@ -17,7 +17,7 @@ namespace MVC.Facade
             var o = new Appointment(d);
             await o.LoadLazy();
             v.DoctorFullName = o.Doctor?.FullName;
-            v.Patient = o.Patient?.FullName;
+            v.PatientFullName = o.Patient?.FullName;
             return v;
         }
     }
