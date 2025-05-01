@@ -12,7 +12,8 @@
 		nameof(DoctorView.FirstName),
 		nameof(DoctorView.LastName),
 		nameof(DoctorView.Specialization),
-		nameof(DoctorView.PhoneNumber) };
+		nameof(DoctorView.PhoneNumber),
+		nameof(DoctorView.EmailAddress) };
 
 	async Task<IEnumerable<PatientView>> relatedPatients() {
 		var id = ViewBag.SelectedId;

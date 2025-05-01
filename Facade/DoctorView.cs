@@ -1,4 +1,5 @@
-﻿using MVC.Data;
+﻿using MVC.Aids.Attributes;
+using MVC.Data;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 namespace MVC.Facade;
@@ -13,6 +14,9 @@ namespace MVC.Facade;
 
     [Display(Name = phoneNumberName), Required, Range(50000000, 59999999, ErrorMessage = phoneNumberError)]
     public long? PhoneNumber { get; set; }
+
+    [Display(Name = emailName), Required, EmailValidation]
+    public string? EmailAddress { get; set; }
     public string FullName => $"{FirstName} {LastName}".Trim();
 
 }

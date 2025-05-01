@@ -22,6 +22,7 @@ public abstract class EntityView
     protected internal const string medicalRecords = "Medical Records";
     protected internal const string descriptionName = "Description";
     protected internal const string diagnosedOn = "Diagnosed on";
+    protected internal const string emailName = "Email address";
 
     public const string RoomEx = @"^[A-Z]{2}\d{3}$";
     protected internal const string phoneNumberEx = @"^\d{8}$";

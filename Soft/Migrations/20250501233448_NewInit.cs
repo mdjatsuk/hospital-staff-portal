@@ -93,7 +93,8 @@ namespace MVC.Soft.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Specialization = table.Column<int>(type: "int", nullable: true),
-                    PhoneNumber = table.Column<long>(type: "bigint", nullable: true)
+                    PhoneNumber = table.Column<long>(type: "bigint", nullable: true),
+                    EmailAddress = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
