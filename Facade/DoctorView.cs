@@ -13,5 +13,6 @@ namespace MVC.Facade;
 
     [Display(Name = phoneNumberName), Required, Range(50000000, 59999999, ErrorMessage = phoneNumberError)]
     public long? PhoneNumber { get; set; }
+    public string FullName => $"{FirstName} {LastName}".Trim();
 
 }

@@ -9,7 +9,7 @@ namespace MVC.Facade;
     [Display(Name = dateName), Required, DataType(DataType.Date)] public DateTime? Date { get; set; }
     [Display(Name = doctor)] public int DoctorId { get; set; }
     [Display(Name = patient)] public int PatientId { get; set; }
-    [Display(Name = doctor)] public string? Doctor { get; set; }
+    [Display(Name = doctor)] public string? DoctorFullName { get; set; }
     [Display(Name = patient)] public string? Patient { get; set; }
     [Required, RegularExpression(RoomEx, ErrorMessage = roomError)] public string? Room { get; set; }
 

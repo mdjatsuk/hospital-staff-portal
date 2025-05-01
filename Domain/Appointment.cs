@@ -17,6 +17,7 @@ public class Appointment(AppointmentData d) : Entity<AppointmentData>(d)
 
     internal Patient? patient;
 
+    public string? DoctorFullName => Doctor?.FullName;
     public override async Task LoadLazy()
     {
         await base.LoadLazy();

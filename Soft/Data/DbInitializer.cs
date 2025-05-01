@@ -5,6 +5,8 @@ using MVC.Domain;
 using MVC.Soft.Data;
 using System.Reflection;
 using Microsoft.CodeAnalysis;
+using System.Numerics;
+using NuGet.Packaging.Signing;
 
 public class DbInitializer
 {
@@ -12,7 +14,6 @@ public class DbInitializer
     private readonly OpenAiService ai;
     private int count;
     private int batchSize;
-
     public DbInitializer(ApplicationDbContext? context, OpenAiService aiService)
     {
         c = context;
@@ -223,15 +224,28 @@ public class DbInitializer
         }
         if (typeof(TEntity) == typeof(AppointmentData))
         {
-            return new AppointmentData()
+            var doctorIds = c?.Doctors.Select(d => d.Id).ToList();
+            var patientIds = c?.Patients.Select(p => p.Id).ToList();
+
+            if (doctorIds == null || doctorIds.Count == 0 || patientIds == null || patientIds.Count == 0)
+                throw new InvalidOperationException("Doctors or Patients table is empty.");
+
+            var doctorId = doctorIds[Random.Shared.Next(doctorIds.Count)];
+            var patientId = patientIds[Random.Shared.Next(patientIds.Count)];
+
+            var doctor = c.Doctors.FirstOrDefault(d => d.Id == doctorId);
+
+            return new AppointmentData
             {
-                DoctorId = MVC.Aids.Random.Int32(1, count),
-                PatientId = MVC.Aids.Random.Int32(1, count),
+                DoctorId = doctorId,
+                PatientId = patientId,
                 Date = MVC.Aids.Random.DateTime(DateTime.Now, DateTime.Now.AddDays(30)),
                 Room = room,
-                AppointmentFee = MVC.Aids.Random.Double(50, 500)
+                AppointmentFee = MVC.Aids.Random.Double(50, 500),
+                DoctorFullName = doctor != null ? $"{doctor.FirstName} {doctor.LastName}" : "Unknown Doctor"
             };
         }
+
 
         return null;
     }
