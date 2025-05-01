@@ -4,14 +4,15 @@
 @model MVC.Facade.MedicalRecordView
 
 @{
-    var diagnoses = await Services.Get<IDiagnosesRepo>()?.GetAsync()! ?? [];
+    var description = await Services.Get<IDiagnosesRepo>()?.GetAsync()! ?? [];
     var patients = await Services.Get<IPatientsRepo>()?.GetAsync()! ?? [];
-    diagnoses = diagnoses.OrderBy(m => m.DiagnosisName).ToList();
+    description = description.OrderBy(m => m.Description).ToList();
     patients = patients.OrderBy(p => p.FullName).ToList();
-    var selectDiagnoses = new SelectList(diagnoses, "Id", "DiagnosisName", Model.DiagnosisId);
+    var selectDescription = new SelectList(description, "Id", "Description", Model.DescriptionId);
     var selectPatients = new SelectList(patients, "Id", "FullName", Model.PatientId);
 }
 
-@Html.SelectFor(x => x.DiagnosisId, selectDiagnoses)
 @Html.SelectFor(x => x.PatientId, selectPatients)
+@Html.InputForEnum(x => x.Diagnos)
+@Html.SelectFor(x => x.DescriptionId, selectDescription)
 @Html.InputFor(x => x.DiagnosedOn)

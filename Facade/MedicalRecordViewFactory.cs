@@ -17,7 +17,7 @@ namespace MVC.Facade
             var o = new MedicalRecord(d);
             await o.LoadLazy();
             v.Patient = o.Patient?.FullName;
-            v.Diagnosis = o.Diagnosis?.DiagnosisName.ToString();
+            v.Description = o.Description?.Description;
             return v;
         }
     }

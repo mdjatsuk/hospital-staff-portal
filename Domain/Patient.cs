@@ -13,23 +13,23 @@ public sealed class Patient(PatientData? d) : Entity<PatientData>(d)
     public Genders? Gender => data?.Gender;
     public string FullName => $"{FirstName} {LastName}";
 
-    internal List<MedicalRecord> diagnoses = [];
-    public List<Diagnosis?> Diagnoses => diagnoses?
-        .Where(r => r.Diagnosis is not null)
-        .Select(r => r.Diagnosis)
+    internal List<MedicalRecord> descriptions = [];
+    public List<Diagnosis?> Descriptions => descriptions?
+        .Where(r => r.Description is not null)
+        .Select(r => r.Description)
         .ToList() ?? [];
 
     public override async Task LoadLazy()
     {
         await base.LoadLazy();
-        diagnoses.Clear();
+        descriptions.Clear();
         var entries = await (Services
             .Get<IMedicalRecords>()?
             .GetAsync(nameof(MedicalRecord.PatientId), Id ?? 0))!;
         foreach (var r in entries)
         {
             await r.LoadLazy();
-            diagnoses.Add(r);
+            descriptions.Add(r);
         }
     }
 }

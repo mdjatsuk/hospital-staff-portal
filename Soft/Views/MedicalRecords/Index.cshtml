@@ -5,10 +5,12 @@
 @{
 	ViewData["Title"] = "List of Medical Records";
 	Layout = "_Index";
+
 	var propsToShow = new[] {
-		nameof(MVC.Facade.MedicalRecordView.DiagnosisId),
-		nameof(MVC.Facade.MedicalRecordView.PatientId),
+		nameof(MVC.Facade.MedicalRecordView.PatientFullName),
+		nameof(MVC.Facade.MedicalRecordView.Diagnos),
+		nameof(MVC.Facade.MedicalRecordView.DescriptionName),
 		nameof(MVC.Facade.MedicalRecordView.DiagnosedOn) };
 }
 
-@Html.TableFor(Model,propsToShow)
+@Html.TableFor(Model, propsToShow)

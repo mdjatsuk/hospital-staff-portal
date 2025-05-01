@@ -1,4 +1,5 @@
 ﻿using MVC.Core;
+using MVC.Data;
 using MVC.Domain;
 using System.Numerics;
 
@@ -6,14 +7,14 @@ public sealed class MedicalRecord(MedicalRecordData? d) : Entity<MedicalRecordDa
 {
     public MedicalRecord() : this(null) { }
     public int PatientId => data?.PatientId ?? 0;
-    public int DiagnosisId => data?.DiagnosisId ?? 0;
+    public int DescriptionId => data?.DescriptionId ?? 0;
     public DateTime? DiagnosedOn => data?.DiagnosedOn;
+    public Diagnoses? Diagnos => data?.Diagnos;
     public Patient? Patient => patient;
-    public Diagnosis? Diagnosis => diagnosis;
+    public Diagnosis? Description => description;
 
     internal Patient? patient;
-    internal Diagnosis? diagnosis;
-
+    internal Diagnosis? description;
     public override async Task LoadLazy()
     {
         await base.LoadLazy();
@@ -22,6 +23,6 @@ public sealed class MedicalRecord(MedicalRecordData? d) : Entity<MedicalRecordDa
         if (p is null) return;
         if (r is null) return;
         patient = await r.GetAsync(PatientId)!;
-        diagnosis = await p.GetAsync(DiagnosisId)!;
+        description = await p.GetAsync(DescriptionId)!;
     }
 }
