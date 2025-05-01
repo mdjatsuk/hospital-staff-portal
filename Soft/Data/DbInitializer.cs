@@ -7,6 +7,7 @@ using System.Reflection;
 using Microsoft.CodeAnalysis;
 using System.Numerics;
 using NuGet.Packaging.Signing;
+using MVC.Aids.Attributes;
 
 public class DbInitializer
 {
@@ -209,12 +210,18 @@ public class DbInitializer
         }
         if (typeof(TEntity) == typeof(DoctorData))
         {
+            var random = new System.Random();
+            var index = random.Next(0, EmailDomainProvider.EmailDomains.Count);
+            var randomDomain = EmailDomainProvider.EmailDomains[index];
+
             return new DoctorData
             {
                 FirstName = firstName,
                 LastName = lastName,
                 Specialization = (Specialities?)MVC.Aids.Random.EnumOf(typeof(Specialities)),
-                PhoneNumber = MVC.Aids.Random.Int64(10000000, 99999999)
+                PhoneNumber = MVC.Aids.Random.Int64(50000000, 59999999),
+                EmailAddress = $"{firstName?.ToLower()}.{lastName?.ToLower()}@{randomDomain}"
+
             };
         }
         if (typeof(TEntity) == typeof(DiagnosisData))

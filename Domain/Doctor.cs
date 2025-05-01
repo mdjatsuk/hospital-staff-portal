@@ -10,6 +10,7 @@ public sealed class Doctor(DoctorData? d) : Entity<DoctorData>(d)
     public string? LastName => data?.LastName;
     public Specialities? Specialization => data?.Specialization;
     public long? PhoneNumber => data?.PhoneNumber;
+    public string? EmailAddress => data?.EmailAddress;
     public string FullName => $"{FirstName} {LastName}";
 
     internal List<Appointment> appointments = [];
