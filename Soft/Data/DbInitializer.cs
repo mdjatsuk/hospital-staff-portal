@@ -234,6 +234,7 @@ public class DbInitializer
             var patientId = patientIds[Random.Shared.Next(patientIds.Count)];
 
             var doctor = c.Doctors.FirstOrDefault(d => d.Id == doctorId);
+            var patient = c.Patients.FirstOrDefault(p => p.Id == patientId);
 
             return new AppointmentData
             {
@@ -242,7 +243,8 @@ public class DbInitializer
                 Date = MVC.Aids.Random.DateTime(DateTime.Now, DateTime.Now.AddDays(30)),
                 Room = room,
                 AppointmentFee = Math.Round(MVC.Aids.Random.Double(50, 500), 2),
-                DoctorFullName = doctor != null ? $"{doctor.FirstName} {doctor.LastName}" : "Unknown Doctor"
+                DoctorFullName = doctor != null ? $"{doctor.FirstName} {doctor.LastName}" : "Unknown Doctor",
+                PatientFullName = patient != null ? $"{patient.FirstName} {patient.LastName}" : "Unknown Patient"
             };
         }
 

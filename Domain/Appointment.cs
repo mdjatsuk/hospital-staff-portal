@@ -19,6 +19,7 @@ public sealed class Appointment(AppointmentData? d) : Entity<AppointmentData>(d)
     internal Patient? patient;
 
     public string? DoctorFullName => Doctor?.FullName;
+    public string? PatientFullName => Patient?.FullName;
     public override async Task LoadLazy()
     {
         await base.LoadLazy();
