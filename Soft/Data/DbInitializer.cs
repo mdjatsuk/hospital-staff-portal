@@ -229,7 +229,7 @@ public class DbInitializer
                 PatientId = MVC.Aids.Random.Int32(1, count),
                 Date = MVC.Aids.Random.DateTime(DateTime.Now, DateTime.Now.AddDays(30)),
                 Room = room,
-                AppointmentFee = MVC.Aids.Random.Double(50, 500)
+                AppointmentFee = Math.Round(MVC.Aids.Random.Double(50, 500), 2)
             };
         }
 
