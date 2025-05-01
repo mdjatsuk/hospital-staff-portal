@@ -8,6 +8,12 @@
 	ViewData["Title"] = "Index";
 	Layout = "_Index";
 
+	var propsToShow = new[] {
+		nameof(DoctorView.FirstName),
+		nameof(DoctorView.LastName),
+		nameof(DoctorView.Specialization),
+		nameof(DoctorView.PhoneNumber) };
+
 	async Task<IEnumerable<PatientView>> relatedPatients() {
 		var id = ViewBag.SelectedId;
 		var doctor = await Services.Get<IDoctorsRepo>()?.GetAsync(id) as Doctor;
@@ -17,7 +23,7 @@
 	}
 }
 
-@Html.TableFor(Model, true)
+@Html.TableFor(Model, true, propsToShow)
 
 
 @if (ViewBag.SelectedId != null)
