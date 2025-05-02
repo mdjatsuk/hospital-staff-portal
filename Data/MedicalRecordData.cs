@@ -1,6 +1,6 @@
 ﻿using MVC.Data;
 
-public class MedicalRecordData : EntityData<MedicalRecordData>
+public sealed class MedicalRecordData : EntityData<MedicalRecordData>
 {
     public int PatientId { get; set; }
     public int DescriptionId { get; set; }
