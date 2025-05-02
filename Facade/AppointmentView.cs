@@ -11,7 +11,7 @@ namespace MVC.Facade;
     [Display(Name = patient)] public int PatientId { get; set; }
     [Display(Name = doctor)] public string? DoctorFullName { get; set; }
     [Display(Name = patient)] public string? PatientFullName { get; set; }
-    [Required, RegularExpression(RoomEx, ErrorMessage = roomError)] public string? Room { get; set; }
+    [Required, RegularExpression(roomEx, ErrorMessage = roomError)] public string? Room { get; set; }
 
     [Display(Name = appointName), Range(appointMinFee, appointMaxFee, ErrorMessage = appointError)]
     public double? AppointmentFee { get; set; }

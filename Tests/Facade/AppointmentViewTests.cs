@@ -18,7 +18,7 @@ namespace MVC.Tests.Facade;
     [TestMethod] public void PatientIdTest() => isProperty<int>("Patient");
     [TestMethod] public void DoctorFullNameTest() => isProperty<string?>("Doctor");
     [TestMethod] public void PatientFullNameTest() => isProperty<string?>("Patient");
-    [TestMethod] public void RoomTest() => isProperty<string?>(null, EntityView.RoomEx);
+    [TestMethod] public void RoomTest() => isProperty<string?>(null, EntityView.roomEx);
     [TestMethod] public void AppointmentFeeTest() => isProperty<double?>("Appointment Fee");
     protected override Type setType() => typeof(AppointmentView);
     private AppointmentView? view;

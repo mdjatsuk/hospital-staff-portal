@@ -1,4 +1,5 @@
 ﻿using MVC.Data;
+using MVC.Domain;
 using MVC.Facade;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace MVC.Tests.Facade;
     [TestMethod] public void LastNameTest() => isProperty<string?>("Last Name");
     [TestMethod] public void SpecializationTest() => isProperty<Specialities?>("Specialization");
     [TestMethod] public void PhoneNumberTest() => isProperty<long?>("Phone Number");
+    [TestMethod] public void EmailAddressTest() => isProperty<string?>("Email address");
     protected override Type setType() => typeof(DoctorView);
     private DoctorView? view;
     [TestInitialize] public void TestInitialize()

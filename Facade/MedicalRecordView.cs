@@ -10,11 +10,10 @@ using System.Threading.Tasks;
 
 namespace MVC.Facade
 {
-    [DisplayName(medicalRecords)]
-    public sealed class MedicalRecordView : EntityView
+    [DisplayName(medicalRecords)] public sealed class MedicalRecordView : EntityView
     {
         [Display(Name = patient)] public int PatientId { get; set; }
-        [Display(Name = descriptionName)] public string? DescriptionId { get; set; }
+        [Display(Name = descriptionName)] public int? DescriptionId { get; set; }
         [Display(Name = descriptionName)] public string? Description { get; set; }
         [Display(Name = patient)] public string? Patient { get; set; }
         [Display(Name = diagnoses)] public Diagnoses? Diagnos { get; set; }

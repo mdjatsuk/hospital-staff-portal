@@ -24,7 +24,7 @@ public abstract class EntityView
     protected internal const string diagnosedOn = "Diagnosed on";
     protected internal const string emailName = "Email address";
 
-    public const string RoomEx = @"^[A-Z]{2}\d{3}$";
+    public const string roomEx = @"^[A-Z]{2}\d{3}$";
     protected internal const string phoneNumberEx = @"^\d{8}$";
 
     protected internal const string roomError = "A room must start with two capital letters followed by three digits (e.g., AB302).";

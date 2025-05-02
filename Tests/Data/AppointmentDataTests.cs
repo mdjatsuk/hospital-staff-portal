@@ -15,6 +15,8 @@ namespace MVC.Tests.Data;
     [TestMethod] public void DateTest() => isProperty<DateTime?>();
     [TestMethod] public void RoomTest() => isProperty<string>();
     [TestMethod] public void AppointmentFeeTest() => isProperty<double>();
+    [TestMethod] public void DoctorFullNameTest() => isProperty<string>();
+    [TestMethod] public void PatientFullNameTest() => isProperty<string>();
     [TestInitialize] public override void Initialize()
     {
         base.Initialize();

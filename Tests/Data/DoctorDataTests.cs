@@ -13,6 +13,7 @@ namespace MVC.Tests.Data;
     [TestMethod] public void LastNameTest() => isProperty<string>();
     [TestMethod] public void SpecializationTest() => isProperty<Specialities?>();
     [TestMethod] public void PhoneNumberTest() => isProperty<long?>();
+    [TestMethod] public void EmailAddressTest() => isProperty<string>();
     [TestInitialize] public override void Initialize()
     {
         base.Initialize();
