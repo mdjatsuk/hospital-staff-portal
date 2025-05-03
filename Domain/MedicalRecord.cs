@@ -9,7 +9,7 @@ public sealed class MedicalRecord(MedicalRecordData? d) : Entity<MedicalRecordDa
     public int PatientId => data?.PatientId ?? 0;
     public int DescriptionId => data?.DescriptionId ?? 0;
     public DateTime? DiagnosedOn => data?.DiagnosedOn;
-    public Diagnoses? Diagnos => data?.Diagnos;
+    public Diagnoses? Diagnosis => data?.Diagnosis;
     public Patient? Patient => patient;
     public Diagnosis? Description => description;
 

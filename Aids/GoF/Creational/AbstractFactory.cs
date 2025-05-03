@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MVC.Aids.GoF.Creational
+namespace MVC.Aids.GoF.Creational;
+
+public class AbstractFactory
 {
-    public class AbstractFactory
-    {
-    }
 }

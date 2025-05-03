@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MVC.Aids.GoF.Behavioral
+namespace MVC.Aids.GoF.Behavioral;
+
+public class TemplateMethod
 {
-    public class TemplateMethod
-    {
-    }
 }

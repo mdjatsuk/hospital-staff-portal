@@ -5,9 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MVC.Tests.Soft
+namespace MVC.Tests.Soft;
+
+[TestClass] public class IsSoftTested() : AssemblyTests("Soft")
 {
-    [TestClass] public class IsSoftTested() : AssemblyTests("Soft")
-    {
-    }
 }

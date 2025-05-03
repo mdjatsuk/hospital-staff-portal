@@ -5,9 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MVC.Tests.Infra
+namespace MVC.Tests.Infra;
+
+[TestClass] public class IsInfraTested() : AssemblyTests("MVC.Infra")
 {
-    [TestClass] public class IsInfraTested() : AssemblyTests("MVC.Infra")
-    {
-    }
 }

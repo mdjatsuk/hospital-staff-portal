@@ -145,11 +145,11 @@ namespace MVC.Soft.Migrations
                     b.Property<string>("DescriptionName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Diagnos")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("DiagnosedOn")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("Diagnosis")
+                        .HasColumnType("int");
 
                     b.Property<string>("PatientFullName")
                         .HasColumnType("nvarchar(max)");

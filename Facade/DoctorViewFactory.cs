@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MVC.Facade
-{
-    public sealed class DoctorViewFactory : AbstractViewFactory<DoctorData, DoctorView> {}
-}
+namespace MVC.Facade;
+
+public sealed class DoctorViewFactory : AbstractViewFactory<DoctorData, DoctorView> {}

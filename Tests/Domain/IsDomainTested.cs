@@ -1,8 +1,7 @@
 ﻿using Mvc.Tests;
 
-namespace MVC.Tests.Domain
+namespace MVC.Tests.Domain;
+
+[TestClass] public class IsDomainTested() : AssemblyTests("MVC.Domain")
 {
-    [TestClass] public class IsDomainTested() : AssemblyTests("MVC.Domain")
-    {
-    }
 }

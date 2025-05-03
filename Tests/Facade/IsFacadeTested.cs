@@ -1,8 +1,7 @@
 ﻿using Mvc.Tests;
 
-namespace MVC.Tests.Facade
+namespace MVC.Tests.Facade;
+
+[TestClass] public class IsFacadeTested() : AssemblyTests("MVC.Facade")
 {
-    [TestClass] public class IsFacadeTested() : AssemblyTests("MVC.Facade")
-    {
-    }
 }

@@ -5,9 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MVC.Tests.Core
+namespace MVC.Tests.Core;
+
+[TestClass] public class IsCoreTested() : AssemblyTests("MVC.Core")
 {
-    [TestClass] public class IsCoreTested() : AssemblyTests("MVC.Core")
-    {
-    }
 }

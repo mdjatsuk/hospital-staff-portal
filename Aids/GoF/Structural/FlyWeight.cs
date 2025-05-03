@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MVC.Aids.GoF.Structural
+namespace MVC.Aids.GoF.Structural;
+
+public class FlyWeight
 {
-    public class FlyWeight
-    {
-    }
 }
