@@ -87,9 +87,10 @@ public static class GenerationConfigs
                     new PropertyRule("DoctorId", GeneratorType.ReferenceId),
                     new PropertyRule("PatientId", GeneratorType.ReferenceId),
                     new PropertyRule("Date", GeneratorType.Random, () => 
-                        MVC.Aids.Random.DateTime(DateTime.Now, DateTime.Now.AddYears(30))),
+                        MVC.Aids.Random.DateTime(DateTime.Now, DateTime.Now.AddYears(5))),
                     new PropertyRule("Room", GeneratorType.OpenAi),
-                    new PropertyRule("AppointmentFee", GeneratorType.Random, () => MVC.Aids.Random.Int32(5, 100)),
+                    new PropertyRule("AppointmentFee", GeneratorType.Random, () =>
+                        MVC.Aids.Random.Int32(5, 100)),
                     new PropertyRule("DoctorFullName", GeneratorType.ReferenceId),
                     new PropertyRule("PatientFullName", GeneratorType.ReferenceId)
                 },
