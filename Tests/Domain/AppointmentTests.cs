@@ -34,6 +34,6 @@ namespace MVC.Tests.Domain;
             repo.list.Add(new Doctor(Random.Object<DoctorData>()));
         Services.services.Add(typeof(IDoctorsRepo), repo);
         await obj!.LoadLazy();
-        equal(obj?.Doctor?.Id, obj?.DoctorId);
+        equal(o?.Id, d?.Id);
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MVC.Soft.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class NewUpdateInit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
