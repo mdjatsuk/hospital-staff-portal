@@ -39,7 +39,7 @@ public static class GenerationConfigs
                     new PropertyRule("Specialization", GeneratorType.Random, () =>
                         (Specialities?)MVC.Aids.Random.EnumOf(typeof(Specialities))),
                     new PropertyRule("PhoneNumber", GeneratorType.Random, () =>
-                        MVC.Aids.Random.Int64(10000000, 99999999)),
+                        MVC.Aids.Random.Int64(50000000, 59999999)),
                     new PropertyRule("EmailAddress", GeneratorType.OpenAi)
                 },
                 OpenAiGenerator = async count =>
