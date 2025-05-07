@@ -1,15 +1,19 @@
 ﻿using MVC.Facade;
 using System.ComponentModel.DataAnnotations;
 using MVC.Data;
+using Microsoft.VisualStudio.Web.CodeGeneration.Utils;
 
 namespace MVC.Tests.Facade;
 
 [TestClass] public class DiagnosisViewTests : SealedTests<DiagnosisView, EntityView>
 {
     [TestMethod] public override void DisplayNameTest() => isDisplayName("Diagnosis");
-    [TestMethod] public void DiagnosisNameTest() => isProperty<Diagnoses?>("Diagnosis Name");
+    [TestMethod] public void MedicineNameTest() => isProperty<string?>("Medicine");
     [TestMethod] public void DescriptionTest() => isProperty<string?>(null);
     [TestMethod] public void RequiresSurgeryTest() => isProperty<bool>("Requires Surgery");
+    [TestMethod] public void RequiresPrescriptionTest() => isProperty<bool>("Requires Prescription");
+
+
     protected override Type setType() => typeof(DiagnosisView);
     private DiagnosisView? view;
     [TestInitialize] public void TestInitialize()
@@ -17,23 +21,22 @@ namespace MVC.Tests.Facade;
         view = new DiagnosisView
         {
             Id = 1,
-            //DiagnosisName = Diagnoses.Anemia,
+            MedicineName = "Valid Medicine",
             Description = "Valid Description",
             RequiresSurgery = true
         };
     }
-    [TestMethod]  public void DiagnosisNameIsRequiredTest()
+    [TestMethod]  public void MedicineNameIsRequiredTest()
     {
-       // view!.DiagnosisName = null;
+        view!.MedicineName = null;
         var results = validate(view);
-        isTrue(results.Any(r => r.ErrorMessage!.Contains("The Diagnosis Name field is required.")));
+        isTrue(results.Any(r => r.ErrorMessage!.Contains("The Medicine Name field is required.")));
     }
-    [TestMethod] public void DiagnosisNameLengthTest()
+    [TestMethod] public void MedicineNameLengthTest()
     {
-       // view!.DiagnosisName = Diagnoses.Anemia;
-       // var diagnosisNameString = view!.DiagnosisName.ToString();
+        view!.MedicineName = new string('B', 501);
         var results = validate(view);
-      //  isTrue(diagnosisNameString.Length <= 500, "Diagnosis Name length exceeds the limit.");
+        isTrue(results.Any(r => r.ErrorMessage!.Contains("The Medicine Name must be between 1 and 30 characters long.")));
     }
     [TestMethod] public void DescriptionIsRequiredTest()
     {

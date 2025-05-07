@@ -9,14 +9,15 @@ namespace MVC.Tests.Data;
 
 [TestClass] public class DiagnosisDataTests : SealedTests<DiagnosisData, EntityData<DiagnosisData>>
 {
-    [TestMethod] public void DiagnosisNameTest() => isProperty<Diagnoses?>();
+    [TestMethod] public void MedicineNameTest() => isProperty<string>();
     [TestMethod] public void DescriptionTest() => isProperty<string>();
     [TestMethod] public void RequiresSurgeryTest() => isProperty<bool>();
+    [TestMethod] public void RequiresPrescriptionTest() => isProperty<bool>();
     [TestInitialize] public override void Initialize()
     {
         base.Initialize();
         if (obj == null) return;
-        //obj.DiagnosisName = Diagnoses.Anemia;
+        obj.MedicineName = "Ibuprofen";
         obj.Description = "Test Description";
         obj.RequiresSurgery = true;
     }
@@ -24,7 +25,7 @@ namespace MVC.Tests.Data;
     {
         var d = obj?.Clone();
         notNull(d);
-       // equal(Diagnoses.Anemia, d?.DiagnosisName);
+        equal("Ibuprofen", d?.MedicineName);
         equal("Test Description", d?.Description);
         equal(true, d?.RequiresSurgery);
     }

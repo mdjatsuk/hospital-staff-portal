@@ -7,7 +7,9 @@ namespace MVC.Facade;
 [DisplayName(diagnosis)] 
 public sealed class DiagnosisView : EntityView
 {
-    [Display(Name = "Medicine"), Required]
+    [Required(ErrorMessage = "The Medicine Name field is required.")]
+    [StringLength(30, MinimumLength = 1, ErrorMessage = "The Medicine Name must be between 1 and 30 characters long.")]
+    [Display(Name = "Medicine")]
     public string? MedicineName { get; set; }
 
     [Required, StringLength(descriptionLength, ErrorMessage = descriptionError)]
