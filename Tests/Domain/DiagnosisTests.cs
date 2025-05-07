@@ -16,13 +16,13 @@ public class DiagnosisTests : SealedTests<Diagnosis, Entity<DiagnosisData>>
         var d = new DiagnosisData
         {
             Id = 1,
-            DiagnosisName = Diagnoses.Tuberculosis,
+            //DiagnosisName = Diagnoses.Tuberculosis,
             Description = "Test Description",
             RequiresSurgery = true
         };
         return new Diagnosis(d);
     }
-    [TestMethod] public void DiagnosisNameTest() => equal(Diagnoses.Tuberculosis, obj?.DiagnosisName);
+    //[TestMethod] public void DiagnosisNameTest() => equal(Diagnoses.Tuberculosis, obj?.DiagnosisName);
     [TestMethod] public void DescriptionTest() => equal("Test Description", obj?.Description);
     [TestMethod] public void RequiresSurgeryTest() => equal(true, obj?.RequiresSurgery);
     [TestMethod] public void IdTest() => equal(1, obj?.Id);

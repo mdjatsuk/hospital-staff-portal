@@ -67,8 +67,11 @@ namespace MVC.Soft.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("DiagnosisName")
-                        .HasColumnType("int");
+                    b.Property<string>("MedicineName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("RequiresPrescription")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("RequiresSurgery")
                         .HasColumnType("bit");

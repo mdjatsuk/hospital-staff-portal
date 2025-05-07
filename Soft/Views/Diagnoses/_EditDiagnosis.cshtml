@@ -2,6 +2,7 @@
 @using MVC.Domain;
 @model MVC.Facade.DiagnosisView
 
-@Html.InputForEnum(x => x.DiagnosisName)
 @Html.InputFor(x => x.Description)
+@Html.InputFor(x => x.MedicineName)
+@Html.InputFor(x => x.RequiresPrescription)
 @Html.InputFor(x => x.RequiresSurgery)
