@@ -18,11 +18,7 @@ public sealed class MedicalRecord(MedicalRecordData? d) : Entity<MedicalRecordDa
     public override async Task LoadLazy()
     {
         await base.LoadLazy();
-        var r = Services.Get<IPatientsRepo>();
-        var p = Services.Get<IDiagnosesRepo>();
-        if (p is null) return;
-        if (r is null) return;
-        patient = await r.GetAsync(PatientId)!;
-        description = await p.GetAsync(DescriptionId)!;
+        patient = await getItem<IPatientsRepo,Patient>(PatientId)!;
+        description = await getItem<IDiagnosesRepo,Diagnosis>(DescriptionId)!;
     }
 }

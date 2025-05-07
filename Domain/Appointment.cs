@@ -23,11 +23,7 @@ public sealed class Appointment(AppointmentData? d) : Entity<AppointmentData>(d)
     public override async Task LoadLazy()
     {
         await base.LoadLazy();
-        var r = Services.Get<IDoctorsRepo>();
-        var p = Services.Get<IPatientsRepo>();
-        if (p is null) return;
-        if (r is null) return;
-        doctor = await r.GetAsync(DoctorId)!;
-        patient = await p.GetAsync(PatientId)!;
+        doctor = await getItem<IDoctorsRepo,Doctor>(DoctorId);
+        patient = await getItem<IPatientsRepo,Patient>(PatientId)!;
     }
 }
