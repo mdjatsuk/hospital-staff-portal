@@ -1,26 +1,10 @@
 ﻿using System.Linq.Dynamic.Core;
 using Microsoft.EntityFrameworkCore;
+using MVC.Core;
 using MVC.Data;
 using MVC.Domain;
 
 namespace MVC.Infra;
-
-public sealed class AppointmentsRepo(DbContext db)
-    : Repo<Appointment, AppointmentData>(db, d => new(d)), IAppointmentsRepo
-{ }
-public sealed class DiagnosesRepo(DbContext db)
-    : Repo<Diagnosis, DiagnosisData>(db, d => new(d)), IDiagnosesRepo
-{ }
-public sealed class DoctorsRepo(DbContext db)
-    : Repo<Doctor, DoctorData>(db, d => new(d)), IDoctorsRepo
-{ }
-public sealed class PatientsRepo(DbContext db)
-    : Repo<Patient, PatientData>(db, d => new(d)), IPatientsRepo
-{ }
-
-public sealed class MedicalRecords(DbContext db)
-    : Repo<MedicalRecord, MedicalRecordData>(db, d => new(d)), IMedicalRecords
-{ }
 
 public class Repo<TObject, TData>(DbContext c, Func<TData?, TObject> f)
     : IRepo<TObject> where TObject : Entity<TData> where TData : EntityData<TData>
@@ -33,10 +17,11 @@ public class Repo<TObject, TData>(DbContext c, Func<TData?, TObject> f)
         => (orderBy is null) ? filtered(filter) : isAsc(orderBy)
             ? filtered(filter).OrderBy(propName(orderBy))
             : filtered(filter).OrderBy(propName(orderBy) + " descending");
+    private ParsingConfig config = new() { AllowEqualsAndToStringMethodsOnObject = true };
     private IQueryable<TData> filtered(string? filter = null)
         => (filter is null)
             ? set
-            : set.Where(whereExpr(), filter);
+            : set.Where(config, whereExpr(), filter);
     private IQueryable<TData> filtered(string propertyName, int idValue)
         => set.Where(whereExpr(propertyName), idValue);
     private string whereExpr(string propertyName)
@@ -56,20 +41,7 @@ public class Repo<TObject, TData>(DbContext c, Func<TData?, TObject> f)
         foreach (var p in typeof(TData).GetProperties())
         {
             if (p.PropertyType == typeof(string)) filters.Add($"({p.Name} != null && {p.Name}.Contains(@0))");
-            else if (p.PropertyType == typeof(DateTime)) filters.Add($"({p.Name}.ToString().Contains(@0))");
-            else if (p.PropertyType == typeof(char)) filters.Add($"({p.Name}.ToString().Contains(@0))");
-            else if (p.PropertyType == typeof(bool)) filters.Add($"({p.Name}.ToString().Contains(@0))");
-            else if (p.PropertyType == typeof(byte)) filters.Add($"({p.Name}.ToString().Contains(@0))");
-            else if (p.PropertyType == typeof(short)) filters.Add($"({p.Name}.ToString().Contains(@0))");
-            //else if (p.PropertyType == typeof(int)) filters.Add($"({p.Name}.ToString().Contains(@0))");
-            else if (p.PropertyType == typeof(long)) filters.Add($"({p.Name}.ToString().Contains(@0))");
-            else if (p.PropertyType == typeof(sbyte)) filters.Add($"({p.Name}.ToString().Contains(@0))");
-            else if (p.PropertyType == typeof(ushort)) filters.Add($"({p.Name}.ToString().Contains(@0))");
-            else if (p.PropertyType == typeof(uint)) filters.Add($"({p.Name}.ToString().Contains(@0))");
-            else if (p.PropertyType == typeof(ulong)) filters.Add($"({p.Name}.ToString().Contains(@0))");
-            else if (p.PropertyType == typeof(double)) filters.Add($"({p.Name}.ToString().Contains(@0))");
-            else if (p.PropertyType == typeof(float)) filters.Add($"({p.Name}.ToString().Contains(@0))");
-            else if (p.PropertyType == typeof(decimal)) filters.Add($"({p.Name}.ToString().Contains(@0))");
+            else filters.Add($"({p.Name}.ToString().Contains(@0))");
         }
         return string.Join(" OR ", filters);
     }
