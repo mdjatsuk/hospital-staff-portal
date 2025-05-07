@@ -36,7 +36,7 @@ namespace MVC.Tests.Facade;
     {
         view!.MedicineName = new string('B', 501);
         var results = validate(view);
-        isTrue(results.Any(r => r.ErrorMessage!.Contains("The Medicine Name must be between 1 and 30 characters long.")));
+        isTrue(results.Any(r => r.ErrorMessage!.Contains("The Medicine cannot exceed 500 characters.")));
     }
     [TestMethod] public void DescriptionIsRequiredTest()
     {
