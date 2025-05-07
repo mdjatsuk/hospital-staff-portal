@@ -64,9 +64,11 @@ public static class GenerationConfigs
             {
                 PropertyRules = new()
                 {
-                    new PropertyRule("DiagnosisName", GeneratorType.OpenAi),
+                    new PropertyRule("MedicineName", GeneratorType.OpenAi),
                     new PropertyRule("Description", GeneratorType.OpenAi),
                     new PropertyRule("RequiresSurgery", GeneratorType.Random, () =>
+                        MVC.Aids.Random.Boolean()),
+                    new PropertyRule("RequiresPrescription", GeneratorType.Random, () =>
                         MVC.Aids.Random.Boolean())
                 },
                 OpenAiGenerator = async count =>

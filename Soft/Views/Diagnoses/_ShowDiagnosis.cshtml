@@ -2,6 +2,7 @@
 @using MVC.Domain;
 @model MVC.Facade.DiagnosisView
 
-@Html.ShowFor(x => x.DiagnosisName)
 @Html.ShowFor(x => x.Description)
+@Html.ShowFor(x => x.MedicineName)
+@Html.ShowFor(x => x.RequiresPrescription)
 @Html.ShowFor(x => x.RequiresSurgery)

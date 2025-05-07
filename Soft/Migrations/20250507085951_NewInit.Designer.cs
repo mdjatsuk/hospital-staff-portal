@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVC.Soft.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250506235907_NewInit")]
+    [Migration("20250507085951_NewInit")]
     partial class NewInit
     {
         /// <inheritdoc />
@@ -70,8 +70,11 @@ namespace MVC.Soft.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("DiagnosisName")
-                        .HasColumnType("int");
+                    b.Property<string>("MedicineName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("RequiresPrescription")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("RequiresSurgery")
                         .HasColumnType("bit");

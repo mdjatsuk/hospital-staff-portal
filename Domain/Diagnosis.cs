@@ -6,7 +6,8 @@ namespace MVC.Domain;
 public sealed class Diagnosis(DiagnosisData? d) : Entity<DiagnosisData>(d)
 {
     public Diagnosis() : this(null) { }
-    public Diagnoses? DiagnosisName => data?.DiagnosisName;
+    public string? MedicinesName => data?.MedicineName;
     public string? Description => data?.Description;
     public bool? RequiresSurgery => data?.RequiresSurgery;
+    public bool? RequiresPrescription => data?.RequiresPrescription;
 }

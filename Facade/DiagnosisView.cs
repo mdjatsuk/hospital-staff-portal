@@ -7,11 +7,14 @@ namespace MVC.Facade;
 [DisplayName(diagnosis)] 
 public sealed class DiagnosisView : EntityView
 {
-    [Display(Name = diagnosName), Required]
-    public Diagnoses? DiagnosisName { get; set; }
+    [Display(Name = "Medicine"), Required]
+    public string? MedicineName { get; set; }
 
     [Required, StringLength(descriptionLength, ErrorMessage = descriptionError)]
     public string? Description { get; set; }
     [Display(Name = reqSurgeryName)]
     public bool RequiresSurgery { get; set; }
+
+    [Display(Name = "Requires Prescription")]
+    public bool RequiresPrescription { get; set; }
 }

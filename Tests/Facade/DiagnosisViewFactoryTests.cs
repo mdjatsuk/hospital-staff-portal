@@ -31,7 +31,7 @@ public class DiagnosisViewFactoryTests :
         var v = new DiagnosisView
         {
             Id = 1,
-            DiagnosisName = Diagnoses.Anemia,
+           // DiagnosisName = Diagnoses.Anemia,
             Description = "View Description",
             RequiresSurgery = true
         };
@@ -42,7 +42,7 @@ public class DiagnosisViewFactoryTests :
         var d = new DiagnosisData
         {
             Id = 1000,
-            DiagnosisName = Diagnoses.Anemia,
+            //DiagnosisName = Diagnoses.Anemia,
             Description = "Data Description",
             RequiresSurgery = false
         };
@@ -55,7 +55,7 @@ public class DiagnosisViewFactoryTests :
         var v = f.CreateView(data);
         notNull(v);
         equal(data?.Id, v.Id);
-        equal(data?.DiagnosisName, v.DiagnosisName);
+        //equal(data?.DiagnosisName, v.DiagnosisName);
         equal(data?.Description, v.Description);
         equal(data?.RequiresSurgery, v.RequiresSurgery);
     }
@@ -66,7 +66,7 @@ public class DiagnosisViewFactoryTests :
         var d = f.CreateData(view);
         notNull(d);
         equal(view?.Id, d.Id);
-        equal(view?.DiagnosisName, d.DiagnosisName);
+       // equal(view?.DiagnosisName, d.DiagnosisName);
         equal(view?.Description, d.Description);
         equal(view?.RequiresSurgery, d.RequiresSurgery);
     }

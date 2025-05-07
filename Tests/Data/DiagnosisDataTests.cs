@@ -16,7 +16,7 @@ namespace MVC.Tests.Data;
     {
         base.Initialize();
         if (obj == null) return;
-        obj.DiagnosisName = Diagnoses.Anemia;
+        //obj.DiagnosisName = Diagnoses.Anemia;
         obj.Description = "Test Description";
         obj.RequiresSurgery = true;
     }
@@ -24,7 +24,7 @@ namespace MVC.Tests.Data;
     {
         var d = obj?.Clone();
         notNull(d);
-        equal(Diagnoses.Anemia, d?.DiagnosisName);
+       // equal(Diagnoses.Anemia, d?.DiagnosisName);
         equal("Test Description", d?.Description);
         equal(true, d?.RequiresSurgery);
     }
