@@ -66,17 +66,15 @@ public static class GenerationConfigs
                 {
                     new PropertyRule("MedicineName", GeneratorType.OpenAi),
                     new PropertyRule("Description", GeneratorType.OpenAi),
-                    new PropertyRule("RequiresSurgery", GeneratorType.Random, () =>
-                        MVC.Aids.Random.Boolean()),
                     new PropertyRule("RequiresPrescription", GeneratorType.Random, () =>
                         MVC.Aids.Random.Boolean())
                 },
                 OpenAiGenerator = async count =>
                 {
-                    var data = await openAi.GenerateRandomDiagnosisDescriptionsAsync(count);
+                    var data = await openAi.GenerateRandomMedicinesAndDescriptionsAsync(count);
                     return data.Select(d => new Dictionary<string, object>
                     {
-                        { "DiagnosisName", d.diagnosis},
+                        { "MedicineName", d.medicineName},
                         { "Description", d.description}
                     }).ToList();
                 }

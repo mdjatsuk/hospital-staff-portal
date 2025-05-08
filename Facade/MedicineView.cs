@@ -7,6 +7,8 @@ namespace MVC.Facade;
 [DisplayName(medicineName)] 
 public sealed class MedicineView : EntityView
 {
+    [Required, Display(Name = recordnr)]
+    public string? RecordNr { get; set; }
     [Required(ErrorMessage = "The Medicine Name field is required.")]
     [StringLength(medicineLength, ErrorMessage = medicineError)]
     [Display(Name = medicineName)]
