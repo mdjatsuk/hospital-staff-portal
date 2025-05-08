@@ -4,6 +4,6 @@ using MVC.Domain;
 
 namespace MVC.Infra;
 
-public sealed class DiagnosesRepo(DbContext db)
-    : Repo<Diagnosis, DiagnosisData>(db, d => new(d)), IDiagnosesRepo
+public sealed class MedicinesRepo(DbContext db)
+    : Repo<Medicine, MedicineData>(db, d => new(d)), IMedicinesRepo
 { }

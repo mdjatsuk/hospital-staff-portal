@@ -13,8 +13,8 @@ public abstract class EntityView
     protected internal const string phoneNumberName = "Phone Number";
     protected internal const string birthName = "Date Of Birth";
     protected internal const string appointName = "Appointment Fee";
-    protected internal const string medicineName = "Medicine";
     protected internal const string diagnosis = "Diagnosis";
+    protected internal const string medicineName = "Medicines";
     protected internal const string doctor = "Doctor";
     protected internal const string patient = "Patient";
     protected internal const string doctors = "Doctors";

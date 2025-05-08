@@ -14,7 +14,7 @@ public sealed class Patient(PatientData? d) : Entity<PatientData>(d)
     public string FullName => $"{FirstName} {LastName}";
 
     internal List<MedicalRecord> descriptions = [];
-    public List<Diagnosis?> Descriptions => descriptions?
+    public List<Medicine?> Descriptions => descriptions?
         .Where(r => r.Description is not null)
         .Select(r => r.Description)
         .ToList() ?? [];

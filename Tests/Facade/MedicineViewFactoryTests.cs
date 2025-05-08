@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 namespace MVC.Tests.Facade;
 
 [TestClass]
-public class DiagnosisViewFactoryTests : 
-    SealedTests<DiagnosisViewFactory, AbstractViewFactory<DiagnosisData, DiagnosisView>>
+public class MedicineViewFactoryTests : 
+    SealedTests<MedicineViewFactory, AbstractViewFactory<MedicineData, MedicineView>>
 {
-    private DiagnosisData? data;
-    private DiagnosisView? view;
+    private MedicineData? data;
+    private MedicineView? view;
     [TestInitialize] public override void Initialize()
     {
         base.Initialize();
@@ -26,48 +26,44 @@ public class DiagnosisViewFactoryTests :
         data = null;
         view = null;
     }
-    private DiagnosisView crView()
+    private MedicineView crView()
     {
-        var v = new DiagnosisView
+        var v = new MedicineView
         {
             Id = 1,
             MedicineName = "Aspirin",
             Description = "View Description",
-            RequiresSurgery = true
         };
         return v;
     }
-    private DiagnosisData crData()
+    private MedicineData crData()
     {
-        var d = new DiagnosisData
+        var d = new MedicineData
         {
             Id = 1000,
             MedicineName = "Aspirin",
             Description = "Data Description",
-            RequiresSurgery = false
         };
         return d;
     }
     [TestMethod]
     public void CreateViewTest()
     {
-        var f = new DiagnosisViewFactory();
+        var f = new MedicineViewFactory();
         var v = f.CreateView(data);
         notNull(v);
         equal(data?.Id, v.Id);
         equal(data?.MedicineName, v.MedicineName);
         equal(data?.Description, v.Description);
-        equal(data?.RequiresSurgery, v.RequiresSurgery);
     }
     [TestMethod]
     public void CreateDataTest()
     {
-        var f = new DiagnosisViewFactory();
+        var f = new MedicineViewFactory();
         var d = f.CreateData(view);
         notNull(d);
         equal(view?.Id, d.Id);
         equal(view?.MedicineName, d.MedicineName);
         equal(view?.Description, d.Description);
-        equal(view?.RequiresSurgery, d.RequiresSurgery);
     }
 }
