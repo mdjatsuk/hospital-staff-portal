@@ -13,7 +13,7 @@
 		var id = ViewBag.SelectedId;
 		var patient = await Services.Get<IPatientsRepo>()?.GetAsync(id) as Patient;
 		if (patient != null) await patient.LoadLazy();
-		var patientDiagnoses = patient?.Descriptions?.Where(x => x is not null);
+		var patientDiagnoses = patient?.RecordNr?.Where(x => x is not null);
 		return patientDiagnoses?.Select(x => new MedicineViewFactory().CreateView(x!.data)) ?? [];
 	}
 }
