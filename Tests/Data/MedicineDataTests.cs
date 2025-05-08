@@ -11,7 +11,6 @@ namespace MVC.Tests.Data;
 {
     [TestMethod] public void MedicineNameTest() => isProperty<string>();
     [TestMethod] public void DescriptionTest() => isProperty<string>();
-    [TestMethod] public void RequiresSurgeryTest() => isProperty<bool>();
     [TestMethod] public void RequiresPrescriptionTest() => isProperty<bool>();
     [TestInitialize] public override void Initialize()
     {
@@ -19,6 +18,7 @@ namespace MVC.Tests.Data;
         if (obj == null) return;
         obj.MedicineName = "Ibuprofen";
         obj.Description = "Test Description";
+        obj.RequiresPrescription = true;
     }
     [TestMethod] public void CloneTest()
     {
@@ -26,5 +26,6 @@ namespace MVC.Tests.Data;
         notNull(d);
         equal("Ibuprofen", d?.MedicineName);
         equal("Test Description", d?.Description);
+        equal(true, d?.RequiresPrescription);
     }
 }
