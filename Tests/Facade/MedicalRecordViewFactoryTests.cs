@@ -36,7 +36,7 @@ namespace MVC.Tests.Facade;
             Description = "Valid Description",
             Patient = "Liam Thompson",
             DiagnosedOn = DateTime.Today.AddDays(-1),
-            Diagnosis = Diagnoses.Asthma,
+            Diagnosis = "Asthma",
             DescriptionName = "Feeling dizzy and lightheaded",
             PatientFullName = "Liam Thompson"
         };
@@ -50,7 +50,7 @@ namespace MVC.Tests.Facade;
             PatientId = 4,
             DescriptionId = 5,
             DiagnosedOn = DateTime.Today,
-            Diagnosis = Diagnoses.Anemia,
+            Diagnosis = "Asthma",
             DescriptionName = "Feeling dizzy and lightheaded",
             PatientFullName = "Liam Thompson"
         };
