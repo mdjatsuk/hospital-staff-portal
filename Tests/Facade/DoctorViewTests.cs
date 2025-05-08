@@ -28,7 +28,8 @@ namespace MVC.Tests.Facade;
             FirstName = "Valid First Name",
             LastName = "Valid Last Name",
             Specialization = Specialities.Cardiology,
-            PhoneNumber = 12345678
+            PhoneNumber = 12345678,
+
         };
     }
     [TestMethod] public void FirstNameIsRequiredTest()
