@@ -12,7 +12,7 @@ namespace MVC.Tests.Data;
     [TestMethod] public void PatientIdTest() => isProperty<int>();
     [TestMethod] public void DescriptionIdTest() => isProperty<int>();
     [TestMethod] public void DiagnosedOnTest() => isProperty<DateTime?>();
-    [TestMethod] public void DiagnosisTest() => isProperty<Diagnoses?>();
+    [TestMethod] public void DiagnosisTest() => isProperty<string?>();
     [TestMethod] public void DescriptionNameTest() => isProperty<string>();
     [TestMethod] public void PatientFullNameTest() => isProperty<string>();
 
