@@ -76,11 +76,13 @@ public static class GenerationConfigs
                     var data = await openAi.GenerateRandomMedicinesAndDescriptionsAsync(count);
                     return data.Select(d => new Dictionary<string, object>
                     {
-                        { "MedicineName", d.medicineName},
-                        { "Description", d.description}
+                        { "Diagnosis", d.diagnosis },
+                        { "Description", d.description },
+                        { "MedicineName", d.medicine }
                     }).ToList();
                 }
             },
+
 
             var t when t == typeof(AppointmentData) => new EntityGenerationConfig
             {
