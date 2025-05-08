@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MVC.Soft.Migrations
 {
     /// <inheritdoc />
-    public partial class InitCreate : Migration
+    public partial class NewInitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -93,12 +93,10 @@ namespace MVC.Soft.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PatientId = table.Column<int>(type: "int", nullable: false),
-                    DescriptionId = table.Column<int>(type: "int", nullable: false),
-                    DiagnosisId = table.Column<int>(type: "int", nullable: false),
+                    RecordNrId = table.Column<int>(type: "int", nullable: false),
                     DiagnosedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DescriptionName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PatientFullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Diagnosis = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    RecordNr = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

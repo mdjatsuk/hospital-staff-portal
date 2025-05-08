@@ -145,25 +145,19 @@ namespace MVC.Soft.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("DescriptionId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("DescriptionName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("DiagnosedOn")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Diagnosis")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("DiagnosisId")
-                        .HasColumnType("int");
 
                     b.Property<string>("PatientFullName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PatientId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RecordNr")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RecordNrId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

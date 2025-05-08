@@ -32,12 +32,8 @@ namespace MVC.Tests.Facade;
         {
             Id = 5,
             PatientId = 9,
-            DescriptionId = 1,
-            Description = "Valid Description",
             Patient = "Liam Thompson",
             DiagnosedOn = DateTime.Today.AddDays(-1),
-            Diagnosis = "Asthma",
-            DescriptionName = "Feeling dizzy and lightheaded",
             PatientFullName = "Liam Thompson"
         };
         return v;
@@ -48,10 +44,7 @@ namespace MVC.Tests.Facade;
         {
             Id = 10,
             PatientId = 4,
-            DescriptionId = 5,
             DiagnosedOn = DateTime.Today,
-            Diagnosis = "Asthma",
-            DescriptionName = "Feeling dizzy and lightheaded",
             PatientFullName = "Liam Thompson"
         };
         return d;
@@ -63,10 +56,7 @@ namespace MVC.Tests.Facade;
         notNull(v);
         equal(data?.Id, v.Id);
         equal(data?.PatientId, v.PatientId);
-        equal(data?.DescriptionId, v.DescriptionId);
         equal(data?.DiagnosedOn, v.DiagnosedOn);
-        equal(data?.Diagnosis, v.Diagnosis);
-        equal(data?.DescriptionName, v.DescriptionName);
         equal(data?.PatientFullName, v.PatientFullName);
     }
     [TestMethod] public void CreateViewTest()
@@ -76,10 +66,7 @@ namespace MVC.Tests.Facade;
         notNull(d);
         equal(view?.Id, d.Id);
         equal(view?.PatientId, d.PatientId);
-        equal(view?.DescriptionId, d.DescriptionId);
         equal(view?.DiagnosedOn, d.DiagnosedOn);
-        equal(view?.Diagnosis, d.Diagnosis);
-        equal(view?.DescriptionName, d.DescriptionName);
         equal(view?.PatientFullName, d.PatientFullName);
     }
 }
