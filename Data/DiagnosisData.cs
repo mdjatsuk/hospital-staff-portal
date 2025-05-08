@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MVC.Data;
 
-public sealed class MedicineData : EntityData<MedicineData>
+public sealed class DiagnosisData : EntityData<DiagnosisData>
 {
     public string? RecordNr { get; set; }
     public string? Diagnosis { get; set; }

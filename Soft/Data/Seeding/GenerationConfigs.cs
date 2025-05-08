@@ -60,14 +60,14 @@ public static class GenerationConfigs
             },
 
 
-            var t when t == typeof(MedicineData) => new EntityGenerationConfig
+            var t when t == typeof(DiagnosisData) => new EntityGenerationConfig
             {
                 PropertyRules = new()
                 {
                     new PropertyRule("RecordNr", GeneratorType.Random,() =>
                         RecordNrGenerator.GenerateRecordNr()),
                     new PropertyRule("Diagnosis", GeneratorType.OpenAi),
-                    new PropertyRule("Medicine", GeneratorType.OpenAi),
+                    new PropertyRule("Diagnosis", GeneratorType.OpenAi),
                     new PropertyRule("Description", GeneratorType.OpenAi),
                     new PropertyRule("RequiresPrescription", GeneratorType.Random, () =>
                         MVC.Aids.Random.Boolean())
@@ -114,14 +114,12 @@ public static class GenerationConfigs
             {
                 PropertyRules = new()
                 {
-                    new PropertyRule("DescriptionId", GeneratorType.ReferenceId),
                     new PropertyRule("PatientId", GeneratorType.ReferenceId),
-                    new PropertyRule("DiagnosisId", GeneratorType.ReferenceId),
+                    new PropertyRule("RecordNrId", GeneratorType.ReferenceId),
                     new PropertyRule("DiagnosedOn", GeneratorType.Random, () => 
                         MVC.Aids.Random.DateTime(DateTime.Now.AddYears(-60), DateTime.Now)),
-                    new PropertyRule("DescriptionName", GeneratorType.ReferenceId),
                     new PropertyRule("PatientFullName", GeneratorType.ReferenceId),
-                    new PropertyRule("DiagnosisName", GeneratorType.ReferenceId),
+                    new PropertyRule("RecordNr", GeneratorType.ReferenceId),
                 }
             },
 

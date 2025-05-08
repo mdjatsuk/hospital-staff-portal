@@ -84,7 +84,7 @@ namespace MVC.Soft.Migrations
                     b.ToTable("Doctors");
                 });
 
-            modelBuilder.Entity("MVC.Data.MedicineData", b =>
+            modelBuilder.Entity("MVC.Data.DiagnosisData", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -98,7 +98,7 @@ namespace MVC.Soft.Migrations
                     b.Property<string>("Diagnosis")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Medicine")
+                    b.Property<string>("Diagnosis")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RecordNr")

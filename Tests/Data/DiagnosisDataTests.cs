@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MVC.Tests.Data;
 
-[TestClass] public class MedicineDataTests : SealedTests<MedicineData, EntityData<MedicineData>>
+[TestClass] public class DiagnosisDataTests : SealedTests<DiagnosisData, EntityData<DiagnosisData>>
 {
     [TestMethod] public void MedicineNameTest() => isProperty<string>();
     [TestMethod] public void DescriptionTest() => isProperty<string>();
