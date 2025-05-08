@@ -18,6 +18,7 @@ public sealed class MedicalRecordViewFactory : AbstractViewFactory<MedicalRecord
         await o.LoadLazy();
         v.Patient = o.Patient?.FullName;
         v.Description = o.Description?.Description;
+        v.Diagnosis = o.Diagnosis?.Diagnosis;
         return v;
     }
 }

@@ -6,13 +6,16 @@
 @{
     var description = await Services.Get<IMedicinesRepo>()?.GetAsync()! ?? [];
     var patients = await Services.Get<IPatientsRepo>()?.GetAsync()! ?? [];
+	var diagnosis = await Services.Get<IMedicinesRepo>()?.GetAsync()! ?? [];
     description = description.OrderBy(m => m.Description).ToList();
     patients = patients.OrderBy(p => p.FullName).ToList();
+	diagnosis = diagnosis.OrderBy(d => d.Diagnosis).ToList();
     var selectDescription = new SelectList(description, "Id", "Description", Model.DescriptionId);
     var selectPatients = new SelectList(patients, "Id", "FullName", Model.PatientId);
+	var selectDiagnosis = new SelectList(diagnosis, "Id", "Diagnosis", Model.Diagnosis);
 }
 
 @Html.SelectFor(x => x.PatientId, selectPatients)
-@Html.InputForEnum(x => x.Diagnosis)
+@Html.SelectFor(x => x.DiagnosisId, selectPatients)
 @Html.SelectFor(x => x.DescriptionId, selectDescription)
 @Html.InputFor(x => x.DiagnosedOn)

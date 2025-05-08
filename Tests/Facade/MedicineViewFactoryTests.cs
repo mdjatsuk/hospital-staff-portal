@@ -41,7 +41,7 @@ public class MedicineViewFactoryTests :
         var d = new MedicineData
         {
             Id = 1000,
-            MedicineName = "Aspirin",
+            Medicine = "Aspirin",
             Description = "Data Description",
         };
         return d;
@@ -53,7 +53,7 @@ public class MedicineViewFactoryTests :
         var v = f.CreateView(data);
         notNull(v);
         equal(data?.Id, v.Id);
-        equal(data?.MedicineName, v.MedicineName);
+        equal(data?.Medicine, v.MedicineName);
         equal(data?.Description, v.Description);
     }
     [TestMethod]
@@ -63,7 +63,7 @@ public class MedicineViewFactoryTests :
         var d = f.CreateData(view);
         notNull(d);
         equal(view?.Id, d.Id);
-        equal(view?.MedicineName, d.MedicineName);
+        equal(view?.MedicineName, d.Medicine);
         equal(view?.Description, d.Description);
     }
 }
