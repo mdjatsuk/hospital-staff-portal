@@ -9,22 +9,20 @@ using System.Threading.Tasks;
 namespace MVC.Tests.Domain;
 
 [TestClass]
-public class DiagnosisTests : SealedTests<Diagnosis, Entity<DiagnosisData>>
+public class MedicineTests : SealedTests<Medicine, Entity<MedicineData>>
 {
-    protected override Diagnosis createObj()
+    protected override Medicine createObj()
     {
-        var d = new DiagnosisData
+        var d = new MedicineData
         {
             Id = 1,
             MedicineName = "Paracetamol",
             Description = "Test Description",
-            RequiresSurgery = true
         };
-        return new Diagnosis(d);
+        return new Medicine(d);
     }
     [TestMethod] public void MedicineNameTest() => equal("Paracetamol", obj?.MedicineName);
     [TestMethod] public void DescriptionTest() => equal("Test Description", obj?.Description);
-    [TestMethod] public void RequiresSurgeryTest() => equal(true, obj?.RequiresSurgery);
     [TestMethod] public void IdTest() => equal(1, obj?.Id);
     [TestMethod] public void DataTest() => notNull(obj?.data);
 }

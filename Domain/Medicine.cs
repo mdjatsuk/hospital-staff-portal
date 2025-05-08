@@ -3,11 +3,10 @@ using MVC.Data;
 
 namespace MVC.Domain;
 
-public sealed class Diagnosis(DiagnosisData? d) : Entity<DiagnosisData>(d)
+public sealed class Medicine(MedicineData? d) : Entity<MedicineData>(d)
 {
-    public Diagnosis() : this(null) { }
+    public Medicine() : this(null) { }
     public string? MedicineName => data?.MedicineName;
     public string? Description => data?.Description;
-    public bool? RequiresSurgery => data?.RequiresSurgery;
     public bool? RequiresPrescription => data?.RequiresPrescription;
 }

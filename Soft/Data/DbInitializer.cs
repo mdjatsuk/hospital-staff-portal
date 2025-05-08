@@ -21,7 +21,7 @@ public class DbInitializer
 
         await Seed<PatientData>(count);
         await Seed<DoctorData>(count);
-        await Seed<DiagnosisData>(count);
+        await Seed<MedicineData>(count);
         await Seed<AppointmentData>(count);
         await Seed<MedicalRecordData>(count);
     }
@@ -87,7 +87,7 @@ public class DbInitializer
         }
         else if (typeof(TEntity) == typeof(MedicalRecordData))
         {
-            var diagnosis = await _context.Diagnoses.OrderBy(x => Guid.NewGuid()).FirstOrDefaultAsync();
+            var diagnosis = await _context.Medicines.OrderBy(x => Guid.NewGuid()).FirstOrDefaultAsync();
             var patient = await _context.Patients.OrderBy(x => Guid.NewGuid()).FirstOrDefaultAsync();
 
             if (diagnosis != null && patient != null)
