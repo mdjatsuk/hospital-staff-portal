@@ -127,22 +127,23 @@ public class OpenAiService
         return entries;
     }
 
-    public List<(string, string)> ParseResponseSeparatedWithSemicolon(string response)
+    public List<(string Diagnosis, string Description, string Medicine)> ParseDiagnosisResponse(string response)
     {
-        var entries = new List<(string, string)>();
-        var uniqueEntries = new HashSet<(string, string)>();
+        var entries = new List<(string, string, string)>();
+        var uniqueEntries = new HashSet<(string, string, string)>();
         var rawEntries = response.Split(';', StringSplitOptions.RemoveEmptyEntries);
 
         foreach (var rawEntry in rawEntries)
         {
             var parts = rawEntry.Split(',', StringSplitOptions.RemoveEmptyEntries);
-            if (parts.Length != 2)
+            if (parts.Length != 3)
                 continue;
 
-            var medicine = parts[0].Trim();
+            var diagnosis = parts[0].Trim();
             var description = parts[1].Trim();
+            var medicine = parts[2].Trim();
 
-            var entry = (medicine, description);
+            var entry = (diagnosis, description, medicine);
 
             if (uniqueEntries.Add(entry))
             {
@@ -152,6 +153,7 @@ public class OpenAiService
 
         return entries;
     }
+
 
 
     private List<string> ParseResponseSeparatedWithComma(string response)
@@ -184,14 +186,15 @@ public class OpenAiService
     }
 
 
-    public async Task<List<(string medicineName, string description)>> GenerateRandomMedicinesAndDescriptionsAsync(int toGenerate)
+    public async Task<List<(string diagnosis, string medicine, string description)>> GenerateRandomMedicinesAndDescriptionsAsync(int toGenerate)
     {
-        string instruction = $"Generate {toGenerate} entries of realistic medicine data. " +
-                             $"Each entry must consist of a commonly used medicine name, followed by a very short and medically accurate condition it is used to treat. " +
-                             $"Each entry must follow this exact format: medicine name, description. Separate entries using a semicolon (;). " +
-                             $"Do not include any numbering, extra text, or explanations. Output only the data.";
+        string instruction = $"Generate {toGenerate} realistic medical diagnoses. " +
+                             $"Each entry must include: a diagnosis name, a very short medically accurate description, and a medicine commonly used to treat it. " +
+                             $"Each entry must follow this exact format: diagnosis name, description, medicine name. Separate entries using a semicolon (;). " +
+                             $"Do not include any numbering, explanations, or extra text. Output only the data.";
 
-        return await GenerateDataAsync(toGenerate, instruction, ParseResponseSeparatedWithSemicolon);
+
+        return await GenerateDataAsync(toGenerate, instruction, ParseDiagnosisResponse);
     }
 
 
