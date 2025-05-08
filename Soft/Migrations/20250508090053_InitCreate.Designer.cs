@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVC.Soft.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250508084053_NewInit")]
-    partial class NewInit
+    [Migration("20250508090053_InitCreate")]
+    partial class InitCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -98,7 +98,10 @@ namespace MVC.Soft.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MedicineName")
+                    b.Property<string>("Diagnosis")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Medicine")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RecordNr")
@@ -154,7 +157,10 @@ namespace MVC.Soft.Migrations
                     b.Property<DateTime?>("DiagnosedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("Diagnosis")
+                    b.Property<string>("Diagnosis")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DiagnosisId")
                         .HasColumnType("int");
 
                     b.Property<string>("PatientFullName")
