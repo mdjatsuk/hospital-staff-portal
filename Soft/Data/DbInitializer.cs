@@ -69,8 +69,9 @@ public class DbInitializer
     }
 
 
-    private static HashSet<(int DoctorId, int PatientId)> usedAppointmentPairs = new HashSet<(int DoctorId, int PatientId)>();
-    private static HashSet<(int DiagnosisId, int PatientId)> usedMedicalRecordPairs = new HashSet<(int DiagnosisId, int PatientId)>();
+    private static HashSet<(int DoctorId, int PatientId)> usedAppointmentPairs = new ();
+    private static HashSet<(int DiagnosisId, int PatientId)> usedMedicalRecordPairs = new();
+
 
     private async Task<Dictionary<string, object>> GetReferenceValues<TEntity>()
     {

@@ -66,7 +66,8 @@ public static class GenerationConfigs
                 {
                     new PropertyRule("RecordNr", GeneratorType.Random,() =>
                         RecordNrGenerator.GenerateRecordNr()),
-                    new PropertyRule("MedicineName", GeneratorType.OpenAi),
+                    new PropertyRule("Diagnosis", GeneratorType.OpenAi),
+                    new PropertyRule("Medicine", GeneratorType.OpenAi),
                     new PropertyRule("Description", GeneratorType.OpenAi),
                     new PropertyRule("RequiresPrescription", GeneratorType.Random, () =>
                         MVC.Aids.Random.Boolean())
@@ -115,10 +116,12 @@ public static class GenerationConfigs
                 {
                     new PropertyRule("DescriptionId", GeneratorType.ReferenceId),
                     new PropertyRule("PatientId", GeneratorType.ReferenceId),
+                    new PropertyRule("DiagnosisId", GeneratorType.ReferenceId),
                     new PropertyRule("DiagnosedOn", GeneratorType.Random, () => 
                         MVC.Aids.Random.DateTime(DateTime.Now.AddYears(-60), DateTime.Now)),
                     new PropertyRule("DescriptionName", GeneratorType.ReferenceId),
-                    new PropertyRule("PatientFullName", GeneratorType.ReferenceId)
+                    new PropertyRule("PatientFullName", GeneratorType.ReferenceId),
+                    new PropertyRule("DiagnosisName", GeneratorType.ReferenceId),
                 }
             },
 
