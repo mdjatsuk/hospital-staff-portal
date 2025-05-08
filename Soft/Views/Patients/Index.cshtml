@@ -23,5 +23,5 @@
 
 @if (ViewBag.SelectedId != null)
 {
-	@await Html.PartialAsync("_RelatedMedicines", await relatedDiagnoses())
+	@await Html.PartialAsync("_RelatedDiagnoses", await relatedDiagnoses())
 }

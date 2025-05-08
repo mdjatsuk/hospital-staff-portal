@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MVC.Facade;
 
-[DisplayName(medicineName)] 
+[DisplayName(diagnoses)] 
 public sealed class DiagnosisView : EntityView
 {
     [Required, Display(Name = recordnr)]
@@ -19,7 +19,7 @@ public sealed class DiagnosisView : EntityView
     [Required(ErrorMessage = "The Diagnosis Name field is required.")]
     [StringLength(medicineLength, ErrorMessage = medicineError)]
     [Display(Name = medicineName)]
-    public string? MedicineName { get; set; }
+    public string? Medicine { get; set; }
 
     [Display(Name = reqPrescriptionName)]
     public bool RequiresPrescription { get; set; }

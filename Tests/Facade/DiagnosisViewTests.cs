@@ -20,19 +20,19 @@ namespace MVC.Tests.Facade;
         view = new DiagnosisView
         {
             Id = 1,
-            MedicineName = "Valid Diagnosis",
+            Medicine = "Valid Diagnosis",
             Description = "Valid Description",
         };
     }
     [TestMethod]  public void MedicineNameIsRequiredTest()
     {
-        view!.MedicineName = null;
+        view!.Medicine = null;
         var results = validate(view);
         isTrue(results.Any(r => r.ErrorMessage!.Contains("The Diagnosis Name field is required.")));
     }
     [TestMethod] public void MedicineNameLengthTest()
     {
-        view!.MedicineName = new string('B', 501);
+        view!.Medicine = new string('B', 501);
         var results = validate(view);
         isTrue(results.Any(r => r.ErrorMessage!.Contains("The Diagnosis cannot exceed 500 characters.")));
     }

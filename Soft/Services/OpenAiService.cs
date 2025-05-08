@@ -186,12 +186,12 @@ public class OpenAiService
     }
 
 
-    public async Task<List<(string diagnosis, string medicine, string description)>> GenerateRandomMedicinesAndDescriptionsAsync(int toGenerate)
+    public async Task<List<(string diagnosis, string description, string medicine)>> GenerateRandomMedicinesAndDescriptionsAsync(int toGenerate)
     {
         string instruction = $"Generate {toGenerate} realistic medical diagnoses. " +
-                             $"Each entry must include: a diagnosis name, a very short medically accurate description, and a medicine commonly used to treat it. " +
-                             $"Each entry must follow this exact format: diagnosis name, description, medicine name. Separate entries using a semicolon (;). " +
-                             $"Do not include any numbering, explanations, or extra text. Output only the data.";
+                             $"Each entry must include: a diagnosis name, a sentence long medically accurate description, and a medicine commonly used to treat it. " +
+                             $"Each entry must follow this exact format: Diagnosis name, Description, Medicine name. Separate entries using a semicolon (;). " +
+                             $"Do not include any numbering, explanations, or extra text. DO NOT put period at the end of the sentence. Output only the data.";
 
 
         return await GenerateDataAsync(toGenerate, instruction, ParseDiagnosisResponse);

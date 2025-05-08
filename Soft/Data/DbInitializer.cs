@@ -99,31 +99,12 @@ public class DbInitializer
         }
         else if (typeof(TEntity) == typeof(MedicalRecordData))
         {
-            var record = await _context.Medicines.OrderBy(x => Guid.NewGuid()).FirstOrDefaultAsync();
+            var record = await _context.Diagnoses.OrderBy(x => Guid.NewGuid()).FirstOrDefaultAsync();
             var patient = await _context.Patients.OrderBy(x => Guid.NewGuid()).FirstOrDefaultAsync();
 
             while (record != null && patient != null && usedMedicalRecordPairs.Contains((record.Id, patient.Id)))
             {
-                record = await _context.Medicines.OrderBy(x => Guid.NewGuid()).FirstOrDefaultAsync();
-                patient = await _context.Patients.OrderBy(x => Guid.NewGuid()).FirstOrDefaultAsync();
-            }
-
-            if (record != null && patient != null)
-            {
-                result["RecordNrId"] = record.Id;
-                result["RecordNr"] = record.RecordNr;
-                result["PatientId"] = patient.Id;
-                result["PatientFullName"] = $"{patient.FirstName} {patient.LastName}";
-            }
-        }
-        else if (typeof(TEntity) == typeof(MedicalRecordData))
-        {
-            var record = await _context.Medicines.OrderBy(x => Guid.NewGuid()).FirstOrDefaultAsync();
-            var patient = await _context.Patients.OrderBy(x => Guid.NewGuid()).FirstOrDefaultAsync();
-
-            while (record != null && patient != null && usedMedicalRecordPairs.Contains((record.Id, patient.Id)))
-            {
-                record = await _context.Medicines.OrderBy(x => Guid.NewGuid()).FirstOrDefaultAsync();
+                record = await _context.Diagnoses.OrderBy(x => Guid.NewGuid()).FirstOrDefaultAsync();
                 patient = await _context.Patients.OrderBy(x => Guid.NewGuid()).FirstOrDefaultAsync();
             }
 

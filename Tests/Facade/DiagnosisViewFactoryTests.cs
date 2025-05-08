@@ -31,7 +31,7 @@ public class DiagnosisViewFactoryTests :
         var v = new DiagnosisView
         {
             Id = 1,
-            MedicineName = "Aspirin",
+            Medicine = "Aspirin",
             Description = "View Description",
         };
         return v;
@@ -53,7 +53,7 @@ public class DiagnosisViewFactoryTests :
         var v = f.CreateView(data);
         notNull(v);
         equal(data?.Id, v.Id);
-        equal(data?.Medicine, v.MedicineName);
+        equal(data?.Medicine, v.Medicine);
         equal(data?.Description, v.Description);
     }
     [TestMethod]
@@ -63,7 +63,7 @@ public class DiagnosisViewFactoryTests :
         var d = f.CreateData(view);
         notNull(d);
         equal(view?.Id, d.Id);
-        equal(view?.MedicineName, d.Medicine);
+        equal(view?.Medicine, d.Medicine);
         equal(view?.Description, d.Description);
     }
 }
