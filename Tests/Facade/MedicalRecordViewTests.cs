@@ -29,12 +29,8 @@ namespace MVC.Tests.Facade;
         {
             Id = 1,
             PatientId = 2,
-            DescriptionId = 3,
-            Description = "Valid Description",
             Patient = "Liam Thompson",
             DiagnosedOn = DateTime.Today.AddDays(-1),
-            Diagnosis = "Asthma",
-            DescriptionName = "Feeling dizzy and lightheaded",
             PatientFullName = "Liam Thompson"
         };
     }

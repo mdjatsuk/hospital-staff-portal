@@ -7,21 +7,18 @@ public sealed class MedicalRecord(MedicalRecordData? d) : Entity<MedicalRecordDa
 {
     public MedicalRecord() : this(null) { }
     public int PatientId => data?.PatientId ?? 0;
-    public int DescriptionId => data?.DescriptionId ?? 0;
-    public int DiagnosisId => data?.DiagnosisId ?? 0;
+
+    public int RecordNrId => data?.RecordNrId ?? 0;
     public DateTime? DiagnosedOn => data?.DiagnosedOn;
     public Patient? Patient => patient;
-    public Medicine? Description => description;
-    public Medicine? Diagnosis => diagnosis;
+    public Medicine? RecordNr => recordNr;
 
     internal Patient? patient;
-    internal Medicine? description;
-    internal Medicine? diagnosis;
+    internal Medicine? recordNr;
     public override async Task LoadLazy()
     {
         await base.LoadLazy();
         patient = await getItem<IPatientsRepo,Patient>(PatientId)!;
-        description = await getItem<IMedicinesRepo,Medicine>(DescriptionId)!;
-        diagnosis =await getItem<IMedicinesRepo,Medicine>(DiagnosisId)!;
+        recordNr = await getItem<IMedicinesRepo, Medicine>(RecordNrId)!;
     }
 }

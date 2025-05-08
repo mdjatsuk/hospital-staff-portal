@@ -21,9 +21,7 @@ namespace MVC.Tests.Data;
         base.Initialize();
         if (obj == null) return;
         obj.PatientId = 1;
-        obj.DescriptionId = 2;
         obj.DiagnosedOn = DateTime.Today;
-        obj.DescriptionName = "Feeling dizzy and lightheaded";
         obj.PatientFullName = "Liam Thompson";
     }
     [TestMethod] public void CloneTest()
@@ -31,9 +29,7 @@ namespace MVC.Tests.Data;
         var d = obj?.Clone();
         notNull(d);
         equal(1, d?.PatientId);
-        equal(2, d?.DescriptionId);
         equal(DateTime.Today, d?.DiagnosedOn);
-        equal("Feeling dizzy and lightheaded", d?.DescriptionName);
         equal("Liam Thompson", d?.PatientFullName);
     }
 }
