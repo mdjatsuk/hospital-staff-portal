@@ -36,6 +36,15 @@ internal class Program
         builder.Services.AddTransient<IEmailSender, EmailSender>();
         builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 
+        builder.Services.AddAuthentication().AddGoogle(options =>
+        {
+            options.ClientId = builder.Configuration["Authentication:Google:ClientId"]
+                               ?? throw new InvalidOperationException("Google ClientId is not configured.");
+            options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"]
+                                   ?? throw new InvalidOperationException("Google ClientSecret is not configured.");
+        });
+
+
         Services.init(builder.Services);
 
         var app = builder.Build();
