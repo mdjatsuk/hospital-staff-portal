@@ -28,7 +28,7 @@ internal class Program
         builder.Services.AddTransient<IMedicinesRepo, MedicinesRepo>();
         builder.Services.AddTransient<IDoctorsRepo, DoctorsRepo>();
         builder.Services.AddTransient<IPatientsRepo, PatientsRepo>();
-        builder.Services.AddTransient<IMedicalRecords, MedicalRecords>();
+        builder.Services.AddTransient<IMedicalRecordsRepo, MedicalRecordsRepo>();
 
         builder.Services.AddTransient<DbInitializer>();
         builder.Services.AddSingleton<OpenAiService>();

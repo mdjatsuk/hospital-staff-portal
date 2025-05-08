@@ -6,4 +6,4 @@ public interface IAppointmentsRepo : IRepo<Appointment>;
 public interface IMedicinesRepo : IRepo<Medicine>;
 public interface IDoctorsRepo : IRepo<Doctor>;
 public interface IPatientsRepo : IRepo<Patient>;
-public interface IMedicalRecords : IRepo<MedicalRecord> { }
+public interface IMedicalRecordsRepo : IRepo<MedicalRecord> { }

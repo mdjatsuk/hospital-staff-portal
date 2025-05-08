@@ -5,11 +5,9 @@ using MVC.Core;
 using MVC.Data;
 using MVC.Domain;
 using Random = MVC.Aids.Random;
+
 namespace MVC.Tests.Domain;
 
-internal class mockDoctorRepo : mockRepo<Doctor>, IDoctorsRepo
-{
-}
 internal class mockRepo<TObject> : IRepo<TObject> where TObject : IEntity
 {
     internal List<TObject> list { get; set; } = [];

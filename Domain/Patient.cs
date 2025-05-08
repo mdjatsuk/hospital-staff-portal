@@ -24,7 +24,7 @@ public sealed class Patient(PatientData? d) : Entity<PatientData>(d)
         await base.LoadLazy();
         descriptions.Clear();
         var entries = await (Services
-            .Get<IMedicalRecords>()?
+            .Get<IMedicalRecordsRepo>()?
             .GetAsync(nameof(MedicalRecord.PatientId), Id ?? 0))!;
         foreach (var r in entries)
         {
