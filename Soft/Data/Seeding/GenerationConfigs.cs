@@ -64,6 +64,8 @@ public static class GenerationConfigs
             {
                 PropertyRules = new()
                 {
+                    new PropertyRule("RecordNr", GeneratorType.Random,() =>
+                        RecordNrGenerator.GenerateRecordNr()),
                     new PropertyRule("MedicineName", GeneratorType.OpenAi),
                     new PropertyRule("Description", GeneratorType.OpenAi),
                     new PropertyRule("RequiresPrescription", GeneratorType.Random, () =>
