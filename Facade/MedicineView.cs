@@ -9,13 +9,17 @@ public sealed class MedicineView : EntityView
 {
     [Required, Display(Name = recordnr)]
     public string? RecordNr { get; set; }
+
+    [Required, Display(Name = diagnosis)]
+    public string? Diagnosis { get; set; }
+
+    [Required, StringLength(descriptionLength, ErrorMessage = descriptionError)]
+    public string? Description { get; set; }
+
     [Required(ErrorMessage = "The Medicine Name field is required.")]
     [StringLength(medicineLength, ErrorMessage = medicineError)]
     [Display(Name = medicineName)]
     public string? MedicineName { get; set; }
-
-    [Required, StringLength(descriptionLength, ErrorMessage = descriptionError)]
-    public string? Description { get; set; }
 
     [Display(Name = reqPrescriptionName)]
     public bool RequiresPrescription { get; set; }

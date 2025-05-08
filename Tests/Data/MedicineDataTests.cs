@@ -16,7 +16,7 @@ namespace MVC.Tests.Data;
     {
         base.Initialize();
         if (obj == null) return;
-        obj.MedicineName = "Ibuprofen";
+        obj.Medicine = "Ibuprofen";
         obj.Description = "Test Description";
         obj.RequiresPrescription = true;
     }
@@ -24,7 +24,7 @@ namespace MVC.Tests.Data;
     {
         var d = obj?.Clone();
         notNull(d);
-        equal("Ibuprofen", d?.MedicineName);
+        equal("Ibuprofen", d?.Medicine);
         equal("Test Description", d?.Description);
         equal(true, d?.RequiresPrescription);
     }
