@@ -4,7 +4,7 @@
 @model MVC.Facade.MedicalRecordView
 
 @{
-    var description = await Services.Get<IDiagnosesRepo>()?.GetAsync()! ?? [];
+    var description = await Services.Get<IMedicinesRepo>()?.GetAsync()! ?? [];
     var patients = await Services.Get<IPatientsRepo>()?.GetAsync()! ?? [];
     description = description.OrderBy(m => m.Description).ToList();
     patients = patients.OrderBy(p => p.FullName).ToList();

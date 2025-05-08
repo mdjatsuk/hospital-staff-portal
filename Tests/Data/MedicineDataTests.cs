@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MVC.Tests.Data;
 
-[TestClass] public class DiagnosisDataTests : SealedTests<DiagnosisData, EntityData<DiagnosisData>>
+[TestClass] public class MedicineDataTests : SealedTests<MedicineData, EntityData<MedicineData>>
 {
     [TestMethod] public void MedicineNameTest() => isProperty<string>();
     [TestMethod] public void DescriptionTest() => isProperty<string>();
@@ -19,7 +19,6 @@ namespace MVC.Tests.Data;
         if (obj == null) return;
         obj.MedicineName = "Ibuprofen";
         obj.Description = "Test Description";
-        obj.RequiresSurgery = true;
     }
     [TestMethod] public void CloneTest()
     {
@@ -27,6 +26,5 @@ namespace MVC.Tests.Data;
         notNull(d);
         equal("Ibuprofen", d?.MedicineName);
         equal("Test Description", d?.Description);
-        equal(true, d?.RequiresSurgery);
     }
 }

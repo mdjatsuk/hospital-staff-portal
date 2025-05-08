@@ -5,25 +5,23 @@ using Microsoft.VisualStudio.Web.CodeGeneration.Utils;
 
 namespace MVC.Tests.Facade;
 
-[TestClass] public class DiagnosisViewTests : SealedTests<DiagnosisView, EntityView>
+[TestClass] public class MedicineViewTests : SealedTests<MedicineView, EntityView>
 {
-    [TestMethod] public override void DisplayNameTest() => isDisplayName("Diagnosis");
+    [TestMethod] public override void DisplayNameTest() => isDisplayName("Medicine");
     [TestMethod] public void MedicineNameTest() => isProperty<string?>("Medicine");
     [TestMethod] public void DescriptionTest() => isProperty<string?>(null);
-    [TestMethod] public void RequiresSurgeryTest() => isProperty<bool>("Requires Surgery");
     [TestMethod] public void RequiresPrescriptionTest() => isProperty<bool>("Requires Prescription");
 
 
-    protected override Type setType() => typeof(DiagnosisView);
-    private DiagnosisView? view;
+    protected override Type setType() => typeof(MedicineView);
+    private MedicineView? view;
     [TestInitialize] public void TestInitialize()
     {
-        view = new DiagnosisView
+        view = new MedicineView
         {
             Id = 1,
             MedicineName = "Valid Medicine",
             Description = "Valid Description",
-            RequiresSurgery = true
         };
     }
     [TestMethod]  public void MedicineNameIsRequiredTest()
@@ -49,12 +47,6 @@ namespace MVC.Tests.Facade;
         view!.Description = new string('A', 501);
         var results = validate(view);
         isTrue(results.Any(r => r.ErrorMessage!.Contains("The Description cannot exceed 500 characters.")));
-    }
-    [TestMethod] public void RequiresSurgeryTest_2()
-    {
-        view!.RequiresSurgery = false;
-        var results = validate(view);
-        isFalse(results.Any());
     }
     private List<ValidationResult> validate(object model)
     {

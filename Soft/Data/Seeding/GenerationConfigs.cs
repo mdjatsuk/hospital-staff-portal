@@ -60,7 +60,7 @@ public static class GenerationConfigs
             },
 
 
-            var t when t == typeof(DiagnosisData) => new EntityGenerationConfig
+            var t when t == typeof(MedicineData) => new EntityGenerationConfig
             {
                 PropertyRules = new()
                 {
