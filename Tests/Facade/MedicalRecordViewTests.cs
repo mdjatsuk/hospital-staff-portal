@@ -18,7 +18,7 @@ namespace MVC.Tests.Facade;
     [TestMethod] public void PatientFullNameTest() => isProperty<string?>("Patient");
     [TestMethod] public void PatientTest() => isProperty<string?>("Patient");
     [TestMethod] public void DiagnosedOnTest() => isProperty<DateTime?>("Diagnosed on", DataType.Date);
-    [TestMethod] public void DiagnosisTest() => isProperty<Diagnoses?>("Medicine");
+    [TestMethod] public void DiagnosisTest() => isProperty<Diagnoses?>("Diagnosis");
     [TestMethod] public void DescriptionNameTest() => isProperty<string?>("Description");
     protected override Type setType() => typeof(MedicalRecordView);
     private MedicalRecordView? view;
