@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.Web.CodeGeneration.Utils;
 
 namespace MVC.Tests.Facade;
 
-[TestClass] public class MedicineViewTests : SealedTests<MedicineView, EntityView>
+[TestClass] public class DiagnosisViewTests : SealedTests<DiagnosisView, EntityView>
 {
     [TestMethod] public override void DisplayNameTest() => isDisplayName("Medicines");
     [TestMethod] public void MedicineNameTest() => isProperty<string?>("Medicines");
@@ -13,28 +13,28 @@ namespace MVC.Tests.Facade;
     [TestMethod] public void RequiresPrescriptionTest() => isProperty<bool>("Requires Prescription");
 
 
-    protected override Type setType() => typeof(MedicineView);
-    private MedicineView? view;
+    protected override Type setType() => typeof(DiagnosisView);
+    private DiagnosisView? view;
     [TestInitialize] public void TestInitialize()
     {
-        view = new MedicineView
+        view = new DiagnosisView
         {
             Id = 1,
-            MedicineName = "Valid Medicine",
+            Medicine = "Valid Diagnosis",
             Description = "Valid Description",
         };
     }
     [TestMethod]  public void MedicineNameIsRequiredTest()
     {
-        view!.MedicineName = null;
+        view!.Medicine = null;
         var results = validate(view);
-        isTrue(results.Any(r => r.ErrorMessage!.Contains("The Medicine Name field is required.")));
+        isTrue(results.Any(r => r.ErrorMessage!.Contains("The Diagnosis Name field is required.")));
     }
     [TestMethod] public void MedicineNameLengthTest()
     {
-        view!.MedicineName = new string('B', 501);
+        view!.Medicine = new string('B', 501);
         var results = validate(view);
-        isTrue(results.Any(r => r.ErrorMessage!.Contains("The Medicine cannot exceed 500 characters.")));
+        isTrue(results.Any(r => r.ErrorMessage!.Contains("The Diagnosis cannot exceed 500 characters.")));
     }
     [TestMethod] public void DescriptionIsRequiredTest()
     {

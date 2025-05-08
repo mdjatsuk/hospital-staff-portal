@@ -21,7 +21,7 @@ public class DbInitializer
 
         await Seed<PatientData>(count);
         await Seed<DoctorData>(count);
-        await Seed<MedicineData>(count);
+        await Seed<DiagnosisData>(count);
         await Seed<AppointmentData>(count);
         await Seed<MedicalRecordData>(count);
     }
@@ -69,8 +69,9 @@ public class DbInitializer
     }
 
 
-    private static HashSet<(int DoctorId, int PatientId)> usedAppointmentPairs = new HashSet<(int DoctorId, int PatientId)>();
-    private static HashSet<(int DiagnosisId, int PatientId)> usedMedicalRecordPairs = new HashSet<(int DiagnosisId, int PatientId)>();
+    private static HashSet<(int DoctorId, int PatientId)> usedAppointmentPairs = new ();
+    private static HashSet<(int DiagnosisId, int PatientId)> usedMedicalRecordPairs = new();
+
 
     private async Task<Dictionary<string, object>> GetReferenceValues<TEntity>()
     {
@@ -98,19 +99,19 @@ public class DbInitializer
         }
         else if (typeof(TEntity) == typeof(MedicalRecordData))
         {
-            var medicine = await _context.Medicines.OrderBy(x => Guid.NewGuid()).FirstOrDefaultAsync();
+            var record = await _context.Diagnoses.OrderBy(x => Guid.NewGuid()).FirstOrDefaultAsync();
             var patient = await _context.Patients.OrderBy(x => Guid.NewGuid()).FirstOrDefaultAsync();
 
-            while (medicine != null && patient != null && usedMedicalRecordPairs.Contains((medicine.Id, patient.Id)))
+            while (record != null && patient != null && usedMedicalRecordPairs.Contains((record.Id, patient.Id)))
             {
-                medicine = await _context.Medicines.OrderBy(x => Guid.NewGuid()).FirstOrDefaultAsync();
+                record = await _context.Diagnoses.OrderBy(x => Guid.NewGuid()).FirstOrDefaultAsync();
                 patient = await _context.Patients.OrderBy(x => Guid.NewGuid()).FirstOrDefaultAsync();
             }
 
-            if (medicine != null && patient != null)
+            if (record != null && patient != null)
             {
-                result["DescriptionId"] = medicine.Id;
-                result["DescriptionName"] = medicine.Description;
+                result["RecordNrId"] = record.Id;
+                result["RecordNr"] = record.RecordNr;
                 result["PatientId"] = patient.Id;
                 result["PatientFullName"] = $"{patient.FirstName} {patient.LastName}";
             }

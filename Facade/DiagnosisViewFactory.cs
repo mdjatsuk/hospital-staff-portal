@@ -7,4 +7,4 @@ using System.Threading.Tasks;
 
 namespace MVC.Facade;
 
-public sealed class MedicineViewFactory : AbstractViewFactory<MedicineData, MedicineView> {}
+public sealed class DiagnosisViewFactory : AbstractViewFactory<DiagnosisData, DiagnosisView> {}

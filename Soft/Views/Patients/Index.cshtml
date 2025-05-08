@@ -8,13 +8,13 @@
 	ViewData["Title"] = "List of Patients";
 	Layout = "_Index";
 
-	async Task<IEnumerable<MedicineView>> relatedDiagnoses()
+	async Task<IEnumerable<DiagnosisView>> relatedDiagnoses()
 	{
 		var id = ViewBag.SelectedId;
 		var patient = await Services.Get<IPatientsRepo>()?.GetAsync(id) as Patient;
 		if (patient != null) await patient.LoadLazy();
 		var patientDiagnoses = patient?.RecordNr?.Where(x => x is not null);
-		return patientDiagnoses?.Select(x => new MedicineViewFactory().CreateView(x!.data)) ?? [];
+		return patientDiagnoses?.Select(x => new DiagnosisViewFactory().CreateView(x!.data)) ?? [];
 	}
 }
 
@@ -23,5 +23,5 @@
 
 @if (ViewBag.SelectedId != null)
 {
-	@await Html.PartialAsync("_RelatedMedicines", await relatedDiagnoses())
+	@await Html.PartialAsync("_RelatedDiagnoses", await relatedDiagnoses())
 }

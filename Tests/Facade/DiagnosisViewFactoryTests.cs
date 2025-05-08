@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 namespace MVC.Tests.Facade;
 
 [TestClass]
-public class MedicineViewFactoryTests : 
-    SealedTests<MedicineViewFactory, AbstractViewFactory<MedicineData, MedicineView>>
+public class DiagnosisViewFactoryTests : 
+    SealedTests<DiagnosisViewFactory, AbstractViewFactory<DiagnosisData, DiagnosisView>>
 {
-    private MedicineData? data;
-    private MedicineView? view;
+    private DiagnosisData? data;
+    private DiagnosisView? view;
     [TestInitialize] public override void Initialize()
     {
         base.Initialize();
@@ -26,19 +26,19 @@ public class MedicineViewFactoryTests :
         data = null;
         view = null;
     }
-    private MedicineView crView()
+    private DiagnosisView crView()
     {
-        var v = new MedicineView
+        var v = new DiagnosisView
         {
             Id = 1,
-            MedicineName = "Aspirin",
+            Medicine = "Aspirin",
             Description = "View Description",
         };
         return v;
     }
-    private MedicineData crData()
+    private DiagnosisData crData()
     {
-        var d = new MedicineData
+        var d = new DiagnosisData
         {
             Id = 1000,
             Medicine = "Aspirin",
@@ -49,21 +49,21 @@ public class MedicineViewFactoryTests :
     [TestMethod]
     public void CreateViewTest()
     {
-        var f = new MedicineViewFactory();
+        var f = new DiagnosisViewFactory();
         var v = f.CreateView(data);
         notNull(v);
         equal(data?.Id, v.Id);
-        equal(data?.Medicine, v.MedicineName);
+        equal(data?.Medicine, v.Medicine);
         equal(data?.Description, v.Description);
     }
     [TestMethod]
     public void CreateDataTest()
     {
-        var f = new MedicineViewFactory();
+        var f = new DiagnosisViewFactory();
         var d = f.CreateData(view);
         notNull(d);
         equal(view?.Id, d.Id);
-        equal(view?.MedicineName, d.Medicine);
+        equal(view?.Medicine, d.Medicine);
         equal(view?.Description, d.Description);
     }
 }

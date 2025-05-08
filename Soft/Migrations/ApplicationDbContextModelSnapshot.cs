@@ -56,6 +56,34 @@ namespace MVC.Soft.Migrations
                     b.ToTable("Appointments");
                 });
 
+            modelBuilder.Entity("MVC.Data.DiagnosisData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Diagnosis")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Medicine")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RecordNr")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("RequiresPrescription")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Diagnoses");
+                });
+
             modelBuilder.Entity("MVC.Data.DoctorData", b =>
                 {
                     b.Property<int>("Id")
@@ -82,34 +110,6 @@ namespace MVC.Soft.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Doctors");
-                });
-
-            modelBuilder.Entity("MVC.Data.MedicineData", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Diagnosis")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Medicine")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RecordNr")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("RequiresPrescription")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Medicines");
                 });
 
             modelBuilder.Entity("MVC.Data.PatientData", b =>

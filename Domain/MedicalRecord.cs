@@ -11,14 +11,14 @@ public sealed class MedicalRecord(MedicalRecordData? d) : Entity<MedicalRecordDa
     public int RecordNrId => data?.RecordNrId ?? 0;
     public DateTime? DiagnosedOn => data?.DiagnosedOn;
     public Patient? Patient => patient;
-    public Medicine? RecordNr => recordNr;
+    public Diagnosis? RecordNr => recordNr;
 
     internal Patient? patient;
-    internal Medicine? recordNr;
+    internal Diagnosis? recordNr;
     public override async Task LoadLazy()
     {
         await base.LoadLazy();
         patient = await getItem<IPatientsRepo,Patient>(PatientId)!;
-        recordNr = await getItem<IMedicinesRepo, Medicine>(RecordNrId)!;
+        recordNr = await getItem<IMedicinesRepo, Diagnosis>(RecordNrId)!;
     }
 }

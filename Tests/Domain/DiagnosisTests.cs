@@ -9,17 +9,17 @@ using System.Threading.Tasks;
 namespace MVC.Tests.Domain;
 
 [TestClass]
-public class MedicineTests : SealedTests<Medicine, Entity<MedicineData>>
+public class DiagnosisTests : SealedTests<Diagnosis, Entity<DiagnosisData>>
 {
-    protected override Medicine createObj()
+    protected override Diagnosis createObj()
     {
-        var d = new MedicineData
+        var d = new DiagnosisData
         {
             Id = 1,
             Medicine = "Paracetamol",
             Description = "Test Description",
         };
-        return new Medicine(d);
+        return new Diagnosis(d);
     }
     [TestMethod] public void MedicineNameTest() => equal("Paracetamol", obj?.MedicineName);
     [TestMethod] public void DescriptionTest() => equal("Test Description", obj?.Description);
