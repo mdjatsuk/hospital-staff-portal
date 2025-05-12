@@ -5,7 +5,7 @@
 
 @{
     var patients = await Services.Get<IPatientsRepo>()?.GetAsync()! ?? [];
-    var recordNr = await Services.Get<IMedicinesRepo>()?.GetAsync()! ?? [];
+    var recordNr = await Services.Get<IDiagnosisRepo>()?.GetAsync()! ?? [];
     patients = patients.OrderBy(p => p.FullName).ToList();
 	recordNr = recordNr.OrderBy(m => m.RecordNr).ToList();
     var selectPatients = new SelectList(patients, "Id", "FullName", Model.PatientId);

@@ -10,6 +10,16 @@ namespace MVC.Tests.Domain;
 internal class mockDoctorRepo : mockRepo<Doctor>, IDoctorsRepo
 {
 }
+
+internal class  mockPatientRepo : mockRepo<Patient>, IPatientsRepo
+{
+    
+}
+
+internal class mockDiagnosisRepo : mockRepo<Diagnosis>, IDiagnosisRepo
+{
+
+}
 internal class mockRepo<TObject> : IRepo<TObject> where TObject : IEntity
 {
     internal List<TObject> list { get; set; } = [];
