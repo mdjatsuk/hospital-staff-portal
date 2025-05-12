@@ -13,9 +13,9 @@ namespace MVC.Facade;
 [DisplayName(medicalRecords)] public sealed class MedicalRecordView : EntityView
 {
     [Display(Name = patient)] public int PatientId { get; set; }
-    [Display(Name = "Record Nr")] public int RecordNrId { get; set; }
+    [Display(Name = recordNr)] public int RecordNrId { get; set; }
     [Display(Name = patient)] public string? Patient { get; set; }
-    [Display(Name = "Record Nr")] public string? RecordNr { get; set; }
+    [Display(Name = recordNr)] public string? RecordNr { get; set; }
     [Display(Name = patient)] public string? PatientFullName { get; set; }
     [Display(Name = diagnosedOn), Required, DataType(DataType.Date)] public DateTime? DiagnosedOn { get; set; }
 
