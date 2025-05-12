@@ -19,6 +19,6 @@ public sealed class MedicalRecord(MedicalRecordData? d) : Entity<MedicalRecordDa
     {
         await base.LoadLazy();
         patient = await getItem<IPatientsRepo,Patient>(PatientId)!;
-        recordNr = await getItem<IMedicinesRepo, Diagnosis>(RecordNrId)!;
+        recordNr = await getItem<IDiagnosisRepo, Diagnosis>(RecordNrId)!;
     }
 }
