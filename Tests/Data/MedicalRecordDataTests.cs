@@ -10,11 +10,10 @@ namespace MVC.Tests.Data;
 [TestClass] public class MedicalRecordDataTests : SealedTests<MedicalRecordData, EntityData<MedicalRecordData>>
 {
     [TestMethod] public void PatientIdTest() => isProperty<int>();
-    [TestMethod] public void DescriptionIdTest() => isProperty<int>();
+    [TestMethod] public void RecordNrIdTest() => isProperty<int>();
     [TestMethod] public void DiagnosedOnTest() => isProperty<DateTime?>();
-    [TestMethod] public void DiagnosisTest() => isProperty<string?>();
-    [TestMethod] public void DescriptionNameTest() => isProperty<string>();
     [TestMethod] public void PatientFullNameTest() => isProperty<string>();
+    [TestMethod] public void RecordNrTest() => isProperty<string>();
 
     [TestInitialize] public override void Initialize()
     {

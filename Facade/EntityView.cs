@@ -19,6 +19,7 @@ public abstract class EntityView
     protected internal const string medicineName = "Medicines";
     protected internal const string doctor = "Doctor";
     protected internal const string patient = "Patient";
+    protected internal const string recordNr = "Record Nr";
     protected internal const string doctors = "Doctors";
     protected internal const string patients = "Patients";
     protected internal const string appointments = "Appointments";
