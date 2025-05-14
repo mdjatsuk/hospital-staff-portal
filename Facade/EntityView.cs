@@ -14,9 +14,12 @@ public abstract class EntityView
     protected internal const string birthName = "Date Of Birth";
     protected internal const string appointName = "Appointment Fee";
     protected internal const string diagnosis = "Diagnosis";
+    protected internal const string diagnoses = "Diagnoses";
+    protected internal const string recordnr = "Record Number";
     protected internal const string medicineName = "Medicines";
     protected internal const string doctor = "Doctor";
     protected internal const string patient = "Patient";
+    protected internal const string recordNr = "Record Nr";
     protected internal const string doctors = "Doctors";
     protected internal const string patients = "Patients";
     protected internal const string appointments = "Appointments";
@@ -31,7 +34,7 @@ public abstract class EntityView
     protected internal const string roomError = "A room must start with two capital letters followed by three digits (e.g., AB302).";
     protected internal const string appointError = "Appointment Fee must be zero or positive.";
     protected internal const string descriptionError = "The Description cannot exceed 500 characters.";
-    protected internal const string medicineError = "The Medicine cannot exceed 500 characters.";
+    protected internal const string medicineError = "The Diagnosis cannot exceed 500 characters.";
     protected internal const string phoneNumberError = "The phone number must be exactly 8 digits.";
     protected internal const string firstNameError = "First Name must be between 2 and 50 characters.";
     protected internal const string lastNameError = "Last Name must be between 2 and 50 characters.";

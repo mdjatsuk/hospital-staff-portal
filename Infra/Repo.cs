@@ -1,4 +1,5 @@
 ﻿using System.Linq.Dynamic.Core;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MVC.Core;
 using MVC.Data;
@@ -78,5 +79,12 @@ public class Repo<TObject, TData>(DbContext c, Func<TData?, TObject> f)
         if (x is null) return;
         set.Remove(x);
         await db.SaveChangesAsync();
+    }
+    protected internal virtual string selectTextField => nameof(EntityData.Id);
+    public async Task<IEnumerable<dynamic>> SelectItems(string researchString, int id)
+    {
+
+        var l = await GetAsync();
+        return new SelectList(l, nameof(EntityData.Id), selectTextField, id);
     }
 }

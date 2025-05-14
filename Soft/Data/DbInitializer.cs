@@ -21,7 +21,7 @@ public class DbInitializer
 
         await Seed<PatientData>(count);
         await Seed<DoctorData>(count);
-        await Seed<MedicineData>(count);
+        await Seed<DiagnosisData>(count);
         await Seed<AppointmentData>(count);
         await Seed<MedicalRecordData>(count);
     }
@@ -68,6 +68,11 @@ public class DbInitializer
         await _context.SaveChangesAsync();
     }
 
+
+    private static HashSet<(int DoctorId, int PatientId)> usedAppointmentPairs = new ();
+    private static HashSet<(int DiagnosisId, int PatientId)> usedMedicalRecordPairs = new();
+
+
     private async Task<Dictionary<string, object>> GetReferenceValues<TEntity>()
     {
         var result = new Dictionary<string, object>();
@@ -77,23 +82,36 @@ public class DbInitializer
             var doctor = await _context.Doctors.OrderBy(x => Guid.NewGuid()).FirstOrDefaultAsync();
             var patient = await _context.Patients.OrderBy(x => Guid.NewGuid()).FirstOrDefaultAsync();
 
+            while (doctor != null && patient != null && usedAppointmentPairs.Contains((doctor.Id, patient.Id)))
+            {
+                doctor = await _context.Doctors.OrderBy(x => Guid.NewGuid()).FirstOrDefaultAsync();
+                patient = await _context.Patients.OrderBy(x => Guid.NewGuid()).FirstOrDefaultAsync();
+            }
+
             if (doctor != null && patient != null)
             {
                 result["DoctorId"] = doctor.Id;
                 result["PatientId"] = patient.Id;
                 result["DoctorFullName"] = $"{doctor.FirstName} {doctor.LastName}";
                 result["PatientFullName"] = $"{patient.FirstName} {patient.LastName}";
+                usedAppointmentPairs.Add((doctor.Id, patient.Id));
             }
         }
         else if (typeof(TEntity) == typeof(MedicalRecordData))
         {
-            var diagnosis = await _context.Medicines.OrderBy(x => Guid.NewGuid()).FirstOrDefaultAsync();
+            var record = await _context.Diagnoses.OrderBy(x => Guid.NewGuid()).FirstOrDefaultAsync();
             var patient = await _context.Patients.OrderBy(x => Guid.NewGuid()).FirstOrDefaultAsync();
 
-            if (diagnosis != null && patient != null)
+            while (record != null && patient != null && usedMedicalRecordPairs.Contains((record.Id, patient.Id)))
             {
-                result["DescriptionId"] = diagnosis.Id;
-                result["DescriptionName"] = diagnosis.Description;
+                record = await _context.Diagnoses.OrderBy(x => Guid.NewGuid()).FirstOrDefaultAsync();
+                patient = await _context.Patients.OrderBy(x => Guid.NewGuid()).FirstOrDefaultAsync();
+            }
+
+            if (record != null && patient != null)
+            {
+                result["RecordNrId"] = record.Id;
+                result["RecordNr"] = record.RecordNr;
                 result["PatientId"] = patient.Id;
                 result["PatientFullName"] = $"{patient.FirstName} {patient.LastName}";
             }

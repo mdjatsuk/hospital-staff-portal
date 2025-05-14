@@ -13,7 +13,11 @@ public abstract class BaseController<TObject, TData, TView>(DbContext c,
     where TObject : Entity<TData> where TData : EntityData<TData>, new() where TView : EntityView, new()
 {
     private const byte pageSize = 10;
-    private readonly Repo<TObject, TData> r = new(c, createObject);
+    protected readonly Repo<TObject, TData> r = new(c, createObject);
+    protected readonly AbstractViewFactory<TData, TView> f = f;
+    protected readonly Func<TData?, TObject> createObject = createObject;
+
+
     private async Task<IActionResult> showAsync(string? viewName, int? id)
     {
         var o = await r.GetAsync(id);
@@ -34,7 +38,7 @@ public abstract class BaseController<TObject, TData, TView>(DbContext c,
     public async Task<IActionResult> Details(int? id) => await showAsync(nameof(Details), id);
     public IActionResult Create() => View(new TView());
     [HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create(TView v)
+    public virtual async Task<IActionResult> Create(TView v)
     {
         if (!ModelState.IsValid) return View(v);
         var d = f.CreateData(v);
@@ -43,7 +47,7 @@ public abstract class BaseController<TObject, TData, TView>(DbContext c,
     }
     public async Task<IActionResult> Edit(int? id) => await showAsync(nameof(Edit), id);
     [HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, TView v)
+    public virtual async Task<IActionResult> Edit(int id, TView v)
     {
         if (id != v.Id) return NotFound();
         if (!ModelState.IsValid) return View(v);
@@ -57,5 +61,9 @@ public abstract class BaseController<TObject, TData, TView>(DbContext c,
     {
         await r.DeleteAsync(id);
         return RedirectToAction(nameof(Index));
+    }
+    public async Task<IActionResult> SelectItems(string searchString, int id)
+    {
+        return Ok(await r.SelectItems(searchString, id));
     }
 }

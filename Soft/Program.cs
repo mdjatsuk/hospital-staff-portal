@@ -25,7 +25,7 @@ internal class Program
 
         builder.Services.AddTransient<DbContext, ApplicationDbContext>();
         builder.Services.AddTransient<IAppointmentsRepo, AppointmentsRepo>();
-        builder.Services.AddTransient<IMedicinesRepo, MedicinesRepo>();
+        builder.Services.AddTransient<IDiagnosisRepo, DiagnosisRepo>();
         builder.Services.AddTransient<IDoctorsRepo, DoctorsRepo>();
         builder.Services.AddTransient<IPatientsRepo, PatientsRepo>();
         builder.Services.AddTransient<IMedicalRecordsRepo, MedicalRecordsRepo>();

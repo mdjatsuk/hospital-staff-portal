@@ -13,13 +13,11 @@ namespace MVC.Tests.Facade;
 {
     [TestMethod] public override void DisplayNameTest() => isDisplayName("Medical Records");
     [TestMethod] public void PatientIdTest() => isProperty<int>("Patient");
-    [TestMethod] public void DescriptionIdTest() => isProperty<int?>("Description");
-    [TestMethod] public void DescriptionTest() => isProperty<string?>("Description");
+    [TestMethod] public void RecordNrIdTest() => isProperty<int>("Record Nr");
     [TestMethod] public void PatientFullNameTest() => isProperty<string?>("Patient");
     [TestMethod] public void PatientTest() => isProperty<string?>("Patient");
+    [TestMethod] public void RecordNrTest() => isProperty<string?>("Record Nr");
     [TestMethod] public void DiagnosedOnTest() => isProperty<DateTime?>("Diagnosed on", DataType.Date);
-    [TestMethod] public void DiagnosisTest() => isProperty<Diagnoses?>("Diagnosis");
-    [TestMethod] public void DescriptionNameTest() => isProperty<string?>("Description");
     protected override Type setType() => typeof(MedicalRecordView);
     private MedicalRecordView? view;
     [TestInitialize]
@@ -29,12 +27,8 @@ namespace MVC.Tests.Facade;
         {
             Id = 1,
             PatientId = 2,
-            DescriptionId = 3,
-            Description = "Valid Description",
             Patient = "Liam Thompson",
             DiagnosedOn = DateTime.Today.AddDays(-1),
-            Diagnosis = Diagnoses.Asthma,
-            DescriptionName = "Feeling dizzy and lightheaded",
             PatientFullName = "Liam Thompson"
         };
     }

@@ -13,12 +13,10 @@ namespace MVC.Facade;
 [DisplayName(medicalRecords)] public sealed class MedicalRecordView : EntityView
 {
     [Display(Name = patient)] public int PatientId { get; set; }
-    [Display(Name = descriptionName)] public int? DescriptionId { get; set; }
-    [Display(Name = descriptionName)] public string? Description { get; set; }
+    [Display(Name = recordNr)] public int RecordNrId { get; set; }
     [Display(Name = patient)] public string? Patient { get; set; }
+    [Display(Name = recordNr)] public string? RecordNr { get; set; }
     [Display(Name = patient)] public string? PatientFullName { get; set; }
-    [Display(Name = diagnosis)] public Diagnoses? Diagnosis { get; set; }
-    [Display(Name = descriptionName)] public string? DescriptionName { get; set; }
     [Display(Name = diagnosedOn), Required, DataType(DataType.Date)] public DateTime? DiagnosedOn { get; set; }
 
 }

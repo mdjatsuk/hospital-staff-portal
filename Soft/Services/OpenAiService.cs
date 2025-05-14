@@ -96,7 +96,7 @@ public class OpenAiService
         }
     }
 
-    public List<(string, T)> ParseResponse<T>(string response, Func<string, T?> parseSecondValue) where T : struct
+    public List<(string, T)> ParseResponseWithEnum<T>(string response, Func<string, T?> parseSecondValue) where T : struct
     {
         var entries = new List<(string, T)>();
         var uniqueEntries = new HashSet<(string, T)>();
@@ -127,7 +127,36 @@ public class OpenAiService
         return entries;
     }
 
-    private List<string> ParseResponseToList(string response)
+    public List<(string Diagnosis, string Description, string Medicine)> ParseDiagnosisResponse(string response)
+    {
+        var entries = new List<(string, string, string)>();
+        var uniqueEntries = new HashSet<(string, string, string)>();
+        var rawEntries = response.Split(';', StringSplitOptions.RemoveEmptyEntries);
+
+        foreach (var rawEntry in rawEntries)
+        {
+            var parts = rawEntry.Split(',', StringSplitOptions.RemoveEmptyEntries);
+            if (parts.Length != 3)
+                continue;
+
+            var diagnosis = parts[0].Trim();
+            var description = parts[1].Trim();
+            var medicine = parts[2].Trim();
+
+            var entry = (diagnosis, description, medicine);
+
+            if (uniqueEntries.Add(entry))
+            {
+                entries.Add(entry);
+            }
+        }
+
+        return entries;
+    }
+
+
+
+    private List<string> ParseResponseSeparatedWithComma(string response)
     {
         var entries = new List<string>();
         var rawEntries = response.Split(';', StringSplitOptions.RemoveEmptyEntries);
@@ -146,7 +175,7 @@ public class OpenAiService
                              $"Generate exactly {toGenerate} full names, each followed by a comma and gender. " +
                              $"Separate each entry with a semicolon (;). No extra text. Exact count required.";
 
-        return await GenerateDataAsync(toGenerate, instruction, response => ParseResponse<Genders>(response, genderStr =>
+        return await GenerateDataAsync(toGenerate, instruction, response => ParseResponseWithEnum<Genders>(response, genderStr =>
         {
             if (int.TryParse(genderStr, out int genderInt) && Enum.IsDefined(typeof(Genders), genderInt))
             {
@@ -157,24 +186,17 @@ public class OpenAiService
     }
 
 
-    public async Task<List<(string description, Diagnoses diagnosis)>> GenerateRandomDiagnosisDescriptionsAsync(int toGenerate)
+    public async Task<List<(string diagnosis, string description, string medicine)>> GenerateRandomMedicinesAndDescriptionsAsync(int toGenerate)
     {
-        string instruction = $"You are a medical AI that generates random, **very short** and realistic diagnosis descriptions, each followed by a diagnosis number. " +
-                             $"Use the following mapping: Hypertension (1), Diabetes (2), Asthma (3), Epilepsy (4), Pneumonia (5), Tuberculosis (6), " +
-                             $"Osteoarthritis (7), Migraine (8), Anemia (9), Gastric Ulcer (10), Hepatitis (11). " +
-                             $"Generate exactly {toGenerate} entries. Each entry must follow this format: description,diagnosis_number. " +
-                             $"Separate entries using a semicolon (;). Do not add any extra text or explanations. Output only the data.";
+        string instruction = $"Generate {toGenerate} realistic medical diagnoses. " +
+                             $"Each entry must include: a diagnosis name, a sentence long medically accurate description, and a medicine commonly used to treat it. " +
+                             $"Each entry must follow this exact format: Diagnosis name, Description, Medicine name. Separate entries using a semicolon (;). " +
+                             $"Do not include any numbering, explanations, or extra text. DO NOT put period at the end of the sentence. Output only the data.";
 
 
-        return await GenerateDataAsync(toGenerate, instruction, response => ParseResponse<Diagnoses>(response, diagnosisStr => 
-        {
-            if (int.TryParse(diagnosisStr, out int diagnosisInt) && Enum.IsDefined(typeof(Diagnoses), diagnosisInt))
-            {
-                return (Diagnoses)diagnosisInt;
-            }
-            return null;
-        }));
+        return await GenerateDataAsync(toGenerate, instruction, ParseDiagnosisResponse);
     }
+
 
     public async Task<List<string>> GenerateRandomRoomsAsync(int toGenerate)
     {
@@ -183,7 +205,7 @@ public class OpenAiService
                              $"Generate exactly {toGenerate} unique room codes. Separate each room code with a semicolon (;). " +
                              $"No extra text.";
 
-        return await GenerateDataAsync(toGenerate, instruction, ParseResponseToList);
+        return await GenerateDataAsync(toGenerate, instruction, ParseResponseSeparatedWithComma);
     }
 
 

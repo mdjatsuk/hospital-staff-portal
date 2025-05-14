@@ -1,29 +1,24 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MVC.Soft.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using MVC.Data;
+using MVC.Soft.Data;
 
-namespace MVC.Tests.Soft.Data;
-
-[TestClass] public class ApplicationDbContextTests :
-    BaseClassTests<ApplicationDbContext, IdentityDbContext>
+namespace MVC.Tests.Soft.Data
 {
-    protected override ApplicationDbContext createObj()
+    [TestClass] public class ApplicationDbContextTests : BaseClassTests<ApplicationDbContext, IdentityDbContext>
     {
-        var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-           .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-           .Options;
+        protected override ApplicationDbContext createObj()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+               .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+               .Options;
 
-        return new ApplicationDbContext(options);
+            return new ApplicationDbContext(options);
+        }
+        [TestMethod] public void AppointmentsTest() => isType(obj!.Appointments, typeof(DbSet<AppointmentData>));
+        [TestMethod] public void DoctorsTest() => isType(obj!.Doctors, typeof(DbSet<DoctorData>));
+        [TestMethod] public void MedicalRecordsTest() => isType(obj!.MedicalRecords, typeof(DbSet<MedicalRecordData>));
+        [TestMethod] public void MedicinesTest() => isType(obj!.Diagnoses, typeof(DbSet<DiagnosisData>));
+        [TestMethod] public void PatientsTest() => isType(obj!.Patients, typeof(DbSet<PatientData>));
     }
-    [TestMethod] public void AppointmentsTest() => isType(obj!.Appointments, typeof(DbSet<AppointmentData>));
-    [TestMethod] public void DoctorsTest() => isType(obj!.Doctors, typeof(DbSet<DoctorData>));
-    [TestMethod] public void MedicalRecordsTest() => isType(obj!.MedicalRecords, typeof(DbSet<MedicalRecordData>));
-    [TestMethod] public void MedicinesTest() => isType(obj!.Medicines, typeof(DbSet<MedicineData>));
-    [TestMethod] public void PatientsTest() => isType(obj!.Patients, typeof(DbSet<PatientData>));
 }
