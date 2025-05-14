@@ -19,6 +19,5 @@ namespace MVC.Facade;
 
     [Display(Name = emailName), Required(ErrorMessage = requiredError), EmailValidation]
     public string? EmailAddress { get; set; }
-    public string FullName => $"{FirstName} {LastName}".Trim();
 
 }

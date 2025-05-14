@@ -5,7 +5,6 @@ namespace MVC.Facade;
 public abstract class EntityView
 {
     protected internal const string dateName = "Date";
-    protected internal const string reqSurgeryName = "Requires Surgery";
     protected internal const string reqPrescriptionName = "Requires Prescription";
     protected internal const string firstName = "First Name";
     protected internal const string lastName = "Last Name";
@@ -24,7 +23,6 @@ public abstract class EntityView
     protected internal const string patients = "Patients";
     protected internal const string appointments = "Appointments";
     protected internal const string medicalRecords = "Medical Records";
-    protected internal const string descriptionName = "Description";
     protected internal const string diagnosedOn = "Diagnosed on";
     protected internal const string emailName = "Email address";
 
@@ -56,9 +54,7 @@ public abstract class EntityView
     protected internal const int medicineLength = 500;
     protected internal const int nameLength = 50;
     protected internal const int minNameLength = 2;
-    protected internal const int male = 0;
-    protected internal const int female = 1;
-    protected internal const double appointMaxFee = double.MaxValue;
+    protected internal const double appointMaxFee = 10000;
     protected internal const int appointMinFee = 0;
 
     public int Id { get; set; }
