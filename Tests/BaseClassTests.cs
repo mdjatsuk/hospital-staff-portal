@@ -17,18 +17,17 @@ public abstract class BaseClassTests<TClass, TBaseClass> : BaseTests
     [TestCleanup] public override void Cleanup()
     {
         base.Cleanup();
-        obj = null;;
+        obj = null;
     }
     [TestMethod] public void CanCreateTest() => notNull(obj);
     [TestMethod] public void IsTypeOfTest() => isType(obj, typeof(TClass));
-    [TestMethod] public void IsBaseTypeOfTest() => equal(typeof(TClass).BaseType, typeof(TBaseClass));
+    [TestMethod] public virtual void IsBaseTypeOfTest() => equal(typeof(TClass).BaseType, typeof(TBaseClass));
     protected override void canGet<T>(PropertyInfo pi, T? expected) where T : default
     {
         var actual = pi.GetValue(obj);
         equal(actual, expected);
     }
-
-    protected override void canSet<T>(PropertyInfo pi, T? v)
-        where T : default => pi.SetValue(obj, v);
+    protected override void canSet<T>(PropertyInfo pi, T? v) where T : default
+        => pi.SetValue(obj, v);
 }
 
