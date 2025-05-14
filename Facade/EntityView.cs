@@ -31,7 +31,7 @@ public abstract class EntityView
     public const string roomEx = @"^[A-Z]{2}\d{3}$";
     protected const string namesEx = @"^[A-Z][a-zA-Z]*$";
     protected const string capitalLetterEx = @"^[A-Z].*$";
-    protected internal const string phoneNumberEx = @"^\d{8}$";
+    protected const string phoneNumberEx = @"^\d{8}$";
     protected const string recordNrEx = @"^#(9999|[1-9][0-9]{2,3})$";
 
 
