@@ -2,7 +2,6 @@
 using MVC.Data;
 using MVC.Domain;
 using MVC.Facade;
-using MVC.Infra;
 using MVC.Soft.Data;
 
 namespace MVC.Soft.Controllers

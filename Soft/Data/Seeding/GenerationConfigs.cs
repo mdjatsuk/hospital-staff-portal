@@ -1,5 +1,4 @@
-﻿using MVC.Aids.Attributes;
-using MVC.Data;
+﻿using MVC.Data;
 using Random = MVC.Aids.Random;
 
 namespace MVC.Soft.Data.Seeding;

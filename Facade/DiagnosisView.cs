@@ -1,5 +1,4 @@
-﻿using MVC.Data;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace MVC.Facade;

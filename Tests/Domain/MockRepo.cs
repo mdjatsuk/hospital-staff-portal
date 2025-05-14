@@ -1,10 +1,6 @@
-﻿using System.Runtime.InteropServices;
-using Microsoft.AspNetCore.Mvc;
-using Mono.Cecil.Cil;
-using MVC.Core;
-using MVC.Data;
+﻿using MVC.Core;
 using MVC.Domain;
-using Random = MVC.Aids.Random;
+namespace MVC.Tests.Domain;
 
 namespace MVC.Tests.Domain;
 

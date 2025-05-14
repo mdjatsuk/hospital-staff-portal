@@ -1,7 +1,4 @@
-﻿using MVC.Core;
-using MVC.Data;
-using MVC.Domain;
-using System.Numerics;
+﻿using MVC.Domain;
 
 public sealed class MedicalRecord(MedicalRecordData? d) : Entity<MedicalRecordData>(d)
 {
