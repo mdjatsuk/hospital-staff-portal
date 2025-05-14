@@ -15,37 +15,38 @@ using Random = MVC.Aids.Random;
 namespace MVC.Tests.Infra;
 
 public abstract class RepoBaseTests<TRepo, TObject, TData> :
-        HostBaseTests<TRepo, Repo<TObject, TData>, TObject, TData>
+        DbBaseTests<TRepo, Repo<TObject, TData>, TObject, TData>
     where TRepo : class, IRepo<TObject>
     where TObject : Entity<TData>
     where TData : EntityData<TData>, new()
 {
-    [TestMethod]
-    public async Task AddAsyncTest()
+    [TestMethod] public async Task AddAsyncTest()
     {
         createEntity();
         isNull(dbSet!.Find(entity!.Id));
         await obj!.AddAsync(entity!);
         notNull(dbSet!.Find(entity!.Id));
     }
-    [TestMethod]
-    public async Task UpdateAsyncTest()
+    [TestMethod] public async Task UpdateAsyncTest()
     {
         var d1 = createData();
         var d2 = createData();
         d2.Id = d1.Id;
-        host!.AddToSet(d1);
+        addToSet(d1);
         await obj!.UpdateAsync(createEntity(() => d2)!);
         var o = dbSet!.Find(d1!.Id);
-        foreach (var pi in o!.GetType().GetProperties())
+        validateData(o, d2);
+    }
+    private void validateData(TData? d1, TData? d2)
+    {
+        foreach (var pi in d1!.GetType().GetProperties())
         {
-            var actual = pi.GetValue(o);
+            var actual = pi.GetValue(d1);
             var expected = pi.GetValue(d2);
             equal(actual, expected);
         }
     }
-    [TestMethod]
-    public async Task DeleteAsyncTest()
+    [TestMethod] public async Task DeleteAsyncTest()
     {
         await AddAsyncTest();
         notNull(dbSet!.Find(entity!.Id));
@@ -53,15 +54,18 @@ public abstract class RepoBaseTests<TRepo, TObject, TData> :
         isNull(dbSet!.Find(entity!.Id));
     }
 
-    [TestMethod]
-    public async Task GetAsyncByIdTest()
+    [TestMethod] public async Task GetAsyncByIdTest()
     {
         async Task validate(bool dataIsNull = true)
         {
             var o = await obj!.GetAsync(entity!.Id);
             notNull(o);
             if (dataIsNull) isNull(o!.data);
-            else notNull(o!.data);
+            else
+            {
+                notNull(o!.data);
+                validateData(entity.data, o.data);
+            }
         }
         createEntity();
         await validate();
