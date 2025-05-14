@@ -31,7 +31,7 @@ namespace MVC.Tests.Facade;
     {
         view!.Date = null;
         var results = validate(view);
-        isTrue(results.Any(r => r.ErrorMessage!.Contains("The Date field is required.")));
+        isTrue(results.Any(r => r.ErrorMessage!.Contains("This field is required.")));
     }
     [TestMethod] public void LocationValidationTest()
     {
