@@ -6,20 +6,21 @@ namespace MVC.Facade;
 [DisplayName(diagnoses)] 
 public sealed class DiagnosisView : EntityView
 {
-    [Required, Display(Name = recordnr)]
+    [Required(ErrorMessage = requiredError), Display(Name = recordnr), RegularExpression(recordNrEx, ErrorMessage = recordNrError)]
     public string? RecordNr { get; set; }
 
-    [Required, Display(Name = diagnosis)]
+    [Required(ErrorMessage = requiredError), Display(Name = diagnosis), RegularExpression(capitalLetterEx, ErrorMessage = diagnosisError)]
     public string? Diagnosis { get; set; }
 
-    [Required, StringLength(descriptionLength, ErrorMessage = descriptionError)]
+    [Required(ErrorMessage = requiredError), StringLength(descriptionLength, ErrorMessage = descriptionLengthError), 
+        RegularExpression(capitalLetterEx, ErrorMessage = descriptionError)]
     public string? Description { get; set; }
 
-    [Required(ErrorMessage = "The Diagnosis Name field is required.")]
-    [StringLength(medicineLength, ErrorMessage = medicineError)]
-    [Display(Name = medicineName)]
+    [Required(ErrorMessage = requiredError), Display(Name = medicineName),
+        StringLength(medicineLength, ErrorMessage = medicineLengthError), 
+        RegularExpression(capitalLetterEx, ErrorMessage = medicineError)]
     public string? Medicine { get; set; }
 
-    [Display(Name = reqPrescriptionName)]
-    public bool RequiresPrescription { get; set; }
+    [Display(Name = reqPrescriptionName)] public bool RequiresPrescription { get; set; }
 }
+

@@ -10,7 +10,7 @@
             string recordNumber;
             do
             {
-                var randomNumber = _random.Next(100, 1000);
+                var randomNumber = _random.Next(100, 10000);
                 recordNumber = $"#{randomNumber}";
             }
             while (!_generatedNumbers.Add(recordNumber));

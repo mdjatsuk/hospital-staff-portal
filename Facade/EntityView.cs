@@ -1,4 +1,6 @@
-﻿namespace MVC.Facade;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MVC.Facade;
 
 public abstract class EntityView
 {
@@ -27,15 +29,28 @@ public abstract class EntityView
     protected internal const string emailName = "Email address";
 
     public const string roomEx = @"^[A-Z]{2}\d{3}$";
+    protected const string namesEx = @"^[A-Z][a-zA-Z]*$";
+    protected const string capitalLetterEx = @"^[A-Z].*$";
     protected internal const string phoneNumberEx = @"^\d{8}$";
+    protected const string recordNrEx = @"^#(9999|[1-9][0-9]{2,3})$";
+
 
     protected internal const string roomError = "A room must start with two capital letters followed by three digits (e.g., AB302).";
     protected internal const string appointError = "Appointment Fee must be zero or positive.";
-    protected internal const string descriptionError = "The Description cannot exceed 500 characters.";
-    protected internal const string medicineError = "The Diagnosis cannot exceed 500 characters.";
-    protected internal const string phoneNumberError = "The phone number must be exactly 8 digits.";
+    protected internal const string descriptionLengthError = "The Description cannot exceed 500 characters.";
+    protected internal const string descriptionError = "Description must start with a capital letter.";
+    protected internal const string medicineLengthError = "The Diagnosis cannot exceed 500 characters.";
+    protected internal const string phoneNumberError = "The phone number must be exactly 8 digits and be between 50000000 and 59999999.";
     protected internal const string firstNameError = "First Name must be between 2 and 50 characters.";
+    protected internal const string firstNameLetterError = "First Name must start with a capital letter and contain only letters.";
     protected internal const string lastNameError = "Last Name must be between 2 and 50 characters.";
+    protected internal const string lastNameLetterError = "Last Name must start with a capital letter and contain only letters.";
+    protected internal const string diagnosisError = "Diagnosis must start with a capital letter.";
+    protected internal const string recordNrError = "Record Number must start with # and be a number from 100 to 9999.";
+    protected internal const string medicineError = "Medicine must start with a capital letter.";
+    protected internal const string requiredError = "This field is required.";
+
+
 
     protected internal const int descriptionLength = 500;
     protected internal const int medicineLength = 500;

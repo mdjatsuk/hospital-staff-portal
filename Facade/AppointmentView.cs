@@ -1,11 +1,13 @@
-﻿using System.ComponentModel;
+﻿using MVC.Aids.Attributes;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace MVC.Facade;
 
 [DisplayName(appointments)] public sealed class AppointmentView : EntityView
 {
-    [Display(Name = dateName), Required, DataType(DataType.Date)] public DateTime? Date { get; set; }
+    [Display(Name = dateName), Required(ErrorMessage = requiredError), DataType(DataType.Date), DateInFutureValidation] 
+    public DateTime? Date { get; set; }
     [Display(Name = doctor)] public int DoctorId { get; set; }
     [Display(Name = patient)] public int PatientId { get; set; }
     [Display(Name = doctor)] public string? DoctorFullName { get; set; }
