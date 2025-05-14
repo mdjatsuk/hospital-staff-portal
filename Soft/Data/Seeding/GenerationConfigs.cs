@@ -1,5 +1,6 @@
 ﻿using MVC.Aids.Attributes;
 using MVC.Data;
+using Random = MVC.Aids.Random;
 
 namespace MVC.Soft.Data.Seeding;
 public static class GenerationConfigs
@@ -16,7 +17,7 @@ public static class GenerationConfigs
                     new PropertyRule("LastName", GeneratorType.OpenAi),
                     new PropertyRule("Gender", GeneratorType.OpenAi),
                     new PropertyRule("DateOfBirth", GeneratorType.Random, () =>
-                        MVC.Aids.Random.DateTime(DateTime.Now.AddYears(-60), DateTime.Now))
+                        Random.DateTime(DateTime.Now.AddYears(-60), DateTime.Now))
                 },
                 OpenAiGenerator = async count =>
                 {
@@ -37,9 +38,9 @@ public static class GenerationConfigs
                     new PropertyRule("FirstName", GeneratorType.OpenAi),
                     new PropertyRule("LastName", GeneratorType.OpenAi),
                     new PropertyRule("Specialization", GeneratorType.Random, () =>
-                        (Specialities?)MVC.Aids.Random.EnumOf(typeof(Specialities))),
+                        (Specialities?)Random.EnumOf(typeof(Specialities))),
                     new PropertyRule("PhoneNumber", GeneratorType.Random, () =>
-                        MVC.Aids.Random.Int64(50000000, 59999999)),
+                        Random.Int64(50000000, 59999999)),
                     new PropertyRule("EmailAddress", GeneratorType.OpenAi)
                 },
                 OpenAiGenerator = async count =>
@@ -70,7 +71,7 @@ public static class GenerationConfigs
                     new PropertyRule("Description", GeneratorType.OpenAi),
                     new PropertyRule("Medicine", GeneratorType.OpenAi),
                     new PropertyRule("RequiresPrescription", GeneratorType.Random, () =>
-                        MVC.Aids.Random.Boolean())
+                        Random.Boolean())
                 },
                 OpenAiGenerator = async count =>
                 {
@@ -92,10 +93,10 @@ public static class GenerationConfigs
                     new PropertyRule("DoctorId", GeneratorType.ReferenceId),
                     new PropertyRule("PatientId", GeneratorType.ReferenceId),
                     new PropertyRule("Date", GeneratorType.Random, () => 
-                        MVC.Aids.Random.DateTime(DateTime.Now, DateTime.Now.AddYears(5))),
+                        Random.DateTime(DateTime.Now, DateTime.Now.AddYears(5))),
                     new PropertyRule("Room", GeneratorType.OpenAi),
                     new PropertyRule("AppointmentFee", GeneratorType.Random, () =>
-                        MVC.Aids.Random.Int32(5, 100)),
+                        Random.Int32(5, 100)),
                     new PropertyRule("DoctorFullName", GeneratorType.ReferenceId),
                     new PropertyRule("PatientFullName", GeneratorType.ReferenceId)
                 },
@@ -117,7 +118,7 @@ public static class GenerationConfigs
                     new PropertyRule("PatientId", GeneratorType.ReferenceId),
                     new PropertyRule("RecordNrId", GeneratorType.ReferenceId),
                     new PropertyRule("DiagnosedOn", GeneratorType.Random, () => 
-                        MVC.Aids.Random.DateTime(DateTime.Now.AddYears(-60), DateTime.Now)),
+                        Random.DateTime(DateTime.Now.AddYears(-60), DateTime.Now)),
                     new PropertyRule("PatientFullName", GeneratorType.ReferenceId),
                     new PropertyRule("RecordNr", GeneratorType.ReferenceId),
                 }
