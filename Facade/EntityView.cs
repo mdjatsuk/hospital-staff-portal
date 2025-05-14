@@ -1,6 +1,4 @@
-﻿using System.Numerics;
-
-namespace MVC.Facade;
+﻿namespace MVC.Facade;
 
 public abstract class EntityView
 {

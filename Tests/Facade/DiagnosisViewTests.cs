@@ -1,7 +1,5 @@
 ﻿using MVC.Facade;
 using System.ComponentModel.DataAnnotations;
-using MVC.Data;
-using Microsoft.VisualStudio.Web.CodeGeneration.Utils;
 
 namespace MVC.Tests.Facade;
 

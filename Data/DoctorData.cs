@@ -1,7 +1,4 @@
-﻿using MVC.Data;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace MVC.Data;
+﻿namespace MVC.Data;
 
 public sealed class DoctorData : EntityData<DoctorData>
 {

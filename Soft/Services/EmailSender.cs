@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Options;
-using SendGrid.Helpers.Mail;
+﻿using SendGrid.Helpers.Mail;
 using SendGrid;
 using Microsoft.AspNetCore.Identity.UI.Services;
 

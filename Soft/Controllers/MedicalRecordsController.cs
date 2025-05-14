@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MVC.Data;
-using MVC.Domain;
 using MVC.Facade;
 using MVC.Soft.Data;
 
