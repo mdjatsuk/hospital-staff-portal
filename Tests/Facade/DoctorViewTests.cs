@@ -30,7 +30,7 @@ namespace MVC.Tests.Facade;
     {
         view!.FirstName = null;
         var results = validate(view);
-        isTrue(results.Any(r => r.ErrorMessage!.Contains("The First Name field is required.")));
+        isTrue(results.Any(r => r.ErrorMessage!.Contains("This field is required.")));
     }
     [TestMethod] public void FirstNameLengthTest()
     {
@@ -42,7 +42,7 @@ namespace MVC.Tests.Facade;
     {
         view!.LastName = null;
         var results = validate(view);
-        isTrue(results.Any(r => r.ErrorMessage!.Contains("The Last Name field is required.")));
+        isTrue(results.Any(r => r.ErrorMessage!.Contains("This field is required.")));
     }
     [TestMethod] public void LastNameLengthTest()
     {
@@ -54,13 +54,13 @@ namespace MVC.Tests.Facade;
     {
         view!.PhoneNumber = 123;
         var results = validate(view);
-        isTrue(results.Any(r => r.ErrorMessage!.Contains("The phone number must be exactly 8 digits.")));
+        isTrue(results.Any(r => r.ErrorMessage!.Contains("The phone number must be exactly 8 digits and be between 50000000 and 59999999.")));
     }
     [TestMethod] public void SpecializationTest_2()
     {
         view!.Specialization = null;
         var results = validate(view);
-        isTrue(results.Any(r => r.ErrorMessage!.Contains("The Specialization field is required.")));
+        isTrue(results.Any(r => r.ErrorMessage!.Contains("This field is required.")));
     }
     private List<ValidationResult> validate(object model)
     {

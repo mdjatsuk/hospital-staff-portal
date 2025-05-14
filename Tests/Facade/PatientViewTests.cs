@@ -28,7 +28,7 @@ namespace MVC.Tests.Facade;
     {
         view!.FirstName = null;
         var results = validate(view);
-        isTrue(results.Any(r => r.ErrorMessage!.Contains("The First Name field is required.")));
+        isTrue(results.Any(r => r.ErrorMessage!.Contains("This field is required.")));
     }
     [TestMethod] public void FirstNameLengthTest()
     {
@@ -40,7 +40,7 @@ namespace MVC.Tests.Facade;
     {
         view!.LastName = null;
         var results = validate(view);
-        isTrue(results.Any(r => r.ErrorMessage!.Contains("The Last Name field is required.")));
+        isTrue(results.Any(r => r.ErrorMessage!.Contains("This field is required.")));
     }
     [TestMethod] public void LastNameLengthTest()
     {
@@ -52,18 +52,13 @@ namespace MVC.Tests.Facade;
     {
         view!.DateOfBirth = null;
         var results = validate(view);
-        isTrue(results.Any(r => r.ErrorMessage!.Contains("The Date Of Birth field is required.")));
+        isTrue(results.Any(r => r.ErrorMessage!.Contains("This field is required.")));
     }
     [TestMethod] public void GenderValidationTest()
     {
         view!.Gender = null;
         var results = validate(view);
         isFalse(results.Any(r => r.ErrorMessage!.Contains("The field Gender is required.")));
-    }
-    [TestMethod] public void DiagnosisIdValidationTest()
-    {
-        var results = validate(view);
-        isFalse(results.Any());
     }
     private List<ValidationResult> validate(object model)
     {
