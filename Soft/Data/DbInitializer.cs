@@ -28,16 +28,19 @@ public class DbInitializer
 
     private async Task Seed<TEntity>(int count) where TEntity : class, new()
     {
-        if (await _context.Set<TEntity>().AnyAsync()) return;
+        var existingCount = await _context.Set<TEntity>().CountAsync();
+        if (existingCount >= count) return;
+
+        int toGenerate = count - existingCount;
 
         var config = GenerationConfigs.Get<TEntity>(_openAi);
         var openAiData = config.OpenAiGenerator is not null
-            ? await config.OpenAiGenerator(count)
+            ? await config.OpenAiGenerator(toGenerate)
             : new List<Dictionary<string, object>>();
 
         var entities = new List<TEntity>();
 
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < toGenerate; i++)
         {
             var entity = new TEntity();
             var row = i < openAiData.Count ? openAiData[i] : null;
