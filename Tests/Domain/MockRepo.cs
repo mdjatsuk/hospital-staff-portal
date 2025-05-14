@@ -1,6 +1,5 @@
 ﻿using MVC.Core;
 using MVC.Domain;
-namespace MVC.Tests.Domain;
 
 namespace MVC.Tests.Domain;
 

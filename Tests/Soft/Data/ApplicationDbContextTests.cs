@@ -18,7 +18,7 @@ namespace MVC.Tests.Soft.Data
         [TestMethod] public void AppointmentsTest() => isType(obj!.Appointments, typeof(DbSet<AppointmentData>));
         [TestMethod] public void DoctorsTest() => isType(obj!.Doctors, typeof(DbSet<DoctorData>));
         [TestMethod] public void MedicalRecordsTest() => isType(obj!.MedicalRecords, typeof(DbSet<MedicalRecordData>));
-        [TestMethod] public void MedicinesTest() => isType(obj!.Diagnoses, typeof(DbSet<DiagnosisData>));
+        [TestMethod] public void DiagnosesTest() => isType(obj!.Diagnoses, typeof(DbSet<DiagnosisData>));
         [TestMethod] public void PatientsTest() => isType(obj!.Patients, typeof(DbSet<PatientData>));
     }
 }
