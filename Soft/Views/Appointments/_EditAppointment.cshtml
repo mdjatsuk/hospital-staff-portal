@@ -12,7 +12,7 @@
     var selectPatients = new SelectList(patients, "Id", "FullName", Model.PatientId);
 }
 
-@Html.SelectFor(x => x.DoctorId, selectDoctors)
+@Html.SelectItem(x => x.DoctorId, "Doctors")
 @Html.SelectFor(x => x.PatientId, selectPatients)
 @Html.InputFor(x => x.Date)
 @Html.InputFor(x => x.Room)
