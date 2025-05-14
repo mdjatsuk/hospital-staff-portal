@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace MVC.Tests.Infra;
 
-[TestClass] public class MedicinesRepoTests
-   : RepoBaseTests<MedicinesRepo, Medicine, MedicineData>
+[TestClass] public class DiagnosisRepoTests
+   : RepoBaseTests<DiagnosisRepo, Diagnosis, DiagnosisData>
 {
-    protected override Medicine? createEntity(Func<MedicineData> getData)
+    protected override Diagnosis? createEntity(Func<DiagnosisData> getData)
         => new(getData());
-    protected override MedicinesRepo createObj() => new(dbContext!);
+    protected override DiagnosisRepo createObj() => new(dbContext!);
 }
