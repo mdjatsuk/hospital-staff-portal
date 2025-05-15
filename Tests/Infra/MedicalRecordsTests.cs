@@ -1,4 +1,5 @@
-﻿using MVC.Infra;
+﻿using MVC.Domain;
+using MVC.Infra;
 
 namespace MVC.Tests.Infra;
 

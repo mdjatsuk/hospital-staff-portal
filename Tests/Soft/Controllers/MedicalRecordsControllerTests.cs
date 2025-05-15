@@ -1,4 +1,5 @@
-﻿using MVC.Facade;
+﻿using MVC.Domain;
+using MVC.Facade;
 using MVC.Soft.Controllers;
 
 namespace MVC.Tests.Soft.Controllers;

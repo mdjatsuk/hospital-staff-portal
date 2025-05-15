@@ -1,5 +1,4 @@
-﻿using MVC.Domain;
-
+﻿namespace MVC.Domain;
 public sealed class MedicalRecord(MedicalRecordData? d) : Entity<MedicalRecordData>(d)
 {
     public MedicalRecord() : this(null) { }

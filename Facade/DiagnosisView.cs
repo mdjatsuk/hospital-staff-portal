@@ -3,8 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MVC.Facade;
 
-[DisplayName(diagnoses)] 
-public sealed class DiagnosisView : EntityView
+[DisplayName(diagnoses)] public sealed class DiagnosisView : EntityView
 {
     [Required(ErrorMessage = requiredError), Display(Name = recordnr), RegularExpression(recordNrEx, ErrorMessage = recordNrError)]
     public string? RecordNr { get; set; }
