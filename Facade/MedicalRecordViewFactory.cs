@@ -1,4 +1,6 @@
-﻿namespace MVC.Facade;
+﻿using MVC.Domain;
+
+namespace MVC.Facade;
 
 public sealed class MedicalRecordViewFactory : AbstractViewFactory<MedicalRecordData, MedicalRecordView> 
 {
