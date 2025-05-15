@@ -26,7 +26,7 @@ namespace MVC.Tests.Facade;
     {
         view!.Medicine = null;
         var results = validate(view);
-        isTrue(results.Any(r => r.ErrorMessage!.Contains("The Diagnosis Name field is required.")));
+        isTrue(results.Any(r => r.ErrorMessage!.Contains("This field is required.")));
     }
     [TestMethod] public void MedicineNameLengthTest()
     {
@@ -38,7 +38,7 @@ namespace MVC.Tests.Facade;
     {
         view!.Description = null;
         var results = validate(view);
-        isTrue(results.Any(r => r.ErrorMessage!.Contains("The Description field is required.")));
+        isTrue(results.Any(r => r.ErrorMessage!.Contains("This field is required.")));
     }
     [TestMethod] public void DescriptionLengthTest()
     {
