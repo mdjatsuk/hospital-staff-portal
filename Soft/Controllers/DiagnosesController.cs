@@ -5,5 +5,5 @@ using MVC.Soft.Data;
 
 namespace MVC.Soft.Controllers;
 
-public class DiagnosesController(ApplicationDbContext c)
+public sealed class DiagnosesController(ApplicationDbContext c)
     : BaseController<Diagnosis, DiagnosisData, DiagnosisView>(c, new DiagnosisViewFactory(), d => new(d)) {}

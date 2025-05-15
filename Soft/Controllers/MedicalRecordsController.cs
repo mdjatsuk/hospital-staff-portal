@@ -4,7 +4,7 @@ using MVC.Soft.Data;
 
 namespace MVC.Soft.Controllers;
 
-public class MedicalRecordsController : BaseController<MedicalRecord, MedicalRecordData, MedicalRecordView>
+public sealed class MedicalRecordsController : BaseController<MedicalRecord, MedicalRecordData, MedicalRecordView>
 {
     private readonly ApplicationDbContext _context;
 
