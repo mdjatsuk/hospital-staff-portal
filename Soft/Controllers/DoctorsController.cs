@@ -7,7 +7,7 @@ using MVC.Soft.Data;
 
 namespace MVC.Soft.Controllers;
 
-public class DoctorsController(ApplicationDbContext c)
+public sealed class DoctorsController(ApplicationDbContext c)
     : BaseController<Doctor, DoctorData, DoctorView>(c, new DoctorViewFactory(), d => new(d)) 
 {
     public IActionResult SelectItems(string researchString, string id)

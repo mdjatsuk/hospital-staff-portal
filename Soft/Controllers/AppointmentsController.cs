@@ -6,7 +6,7 @@ using MVC.Soft.Data;
 
 namespace MVC.Soft.Controllers
 {
-    public class AppointmentsController : BaseController<Appointment, AppointmentData, AppointmentView>
+    public sealed class AppointmentsController : BaseController<Appointment, AppointmentData, AppointmentView>
     {
         private readonly ApplicationDbContext _context;
 
