@@ -6,8 +6,7 @@ using MVC.Soft.Controllers;
 
 namespace MVC.Tests.Soft.Controllers;
 
-[TestClass]
-public class BaseControllerTests() :
+[TestClass] public class BaseControllerTests() :
 ControllerBaseTests<BaseController<Doctor, DoctorData, DoctorView>, Doctor, DoctorData, DoctorView>
 {
     protected override BaseController<Doctor, DoctorData, DoctorView> createObj() => new DoctorsController(dbContext!);

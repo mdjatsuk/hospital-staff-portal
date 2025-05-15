@@ -3,11 +3,6 @@ using Microsoft.VisualStudio.TestPlatform.TestHost;
 using MVC.Data;
 using MVC.Domain;
 using MVC.Soft.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MVC.Tests;
 
@@ -25,8 +20,7 @@ public abstract class HostBaseTests<TClass, TBaseClass, TObject, TData> :
     protected abstract TObject? createEntity(Func<TData> getData);
     protected TData createData() => host!.CreateData<TData>();
     protected TObject? createEntity() => entity = createEntity(createData);
-    [TestInitialize]
-    public override void Initialize()
+    [TestInitialize] public override void Initialize()
     {
         host = new TestHost<Program, ApplicationDbContext>();
         dbContext = host.StartDb();
@@ -34,8 +28,7 @@ public abstract class HostBaseTests<TClass, TBaseClass, TObject, TData> :
         host.SeedData<TData>();
         base.Initialize();
     }
-    [TestCleanup]
-    public override void Cleanup()
+    [TestCleanup] public override void Cleanup()
     {
         base.Cleanup();
         dbContext = null;

@@ -5,8 +5,7 @@ using Random = MVC.Aids.Random;
 
 namespace MVC.Tests.Domain;
 
-[TestClass]
-public class MedicalRecordTests : SealedTests<MedicalRecord, Entity<MedicalRecordData>>
+[TestClass] public class MedicalRecordTests : SealedTests<MedicalRecord, Entity<MedicalRecordData>>
 {
     MedicalRecordData? data = null;
 

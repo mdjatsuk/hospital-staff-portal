@@ -22,14 +22,12 @@ where TView : EntityView, new()
         view.Id = nextId;
         return view;
     }
-    [TestMethod]
-    public void CreateTest()
+    [TestMethod] public void CreateTest()
     {
         var r = obj!.Create();
         isType(r, typeof(ViewResult));
     }
-    [TestMethod]
-    public async Task CreateViewTest()
+    [TestMethod]public async Task CreateViewTest()
     {
         void isInDb(bool inDb = false)
         {
@@ -43,15 +41,13 @@ where TView : EntityView, new()
         isInDb(true);
         isType(r, typeof(RedirectToActionResult));
     }
-    [TestMethod]
-    public async Task EditTest()
+    [TestMethod] public async Task EditTest()
     {
         createView();
         var r = await obj!.Edit(view!.Id);
         isType(r, typeof(ViewResult));
     }
-    [TestMethod]
-    public async Task EditViewTest()
+    [TestMethod] public async Task EditViewTest()
     {
         var d1 = createData();
         var v2 = createView();
@@ -62,8 +58,7 @@ where TView : EntityView, new()
         validate(d, v2);
     }
 
-    [TestMethod]
-    public async Task EditViewNotFoundTest()
+    [TestMethod] public async Task EditViewNotFoundTest()
     {
         var d1 = createData();
         var v2 = createView();
@@ -73,15 +68,13 @@ where TView : EntityView, new()
         var r = await obj!.Edit(v2Id, v2);
         isType(r, typeof(NotFoundResult));
     }
-    [TestMethod]
-    public async Task DeleteTest()
+    [TestMethod] public async Task DeleteTest()
     {
         createView();
         var r = await obj!.Delete(view!.Id);
         isType(r, typeof(ViewResult));
     }
-    [TestMethod]
-    public async Task DeleteConfirmedTest()
+    [TestMethod] public async Task DeleteConfirmedTest()
     {
         var d1 = createData();
         addToSet(d1);
@@ -89,8 +82,7 @@ where TView : EntityView, new()
         var d = dbSet!.Find(d1!.Id);
         isNull(d);
     }
-    [TestMethod]
-    public async Task DetailsTest()
+    [TestMethod] public async Task DetailsTest()
     {
         createView();
         var r = await obj!.Details(view!.Id);
@@ -105,8 +97,7 @@ where TView : EntityView, new()
         isType(r, typeof(ViewResult));
     }
 
-    [TestMethod]
-    public async Task IndexTest()
+    [TestMethod]  public async Task IndexTest()
     {
         await get(0);
         foreach (var pi in typeof(TData).GetProperties())

@@ -1,15 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
-using MVC.Core;
+﻿using MVC.Core;
 using MVC.Data;
 using MVC.Domain;
 using MVC.Infra;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Random = MVC.Aids.Random;
 
 namespace MVC.Tests.Infra;
