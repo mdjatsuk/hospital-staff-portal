@@ -14,8 +14,7 @@ namespace MVC.Tests.Facade;
     [TestMethod] public void DiagnosedOnTest() => isProperty<DateTime?>("Diagnosed on", DataType.Date);
     protected override Type setType() => typeof(MedicalRecordView);
     private MedicalRecordView? view;
-    [TestInitialize]
-    public void TestInitialize()
+    [TestInitialize] public void TestInitialize()
     {
         view = new MedicalRecordView
         {

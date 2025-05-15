@@ -6,8 +6,7 @@ namespace Mvc.Tests;
 public abstract class AssemblyTests(string namespaceName) : BaseTests
 {
     protected override Type? setType() => null;
-    [TestMethod]
-    public override void IsTested()
+    [TestMethod] public override void IsTested()
     {
         var testNamespace = string.Empty;
         if (namespaceName.StartsWith("MVC"))

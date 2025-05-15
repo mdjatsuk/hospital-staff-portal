@@ -6,15 +6,13 @@ namespace MVC.Tests.Facade;
 {
     private MedicalRecordData? data;
     private MedicalRecordView? view;
-    [TestInitialize]
-    public override void Initialize()
+    [TestInitialize] public override void Initialize()
     {
         base.Initialize();
         data = crData();
         view = crView();
     }
-    [TestCleanup]
-    public override void Cleanup()
+    [TestCleanup] public override void Cleanup()
     {
         base.Cleanup();
         data = null;

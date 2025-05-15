@@ -3,8 +3,7 @@ using MVC.Facade;
 
 namespace MVC.Tests.Facade;
 
-[TestClass]
-public class DiagnosisViewFactoryTests : 
+[TestClass] public class DiagnosisViewFactoryTests : 
     SealedTests<DiagnosisViewFactory, AbstractViewFactory<DiagnosisData, DiagnosisView>>
 {
     private DiagnosisData? data;

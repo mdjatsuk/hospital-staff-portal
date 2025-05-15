@@ -18,8 +18,7 @@ public abstract class EnumTests<TEnum>(int count) : BaseTests where TEnum : Enum
 
     [TestMethod] public void CountTest() => equal(membersName.Length, count);
 
-    [TestMethod]
-    public override void IsTested()
+    [TestMethod] public override void IsTested()
     {
         var testMethods = GetType()
             .GetMethods(BindingFlags.Public | BindingFlags.Instance)

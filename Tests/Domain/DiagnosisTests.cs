@@ -3,8 +3,7 @@ using MVC.Domain;
 
 namespace MVC.Tests.Domain;
 
-[TestClass]
-public class DiagnosisTests : SealedTests<Diagnosis, Entity<DiagnosisData>>
+[TestClass] public class DiagnosisTests : SealedTests<Diagnosis, Entity<DiagnosisData>>
 {
     protected override Diagnosis createObj()
     {
