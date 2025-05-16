@@ -16,7 +16,7 @@ where TView : EntityView, new()
 {
 
     private TView? view;
-    private TView? createView()
+    protected internal virtual TView? createView()
     {
         view = Random.Object<TView>();
         view.Id = nextId;
@@ -47,7 +47,7 @@ where TView : EntityView, new()
         var r = await obj!.Edit(view!.Id);
         isType(r, typeof(ViewResult));
     }
-    [TestMethod] public async Task EditViewTest()
+    [TestMethod] public virtual async Task EditViewTest()
     {
         var d1 = createData();
         var v2 = createView();
@@ -111,7 +111,7 @@ where TView : EntityView, new()
         }
     }
 
-    private void validate(TData? d, TView v)
+    protected internal virtual void validate(TData? d, TView v)
     {
         var validated = 0;
         foreach (var pi in d!.GetType().GetProperties())
