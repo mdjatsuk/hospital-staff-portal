@@ -18,7 +18,7 @@ public abstract class DbBaseTests<TClass, TBaseClass, TObject, TData> :
     protected TObject? entity;
     internal byte lastId;
     internal byte nextId => ++lastId;
-    internal protected TData createData()
+    protected virtual TData createData()
     {
         var d = Random.Object<TData>();
         d.Id = nextId;
