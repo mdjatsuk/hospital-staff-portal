@@ -21,8 +21,32 @@ namespace MVC.Tests.Domain;
     [TestMethod] public void LocationTest() => isReadOnly(data!.Room);
     [TestMethod] public void AppointmentFeeTest() => isReadOnly<double?>(data!.AppointmentFee);
     [TestMethod] public void DoctorTest() => isReadOnly<Doctor>(null);
+    [TestMethod]
+    public void PatientTest()
+    {
+        var patientId = 42;
+        var appointmentData = new AppointmentData { PatientId = patientId };
+        var appointment = new Appointment(appointmentData);
+        Assert.AreEqual(patientId, appointment.PatientId);
+    }
 
+    [TestMethod]
+    public void DoctorFullNameTest()
+    {
+        var expected = "Jane Smith";
+        var appointmentData = new AppointmentData { DoctorFullName = expected };
+        var appointment = new Appointment(appointmentData);
+        Assert.AreEqual(expected, appointment.data?.DoctorFullName);
+    }
 
+    [TestMethod]
+    public void PatientFullNameTest()
+    {
+        var expected = "John Doe";
+        var appointmentData = new AppointmentData { PatientFullName = expected };
+        var appointment = new Appointment(appointmentData);
+        Assert.AreEqual(expected, appointment.data?.PatientFullName);
+    }
     [TestMethod] public async Task LoadLazyTest()
     {
         var repo = new mockDoctorRepo();
