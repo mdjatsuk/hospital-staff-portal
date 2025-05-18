@@ -28,5 +28,22 @@
   <ItemGroup>
     <ProjectReference Include="..\Infra\Infra.csproj" />
   </ItemGroup>
+	<Target
+            Name="Workaround_ResolveBuildCompressedStaticWebAssetsConfiguration"
+            BeforeTargets="ResolveBuildCompressedStaticWebAssetsConfiguration">
+
+		<ItemGroup>
+			<StaticWebAsset_NoDuplicates />
+		</ItemGroup>
+
+		<RemoveDuplicates Inputs="@(StaticWebAsset)">
+			<Output TaskParameter="Filtered" ItemName="StaticWebAsset_NoDuplicates" />
+		</RemoveDuplicates>
+
+		<ItemGroup>
+			<StaticWebAsset Remove="@(StaticWebAsset)" />
+			<StaticWebAsset Include="@(StaticWebAsset_NoDuplicates)" />
+		</ItemGroup>
+	</Target>
 
 </Project>

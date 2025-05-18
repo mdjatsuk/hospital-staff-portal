@@ -13,7 +13,7 @@ public sealed class Doctor(DoctorData? d) : Entity<DoctorData>(d)
     public string? EmailAddress => data?.EmailAddress;
     public string FullName => $"{FirstName} {LastName}";
 
-    internal List<Appointment> appointments = [];
+    public List<Appointment> appointments = [];
     public List<Patient?> Patients => appointments?
         .Where(r => r.Patient is not null)
         .Select(r => r.Patient)
@@ -23,9 +23,11 @@ public sealed class Doctor(DoctorData? d) : Entity<DoctorData>(d)
     {
         await base.LoadLazy();
         appointments.Clear();
-        var roles = await (Services
-            .Get<IAppointmentsRepo>()?
-            .GetAsync(nameof(Appointment.DoctorId), Id ?? 0))!;
+
+        var repo = Services.Get<IAppointmentsRepo>();
+        if (repo is null) throw new InvalidOperationException("IAppointmentsRepo service not found.");
+
+        var roles = await repo.GetAsync(nameof(Appointment.DoctorId), Id ?? 0);
         foreach (var r in roles)
         {
             await r.LoadLazy();

@@ -155,7 +155,7 @@ public class OpenAiService
 
 
 
-    private List<string> ParseResponseSeparatedWithComma(string response)
+    public List<string> ParseResponseSeparatedWithComma(string response)
     {
         var entries = new List<string>();
         var rawEntries = response.Split(';', StringSplitOptions.RemoveEmptyEntries);
@@ -168,7 +168,7 @@ public class OpenAiService
         return entries;
     }
 
-    public async Task<List<(string fullName, Genders gender)>> GenerateRandomNamesAndGendersAsync(int toGenerate)
+    public virtual async Task<List<(string fullName, Genders gender)>> GenerateRandomNamesAndGendersAsync(int toGenerate)
     {
         string instruction = $"You are an API that generates random full names (first and last) with gender (1 for Male, 2 for Female). " +
                              $"Generate exactly {toGenerate} full names, each followed by a comma and gender. " +

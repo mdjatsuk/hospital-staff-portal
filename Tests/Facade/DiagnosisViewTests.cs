@@ -9,8 +9,8 @@ namespace MVC.Tests.Facade;
     [TestMethod] public void MedicineTest() => isProperty<string?>("Medicines");
     [TestMethod] public void DescriptionTest() => isProperty<string?>(null);
     [TestMethod] public void RequiresPrescriptionTest() => isProperty<bool>("Requires Prescription");
-
-
+    [TestMethod] public void RecordNrTest() => isProperty<string?>("Record Number", @"^#(9999|[1-9][0-9]{2,3})$");
+    [TestMethod] public void DiagnosisTest() => isProperty<string?>("Diagnosis", @"^[A-Z].*$");
     protected override Type setType() => typeof(DiagnosisView);
     private DiagnosisView? view;
     [TestInitialize] public void TestInitialize()
@@ -22,7 +22,7 @@ namespace MVC.Tests.Facade;
             Description = "Valid Description",
         };
     }
-    [TestMethod]  public void MedicineNameIsRequiredTest()
+    [TestMethod] public void MedicineNameIsRequiredTest()
     {
         view!.Medicine = null;
         var results = validate(view);
@@ -45,6 +45,18 @@ namespace MVC.Tests.Facade;
         view!.Description = new string('A', 501);
         var results = validate(view);
         isTrue(results.Any(r => r.ErrorMessage!.Contains("The Description cannot exceed 500 characters.")));
+    }
+    [TestMethod] public void RecordNrIsRequiredTest()
+    {
+        view!.RecordNr = null;
+        var results = validate(view);
+        isTrue(results.Any(r => r.ErrorMessage!.Contains("This field is required.")));
+    }
+    [TestMethod] public void DiagnosisIsRequiredTest()
+    {
+        view!.Diagnosis = null;
+        var results = validate(view);
+        isTrue(results.Any(r => r.ErrorMessage!.Contains("This field is required.")));
     }
     private List<ValidationResult> validate(object model)
     {

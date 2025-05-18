@@ -26,13 +26,13 @@ namespace MVC.Tests.Domain;
     [TestMethod]
     public async Task LoadLazyTest()
     {
+        Services.services.Clear(); // important!
+
         var patientRepo = new mockPatientRepo();
         var patientData = Random.Object<PatientData>();
         patientData.Id = data!.PatientId;
         var patient = new Patient(patientData);
         patientRepo.list.Add(patient);
-        for (var i = 0; i < Random.UInt8(5, 10); i++)
-            patientRepo.list.Add(new Patient(Random.Object<PatientData>()));
         Services.services.Add(typeof(IPatientsRepo), patientRepo);
 
         var diagnosisRepo = new mockDiagnosisRepo();
@@ -40,8 +40,6 @@ namespace MVC.Tests.Domain;
         diagnosisData.Id = data!.RecordNrId;
         var diagnosis = new Diagnosis(diagnosisData);
         diagnosisRepo.list.Add(diagnosis);
-        for (var i = 0; i < Random.UInt8(5, 10); i++)
-            diagnosisRepo.list.Add(new Diagnosis(Random.Object<DiagnosisData>()));
         Services.services.Add(typeof(IDiagnosisRepo), diagnosisRepo);
 
         await obj!.LoadLazy();
@@ -49,4 +47,5 @@ namespace MVC.Tests.Domain;
         equal(patient.Id, obj.Patient?.Id);
         equal(diagnosis.Id, obj.RecordNr?.Id);
     }
+
 }
