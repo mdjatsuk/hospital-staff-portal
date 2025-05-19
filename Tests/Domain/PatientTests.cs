@@ -1,7 +1,6 @@
 ﻿using MVC.Core;
 using MVC.Data;
 using MVC.Domain;
-using System.Collections.Generic;
 
 namespace MVC.Tests.Domain;
 

@@ -1,8 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MVC.Core;
-using MVC.Data;
+﻿using MVC.Data;
 using MVC.Domain;
-using static MVC.Tests.Domain.EntityTests;
 
 namespace MVC.Tests.Domain;
 

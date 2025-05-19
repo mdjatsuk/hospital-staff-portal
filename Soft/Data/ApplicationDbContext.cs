@@ -7,7 +7,6 @@ namespace MVC.Soft.Data;
 public class ApplicationDbContext : IdentityDbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
-
     public DbSet<PatientData> Patients { get; set; } = default!;
     public DbSet<DoctorData> Doctors { get; set; } = default!;
     public DbSet<DiagnosisData> Diagnoses { get; set; } = default!;

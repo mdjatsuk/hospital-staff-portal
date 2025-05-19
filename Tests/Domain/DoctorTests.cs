@@ -1,7 +1,6 @@
 ﻿using MVC.Core;
 using MVC.Data;
 using MVC.Domain;
-using Random = MVC.Aids.Random;
 
 namespace MVC.Tests.Domain;
 
