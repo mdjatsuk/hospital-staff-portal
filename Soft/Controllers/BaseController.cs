@@ -8,7 +8,7 @@ using MVC.Infra;
 
 namespace MVC.Soft.Controllers;
 
-[Authorize]
+//[Authorize]
 public abstract class BaseController<TObject, TData, TView>(DbContext c,
     AbstractViewFactory<TData, TView> f, Func<TData?, TObject> createObject) : Controller
     where TObject : Entity<TData> where TData : EntityData<TData>, new() where TView : EntityView, new()
