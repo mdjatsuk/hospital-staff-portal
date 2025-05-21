@@ -6,7 +6,6 @@ namespace MVC.Core.Editors;
 
 public static class HtmlForShow
 {
-
     public static IHtmlContent ForShow<TModel, TResult>(
         this IHtmlHelper<TModel> h, Expression<Func<TModel, TResult>> e, params IHtmlContent[] controls)
     {

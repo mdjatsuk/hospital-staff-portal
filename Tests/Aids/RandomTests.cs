@@ -174,4 +174,33 @@ namespace MVC.Tests.Aids;
         } while (i < repeatCount);
         equal(i, repeatCount);
     }
+    [TestMethod] public void EnumOfTest()
+    {
+        var enumType = typeof(DayOfWeek);
+        var result = Random.EnumOf(enumType);
+        notNull(result);
+        isTrue(enumType.IsEnum);
+        isTrue(Enum.IsDefined(enumType, result));
+    }
+    [TestMethod] public void TypeTest()
+    {
+        notNull(Random.Type<bool>());
+        notNull(Random.Type<char>());
+        notNull(Random.Type<DateTime>());
+        notNull(Random.Type<decimal>());
+        notNull(Random.Type<double>());
+        notNull(Random.Type<float>());
+        notNull(Random.Type<sbyte>());
+        notNull(Random.Type<short>());
+        notNull(Random.Type<int>());
+        notNull(Random.Type<long>());
+        notNull(Random.Type<string>());
+        notNull(Random.Type<byte>());
+        notNull(Random.Type<ushort>());
+        notNull(Random.Type<uint>());
+        notNull(Random.Type<ulong>());
+        notNull(Random.Type<bool?>());
+        notNull(Random.Type<DateTime?>());
+        notNull(Random.Type<int?>());
+    }
 }

@@ -16,7 +16,7 @@ namespace MVC.Tests.Domain;
     [TestMethod] public async Task LoadLazyTest()
     {
         await obj!.LoadLazy();
-        Assert.IsTrue(true);
+        isTrue(true);
     }
 }
 public sealed class TestEntity : Entity<TestData>

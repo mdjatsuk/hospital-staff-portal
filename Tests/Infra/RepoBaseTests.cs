@@ -65,8 +65,7 @@ public abstract class RepoBaseTests<TRepo, TObject, TData> :
         await obj!.AddAsync(entity!);
         await validate(false);
     }
-    [TestMethod]
-    public async Task GetAsyncAllTest()
+    [TestMethod] public async Task GetAsyncAllTest()
     {
         var l = await obj!.GetAsync();
         equal(dbSet!.Count(), l.Count());
@@ -90,8 +89,7 @@ public abstract class RepoBaseTests<TRepo, TObject, TData> :
         if (isDesc) isTrue(result >= 0, $"{actual} < {expected} for {pi.Name}");
         else isTrue(result <= 0, $"{actual} > {expected} for {pi.Name}");
     }
-    [TestMethod]
-    public async Task GetAsyncTest()
+    [TestMethod] public async Task GetAsyncTest()
     {
         await get(0, 10);
         foreach (var pi in typeof(TData).GetProperties())
@@ -104,8 +102,7 @@ public abstract class RepoBaseTests<TRepo, TObject, TData> :
             await get(0, 5, pi.Name, filter);
         }
     }
-    [TestMethod]
-    public async Task PageCountTest()
+    [TestMethod] public async Task PageCountTest()
     {
         var itemsInPage = Random.UInt8(5, 10);
         var items = dbSet!.Count();

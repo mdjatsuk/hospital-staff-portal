@@ -26,7 +26,7 @@ namespace MVC.Tests.Domain;
     [TestMethod]
     public async Task LoadLazyTest()
     {
-        Services.services.Clear(); // important!
+        Services.services.Clear();
 
         var patientRepo = new mockPatientRepo();
         var patientData = Random.Object<PatientData>();

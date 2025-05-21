@@ -31,7 +31,7 @@ namespace MVC.Tests.Domain;
     {
         var data = new DoctorData { EmailAddress = "doc@example.com" };
         var doctor = new Doctor(data);
-        Assert.AreEqual("doc@example.com", doctor.EmailAddress);
+        equal("doc@example.com", doctor.EmailAddress);
     }
     [TestMethod] public async Task PatientsTest()
     {
@@ -49,9 +49,9 @@ namespace MVC.Tests.Domain;
         Services.services.Add(typeof(IPatientsRepo), mockPatientRepo);
         var doctor = new Doctor(new DoctorData { Id = doctorId });
         await doctor.LoadLazy();
-        Assert.AreEqual(2, doctor.Patients.Count);
-        Assert.IsTrue(doctor.Patients.Any(p => p?.Id == 101));
-        Assert.IsTrue(doctor.Patients.Any(p => p?.Id == 102));
+        equal(2, doctor.Patients.Count);
+        isTrue(doctor.Patients.Any(p => p?.Id == 101));
+        isTrue(doctor.Patients.Any(p => p?.Id == 102));
     }
     [TestMethod] public async Task LoadLazyTest()
     {
@@ -69,8 +69,8 @@ namespace MVC.Tests.Domain;
         Services.Add(typeof(IPatientsRepo), mockPatientRepo);
         obj!.data.Id = doctorId;
         await obj.LoadLazy();
-        Assert.IsTrue(obj.appointments.Any(a => a.DoctorId == doctorId && (a.PatientId == 101 || a.PatientId == 102)));
-        Assert.AreEqual(2, obj.appointments.Count(a => a.DoctorId == doctorId));
+        isTrue(obj.appointments.Any(a => a.DoctorId == doctorId && (a.PatientId == 101 || a.PatientId == 102)));
+        equal(2, obj.appointments.Count(a => a.DoctorId == doctorId));
     }
 
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MVC.Data;
 using MVC.Domain;
 using MVC.Facade;
@@ -20,4 +21,31 @@ ControllerBaseTests<BaseController<Doctor, DoctorData, DoctorView>, Doctor, Doct
     public override void IsBaseTypeOfTest() =>
         equal(typeof(BaseController<Doctor, DoctorData, DoctorView>).BaseType, typeof(Controller));
     protected override Doctor? createEntity(Func<DoctorData> getData) => new(getData());
+    [TestMethod] public async Task SelectItemsTest()
+    {
+        var controller = createObj();
+        var doctorData = new DoctorData
+        {
+            FirstName = "John",
+            LastName = "Smith",
+            Specialization = Specialities.Cardiology,
+            PhoneNumber = 51234567,
+            EmailAddress = "john.smith@example.com"
+        };
+        addToSet(doctorData);
+        await dbContext!.SaveChangesAsync();
+        var expectedId = doctorData.Id.ToString();
+        var expectedText = $"{doctorData.FirstName} {doctorData.LastName}";
+        var result = await controller.SelectItems("Smith", doctorData.Id);
+        notNull(result);
+        var okResult = result as OkObjectResult;
+        notNull(okResult);
+        var items = ((IEnumerable<SelectListItem>)okResult.Value!).ToList();
+        isTrue(items.Count > 0);
+        var item = items.FirstOrDefault(i => i.Value == expectedId);
+        notNull(item, $"No item found with Value == {expectedId}");
+        equal(expectedId, item.Value);
+        equal(expectedId, item.Text);
+        isTrue(item.Selected);
+    }
 }

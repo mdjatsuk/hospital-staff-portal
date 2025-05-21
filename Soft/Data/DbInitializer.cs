@@ -17,7 +17,10 @@ public class DbInitializer
 
     public async Task Initialize(int count)
     {
-        await _context.Database.MigrateAsync();
+        if (_context.Database.IsRelational())
+        {
+            await _context.Database.MigrateAsync();
+        }
 
         await Seed<PatientData>(count);
         await Seed<DoctorData>(count);
