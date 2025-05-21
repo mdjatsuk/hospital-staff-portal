@@ -5,7 +5,6 @@ namespace MVC.Tests.Aids.GoF.Creational;
 [TestClass] public sealed class FactoryMethodTests : BaseTests
 {
     protected override Type setType() => typeof(FactoryMethod);
-
     [TestMethod] public void CreateTest()
     {
         var x = new CopyTestClass1() { Id = 1001, Name = "Aaa Bbb Ccc", ValidFrom = DateTime.Now};

@@ -43,7 +43,7 @@ internal class TestClass : ICloneable<TestClass>
     [TestMethod] public void NameTest() => equal(x.Name, y?.Name);
     [TestMethod] public void NameIsDeapCloneTest()
     {
-        if (y is null) Assert.Fail();
+        if (y is null) fail();
         equal(x.Name, y.Name);
         y.Name = "C";
         equal("A", x.Name);
@@ -53,8 +53,8 @@ internal class TestClass : ICloneable<TestClass>
     [TestMethod] public void ClassTest() => notSame(x.Class, y?.Class);
     [TestMethod] public void ClassMustBeADeapCloneTest()
     {
-        if (y is null) Assert.Fail();
-        if (y.Class is null) Assert.Fail();
+        if (y is null) fail();
+        if (y.Class is null) fail();
         equal(x.Class?.Name, y.Class.Name);
         y.Class.Name = "C";
         equal("B", x.Class?.Name);
@@ -63,8 +63,8 @@ internal class TestClass : ICloneable<TestClass>
     [TestMethod] public void OtherClassTest() => notSame(x.OtherClass, y?.OtherClass);
     [TestMethod] public void OtherClassMustBeADeapCloneTest()
     {
-        if (y is null) Assert.Fail();
-        if (y.OtherClass is null) Assert.Fail();
+        if (y is null) fail();
+        if (y.OtherClass is null) fail();
         equal(x.OtherClass?.Value, y.OtherClass.Value);
         y.OtherClass.Value = 5;
         equal(3, x.OtherClass?.Value);

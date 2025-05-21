@@ -12,4 +12,5 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<DiagnosisData> Diagnoses { get; set; } = default!;
     public DbSet<AppointmentData> Appointments { get; set; } = default!;
     public DbSet<MedicalRecordData> MedicalRecords { get; set; } = default!;
+    public DbSet<TestingData> TestingData { get; set; }
 }

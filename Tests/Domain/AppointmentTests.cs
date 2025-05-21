@@ -27,7 +27,7 @@ namespace MVC.Tests.Domain;
         var patientId = 42;
         var appointmentData = new AppointmentData { PatientId = patientId };
         var appointment = new Appointment(appointmentData);
-        Assert.AreEqual(patientId, appointment.PatientId);
+        equal(patientId, appointment.PatientId);
     }
 
     [TestMethod]
@@ -36,7 +36,7 @@ namespace MVC.Tests.Domain;
         var expected = "Jane Smith";
         var appointmentData = new AppointmentData { DoctorFullName = expected };
         var appointment = new Appointment(appointmentData);
-        Assert.AreEqual(expected, appointment.data?.DoctorFullName);
+        equal(expected, appointment.data?.DoctorFullName);
     }
 
     [TestMethod]
@@ -45,7 +45,7 @@ namespace MVC.Tests.Domain;
         var expected = "John Doe";
         var appointmentData = new AppointmentData { PatientFullName = expected };
         var appointment = new Appointment(appointmentData);
-        Assert.AreEqual(expected, appointment.data?.PatientFullName);
+        equal(expected, appointment.data?.PatientFullName);
     }
     [TestMethod] public async Task LoadLazyTest()
     {

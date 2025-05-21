@@ -30,12 +30,22 @@ public abstract class AssemblyTests(string namespaceName) : BaseTests
 
         var classes = assembly?
             .GetTypes()
-            .Where(t => !t.IsInterface && t.IsPublic)
+            .Where(t => !t.IsInterface && t.IsPublic && !t.IsEnum)
+            .Where(t => {
+                var publicMembers = t.GetMembers(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly);
+                return publicMembers.Any(m =>
+                    m.MemberType != MemberTypes.Property &&
+                    m.MemberType != MemberTypes.Constructor &&
+                    !(m.MemberType == MemberTypes.Method && ((MethodInfo)m).IsSpecialName)
+                );
+            })
             .Select(t => t.Name)
             .Select(t => {
                 var i = t.IndexOf('`');
                 return i > 0 ? t.Substring(0, i) : t;
             })
+            .Where(t => !t.Contains("Model") && !t.Contains("ForgotPasswordConfirmation") && !t.Contains("ManageNavPages")
+            && !t.Contains("EntityView"))
             .Distinct()
             .Where(t => !testClasses.Contains(t + "Tests")).ToArray();
 

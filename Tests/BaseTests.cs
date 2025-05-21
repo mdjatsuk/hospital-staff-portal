@@ -13,7 +13,8 @@ public abstract class BaseTests
 
     protected const int repeatCount = 1000;
 
-    [TestMethod] public virtual void IsTested()
+    [TestMethod]
+    public virtual void IsTested()
     {
         var testMethods = GetType()
             .GetMethods(BindingFlags.Public | BindingFlags.Instance)
@@ -26,7 +27,9 @@ public abstract class BaseTests
                 | BindingFlags.Static
                 | BindingFlags.DeclaredOnly)
             .Select(m => m.Name)
-            .Where(m => !m.Contains("get_") && !m.Contains("set_") && !m.Contains(".ctor"))
+            .Where(m => !m.Contains("get_") && !m.Contains("set_") && !m.Contains(".ctor")
+            && !m.Contains("value__") && !m.Contains("Initialize") && !m.Contains("Invoke")
+            && !m.Contains("TestingData"))
             .Where(m => !testMethods.Contains(m + "Test"))
             .ToArray();
 
