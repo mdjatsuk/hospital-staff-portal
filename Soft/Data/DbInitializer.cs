@@ -3,6 +3,8 @@ using MVC.Soft.Data.Seeding;
 using MVC.Soft.Data;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using MVC.Domain;
+using Random = MVC.Aids.Random;
 
 public class DbInitializer
 {
@@ -73,9 +75,7 @@ public class DbInitializer
 
 
     private static HashSet<(int DoctorId, int PatientId)> usedAppointmentPairs = new ();
-    private static HashSet<(int DiagnosisId, int PatientId)> usedMedicalRecordPairs = new();
-
-
+    private static HashSet<int> usedDiagnoses = new();
     private async Task<Dictionary<string, object>> GetReferenceValues<TEntity>()
     {
         var result = new Dictionary<string, object>();
@@ -102,21 +102,31 @@ public class DbInitializer
         }
         else if (typeof(TEntity) == typeof(MedicalRecordData))
         {
-            var record = await _context.Diagnoses.OrderBy(x => Guid.NewGuid()).FirstOrDefaultAsync();
-            var patient = await _context.Patients.OrderBy(x => Guid.NewGuid()).FirstOrDefaultAsync();
+            var availableDiagnosisIds = await _context.Diagnoses
+                .Select(d => d.Id)
+                .Where(id => !usedDiagnoses.Contains(id))
+                .ToListAsync();
 
-            while (record != null && patient != null && usedMedicalRecordPairs.Contains((record.Id, patient.Id)))
-            {
-                record = await _context.Diagnoses.OrderBy(x => Guid.NewGuid()).FirstOrDefaultAsync();
-                patient = await _context.Patients.OrderBy(x => Guid.NewGuid()).FirstOrDefaultAsync();
-            }
+            if (availableDiagnosisIds.Count == 0)
+                return result;
 
-            if (record != null && patient != null)
+            int randomIndex = Random.Int32(0, availableDiagnosisIds.Count - 1);
+            int selectedDiagnosisId = availableDiagnosisIds[randomIndex];
+
+            var diagnosis = await _context.Diagnoses
+                .FirstOrDefaultAsync(d => d.Id == selectedDiagnosisId);
+
+            var patient = await _context.Patients
+                .OrderBy(x => Guid.NewGuid())
+                .FirstOrDefaultAsync();
+
+            if (diagnosis != null && patient != null)
             {
-                result["RecordNrId"] = record.Id;
-                result["RecordNr"] = record.RecordNr;
+                result["RecordNrId"] = diagnosis.Id;
+                result["RecordNr"] = diagnosis.RecordNr;
                 result["PatientId"] = patient.Id;
                 result["PatientFullName"] = $"{patient.FirstName} {patient.LastName}";
+                usedDiagnoses.Add(diagnosis.Id);
             }
         }
 
