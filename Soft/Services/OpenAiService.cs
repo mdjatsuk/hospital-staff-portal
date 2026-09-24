@@ -12,7 +12,9 @@ public class OpenAiService
     public OpenAiService(IConfiguration config)
     {
         _http = new HttpClient();
-        _apiKey = config["OpenAI:ApiKey"] ?? throw new Exception("OpenAI API key not found.");
+        _apiKey = config["OpenAI:ApiKey"] is { Length: > 0 } apiKey
+            ? apiKey
+            : throw new InvalidOperationException("OpenAI API key is not configured.");
         _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _apiKey);
     }
 

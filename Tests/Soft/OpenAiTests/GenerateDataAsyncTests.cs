@@ -10,6 +10,8 @@ namespace MVC.Tests.Soft.OpenAiTests;
         var config = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json")
             .Build();
+        if (string.IsNullOrWhiteSpace(config["OpenAI:ApiKey"]))
+            Assert.Inconclusive("Set OpenAI:ApiKey to run external OpenAI integration tests.");
         _service = new OpenAiService(config);
     }
     [TestMethod] public async Task GenerateDataAsync_IntegrationTest()

@@ -16,6 +16,8 @@ namespace MVC.Tests.Soft.OpenAiTests;
     }
     private async Task TestOpenAiGenerator<T>(Action<Dictionary<string, object>>? additionalAssertions = null)
     {
+        if (string.IsNullOrWhiteSpace(configuration["OpenAI:ApiKey"]))
+            Assert.Inconclusive("Set OpenAI:ApiKey to run external OpenAI integration tests.");
         var openAiService = new OpenAiService(configuration);
         var config = GenerationConfigs.Get<T>(openAiService);
         var result = await config.OpenAiGenerator!(1);
